@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>High Fun Games</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #fff;
+      color: #222;
+    }
+
+    header {
+      background-color: #222;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    section h2 {
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+    }
+
+    section h2 img {
+      margin-right: 12px;
+      width: 28px;
+      height: 28px;
+    }
+
+    footer {
+      background-color: #f2f2f2;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* PC에서만 보이도록 설정 */
+    .only-pc { display: block; }
+    .only-mobile { display: none; }
+
+    @media screen and (max-width: 768px) {
+      .only-pc { display: none; }
+      .only-mobile { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 High Fun Games</h1>
+    <p>작지만 열정 넘치는 인디 모바일 게임 개발팀</p>
+  </header>
+
+  <div class="container">
+    <div class="only-pc">
+      <section>
+        <h2><img src="https://img.icons8.com/ios-filled/50/laptop.png"/>PC에서 접속 중</h2>
+        <p>현재 PC 화면으로 접속하셨습니다.<br>이 페이지는 반응형으로 모바일과 PC에 맞춰 다르게 표시됩니다.</p>
+      </section>
+    </div>
+
+    <div class="only-mobile">
+      <section>
+        <h2><img src="https://img.icons8.com/ios-filled/50/smartphone.png"/>모바일에서 접속 중</h2>
+        <p>High Fun Games는 창의적이고 열정적인 인디 모바일 게임 팀입니다. 게임이 출시되면 이곳에 정보가 제공될 예정입니다.</p>
+      </section>
+    </div>
+
+    <section>
+      <h2><img src="https://img.icons8.com/emoji/48/pushpin-emoji.png"/> 팀 소개</h2>
+      <p>High Fun Games는 창의적인 아이디어와 도전정신으로 새로운 모바일 게임을 개발하는 인디 팀입니다.</p>
+    </section>
+
+    <section>
+      <h2><img src="https://img.icons8.com/emoji/48/envelope-emoji.png"/> 문의</h2>
+      <p>게임 제안이나 협업, 채용 문의는 아래 이메일로 보내주세요.</p>
+      <p><strong>Email:</strong> highfungames@gmail.com</p>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 High Fun Games. All rights reserved.
+  </footer>
+</body>
+</html>

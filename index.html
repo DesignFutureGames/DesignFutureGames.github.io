@@ -26,17 +26,17 @@
     height:100vh;
     overflow-y:auto;
     scroll-snap-type:y mandatory;
-    scroll-snap-stop:always;          /* 한 칸씩 멈춤 */
+    scroll-snap-stop:always;
     scroll-behavior:smooth;
     -webkit-overflow-scrolling:touch;
-    overscroll-behavior-y: contain;   /* 고무줄 방지 */
+    overscroll-behavior-y: contain;
   }
   .snap-section{
     height:100vh;
     scroll-snap-align:start;
     scroll-snap-stop:always;
     position:relative;
-    contain: layout paint;            /* 외부 레이아웃 영향 최소화 */
+    contain: layout paint;
   }
 
   /* ===== #1 헤더 배너 ===== */
@@ -59,7 +59,7 @@
     background:linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
     padding:48px 24px;
     display:flex;flex-direction:column;align-items:center;gap:28px;
-    overflow:auto; /* 데스크톱 보호용 */
+    overflow:auto;
   }
   .stage .intro{text-align:center;max-width:920px}
   .kicker{color:var(--muted);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
@@ -74,7 +74,7 @@
 
   .device-note{
     display:flex;gap:12px;align-items:center;justify-content:center;
-    color:#cfe9f0;font-size:14px;opacity:.9
+    color:var(--muted);font-size:14px;opacity:.9
   }
   .device-note img{width:22px;height:22px}
 
@@ -97,8 +97,19 @@
   }
   .project-card:hover::before{opacity:.22;transform:scale(1.04)}
 
-  /* 실루엣 */
-  .bombercar::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/top-view-car.png'); }
+  /* === 실루엣 ===
+     - Bomber Car는 외부 링크 대신 Data-URI SVG를 사용하여 100% 표시 보장 */
+  .bombercar::before{
+    background-image:url("data:image/svg+xml;utf8,\
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%23ffffff'>\
+      <rect x='40' y='28' width='120' height='144' rx='28'/>\
+      <rect x='62' y='54' width='76' height='92' rx='12' fill='%23ffffff'/>\
+      <circle cx='50' cy='60' r='12'/>\
+      <circle cx='150' cy='60' r='12'/>\
+      <circle cx='50' cy='140' r='12'/>\
+      <circle cx='150' cy='140' r='12'/>\
+    </svg>");
+  }
   .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
   .changephoto::before{background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/image.png'); }
   .idleskill::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png'); }
@@ -116,15 +127,13 @@
     background:linear-gradient(160deg,#0a0a0a 0%, #121212 100%);
     display:flex;align-items:center;justify-content:center;
     padding:40px 24px;
-    position: relative; /* 경계 마스크를 위한 기준 */
+    position: relative;
   }
-  /* 2→3 경계 보이는 문제를 물리적으로 덮는 2px 마스크 */
   .contact::before{
     content:"";
     position:absolute;top:-2px;left:0;right:0;height:2px;
     background:#000;pointer-events:none;
   }
-
   .contact-card{
     width:min(680px,92%);background:rgba(255,255,255,.04);
     border:1px solid rgba(255,255,255,.08);border-radius:18px;
@@ -139,7 +148,6 @@
   .contact strong{color:#fff}
   .contact small{color:#9aa6b2}
 
-  /* 푸터: 기본 숨김(모바일 오류 방지). 마지막 섹션만 보여줌 */
   .snap-section footer{
     position:absolute;left:0;right:0;bottom:14px;text-align:center;
     color:#7f8a96;font-size:12px;display:none;
@@ -158,12 +166,11 @@
   }
   .dot.active{background:var(--brand);opacity:1;transform:scale(1.15);box-shadow:0 0 12px rgba(0,240,255,.7)}
 
-  /* ========== 모바일: 2섹션 페이지형 + 스냅 안정화 ========== */
+  /* ========== 모바일 최적화 ========== */
   @media (max-width:768px){
     .snap-container{height:100svh;padding-bottom:max(0px, env(safe-area-inset-bottom))}
     .snap-section{height:100svh}
 
-    /* 배너: 전체 보이게(잘리지 않게) */
     .hero{
       display:grid;place-items:center;
       background:radial-gradient(120% 120% at 50% 10%, #0d1a35 0%, #07101f 40%, #000 100%);
@@ -171,14 +178,10 @@
     .hero img{
       width:100%;height:100%;
       max-width:100%;max-height:100%;
-      object-fit:contain;          /* contain으로 크롭 방지 */
-      object-position:center;
+      object-fit:contain;object-position:center;
     }
 
-    /* 2섹션: 내부 스크롤 제거 + 컴팩트 UI */
-    .stage{
-      padding:16px 14px;gap:12px;overflow:hidden;
-    }
+    .stage{padding:16px 14px;gap:12px;overflow:hidden}
     .kicker{font-size:11px}
     h2.title{font-size:18px;text-wrap:balance}
     .intro p{display:none}
@@ -192,7 +195,7 @@
     .overlay h3{font-size:14px}
     .overlay p{font-size:12px}
 
-    .contact{padding:24px 14px 24px;}  /* 상단 패딩 줄여 경계 밀착 */
+    .contact{padding:24px 14px 24px;}
     .contact-card{width:94%;padding:22px 16px}
     .contact h2{font-size:20px}
     .contact p{font-size:14px}
@@ -211,7 +214,7 @@
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
-  <!-- 2) 안내 + 커밍순 (모바일 한 화면에 전부 보이도록 압축) -->
+  <!-- 2) 안내 + 커밍순 -->
   <section class="snap-section stage" id="s2" aria-label="프로젝트">
     <div class="intro">
       <div class="kicker">DESIGN FUTURE GAMES</div>
@@ -285,10 +288,7 @@
     });
   });
 
-  /* ===== 스크롤 정밀 스냅 보정 =====
-     - 스크롤이 멈춘 뒤 가장 가까운 섹션으로 부드럽게 보정
-     - 150ms 뒤 하드 보정(오차 0~2px도 남지 않도록)
-  */
+  /* 정밀 스냅 보정 */
   let snapTimer=null;
   container.addEventListener('scroll', ()=>{
     clearTimeout(snapTimer);
@@ -299,13 +299,9 @@
         const dy = Math.abs(s.offsetTop - y);
         if(dy < min){ min = dy; nearest = s; }
       }
-
-      // 1차: 오차가 2px 이상일 때만 부드럽게 보정
       if(Math.abs(container.scrollTop - nearest.offsetTop) > 2){
         container.scrollTo({ top: nearest.offsetTop, behavior:'smooth' });
       }
-
-      // 2차: 하드 보정(픽셀 틀어짐 없게)
       setTimeout(()=>{
         const diff = container.scrollTop - nearest.offsetTop;
         if(Math.abs(diff) > 0){
@@ -315,7 +311,7 @@
     },80);
   }, {passive:true});
 
-  /* 데스크톱에서는 휠/키보드로 한 칸씩 이동 유지 */
+  /* 데스크톱 한 칸 이동 */
   function nextIdx(delta){
     const curr = dots.findIndex(d=>d.classList.contains('active'));
     let n = Math.max(0, Math.min(sections.length-1, curr+delta));
@@ -330,7 +326,6 @@
       if(e.deltaY>0) nextIdx(1); else nextIdx(-1);
       e.preventDefault();
     }, {passive:false});
-
     window.addEventListener('keydown',(e)=>{
       if(['ArrowDown','PageDown'].includes(e.key)){ e.preventDefault(); nextIdx(1); }
       if(['ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); nextIdx(-1); }

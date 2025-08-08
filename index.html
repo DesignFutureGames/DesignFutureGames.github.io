@@ -57,7 +57,8 @@
   /* 별빛(이미지 위로) */
   .hero .stars{
     position:absolute; inset:0; z-index:2;
-    pointer-events:none; mix-blend-mode:screen;
+    pointer-events:none;
+    /* mix-blend-mode 제거 → 어떤 배경에서도 보이도록 */
   }
 
   @keyframes zoomIdle{
@@ -406,50 +407,75 @@
     if(!cvs) return;
     const ctx = cvs.getContext('2d');
     const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-    let W, H, stars, animId;
+    let W=0, H=0, stars=[], rafId=null;
 
     function resize(){
-      const r = cvs.getBoundingClientRect();
-      W = Math.floor(r.width * DPR);
-      H = Math.floor(r.height * DPR);
+      const sec = document.getElementById('s1');
+      const r = sec.getBoundingClientRect();
+      const cssW = Math.max(1, r.width);
+      const cssH = Math.max(1, r.height);
+      W = Math.floor(cssW * DPR);
+      H = Math.floor(cssH * DPR);
       cvs.width = W; cvs.height = H;
-      cvs.style.width = r.width + 'px';
-      cvs.style.height = r.height + 'px';
-      makeStars();
+      cvs.style.width = cssW + 'px';
+      cvs.style.height = cssH + 'px';
+      createStars();
     }
 
-    function makeStars(){
-      const count = Math.floor((W*H)/45000); // 밀도
-      stars = Array.from({length: count}, ()=>({
-        x: Math.random()*W,
-        y: Math.random()*H,
-        r: (Math.random()*0.9+0.3)*DPR,
-        a: Math.random()*Math.PI*2,
-        s: Math.random()*0.02 + 0.005   // 깜빡임 속도
-      }));
+    function rand(a,b){ return Math.random()*(b-a)+a; }
+
+    function createStars(){
+      // ★ 밀도 10배 증가
+      const density = 4500; // 낮을수록 많아짐 (기존 45000 → 4500)
+      const count = Math.floor((W*H)/density);
+      stars = Array.from({length: count}, ()=>{
+        const speed = rand(0.02, 0.08) * DPR; // 아주 느리게 흐름
+        const angle = rand(0, Math.PI*2);
+        return {
+          x: rand(0, W),
+          y: rand(0, H),
+          r: rand(0.6, 2.0) * DPR,
+          tw: rand(0, Math.PI*2),     // 깜빡임 위상
+          tws: rand(0.6, 1.6),        // 깜빡임 속도
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed
+        };
+      });
     }
 
-    function tick(){
+    function draw(){
       ctx.clearRect(0,0,W,H);
-      for(const st of stars){
-        st.a += st.s;
-        const alpha = 0.15 + 0.35*(0.5+0.5*Math.sin(st.a));
-        const grd = ctx.createRadialGradient(st.x, st.y, 0, st.x, st.y, st.r*4);
-        grd.addColorStop(0, `rgba(0,240,255,${alpha})`);
-        grd.addColorStop(1, `rgba(0,240,255,0)`);
-        ctx.fillStyle = grd;
+      for(const s of stars){
+        // 위치 이동
+        s.x += s.vx; s.y += s.vy;
+        // 화면 밖으로 나가면 반대편에서 재등장 (wrap)
+        if(s.x < 0) s.x += W; else if(s.x > W) s.x -= W;
+        if(s.y < 0) s.y += H; else if(s.y > H) s.y -= H;
+
+        // 반짝임
+        s.tw += 0.02 * s.tws;
+        const a = 0.12 + 0.45*(0.5 + 0.5*Math.sin(s.tw));
+
+        // 중심(화이트) + 외곽(청록) 그라디언트
+        const radius = s.r*3.2;
+        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, radius);
+        g.addColorStop(0, `rgba(255,255,255,${a})`);
+        g.addColorStop(1, `rgba(0,240,255,0)`);
+        ctx.fillStyle = g;
         ctx.beginPath();
-        ctx.arc(st.x, st.y, st.r*4, 0, Math.PI*2);
+        ctx.arc(s.x, s.y, radius, 0, Math.PI*2);
         ctx.fill();
       }
-      animId = requestAnimationFrame(tick);
+      rafId = requestAnimationFrame(draw);
     }
 
+    // 리사이즈 옵저버로 PC/모바일 모두 정확한 크기 유지
     const ro = new ResizeObserver(resize);
-    ro.observe(cvs);
+    ro.observe(document.getElementById('s1'));
     resize();
+
     if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
-      tick();
+      draw();
     }
   })();
 </script>

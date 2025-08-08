@@ -97,23 +97,14 @@
   }
   .project-card:hover::before{opacity:.22;transform:scale(1.04)}
 
-  /* === 실루엣 ===
-     - Bomber Car는 외부 링크 대신 Data-URI SVG를 사용하여 100% 표시 보장 (탑뷰 자동차) */
+  /* === 실루엣 === */
   .bombercar::before{
     background-image:url("data:image/svg+xml;utf8,\
-    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240' fill='%23ffffff'>\
-      <!-- 좌/우 휠 아치(차체 바깥쪽 볼록) -->\
-      <ellipse cx='36' cy='96' rx='18' ry='22'/>\
-      <ellipse cx='36' cy='144' rx='18' ry='22'/>\
-      <ellipse cx='204' cy='96' rx='18' ry='22'/>\
-      <ellipse cx='204' cy='144' rx='18' ry='22'/>\
-      <!-- 차체 본체 (앞/뒤 범퍼는 곡선으로) -->\
-      <path d='M70 28h100c18 0 26 10 28 24l4 28c1 6 4 10 8 14v56c-4 4-7 8-8 14l-4 28c-2 14-10 24-28 24H70c-18 0-26-10-28-24l-4-28c-1-6-4-10-8-14V94c4-4 7-8 8-14l4-28C44 38 52 28 70 28z'/>\
-      <!-- 캐노피/윈도우(상단 유리) -->\
-      <rect x='88' y='60' width='64' height='120' rx='14'/>\
-      <!-- 앞/뒤 범퍼 디테일 -->\
-      <rect x='98' y='36' width='44' height='10' rx='5'/>\
-      <rect x='98' y='194' width='44' height='10' rx='5'/>\
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%23ffffff'>\
+      <rect x='20' y='80' width='160' height='50' rx='10'/>\
+      <rect x='50' y='50' width='100' height='40' rx='8'/>\
+      <circle cx='50' cy='140' r='18'/>\
+      <circle cx='150' cy='140' r='18'/>\
     </svg>");
   }
   .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
@@ -189,7 +180,20 @@
 
     .stage{padding:16px 14px;gap:12px;overflow:hidden}
     .kicker{font-size:11px}
-    h2.title{font-size:18px;text-wrap:balance}
+
+    /* 모바일 줄바꿈 처리 */
+    h2.title{
+      font-size:18px;
+      text-align:center;
+      white-space:pre-line;
+    }
+    #s2 h2.title{
+      content:none;
+    }
+    #s2 h2.title::before{
+      content:"창의적이고 미래적인\n하이퍼 캐주얼 게임을 연구합니다";
+      white-space:pre;
+    }
     .intro p{display:none}
 
     .device-note{font-size:11px;gap:8px;margin-top:2px}
@@ -204,7 +208,8 @@
     .contact{padding:24px 14px 24px;}
     .contact-card{width:94%;padding:22px 16px}
     .contact h2{font-size:20px}
-    .contact p{font-size:14px}
+    /* 세 번째 페이지 폰트 사이즈 한 단계 줄임 */
+    #s3 .contact p{font-size:13px;word-break:keep-all}
 
     .dots{right:10px;gap:8px}
     .dot{width:8px;height:8px}
@@ -224,7 +229,7 @@
   <section class="snap-section stage" id="s2" aria-label="프로젝트">
     <div class="intro">
       <div class="kicker">DESIGN FUTURE GAMES</div>
-      <h2 class="title">창의적이고 미래적인 하이퍼 캐주얼 게임을 연구합니다</h2>
+      <h2 class="title"></h2>
       <p class="device-note">
         <img src="https://img.icons8.com/ios-filled/50/laptop.png" alt=""><span>PC / </span>
         <img src="https://img.icons8.com/ios-filled/50/smartphone.png" alt=""><span>Mobile 최적화</span>

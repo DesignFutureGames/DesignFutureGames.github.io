@@ -59,17 +59,23 @@
     background:linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
     padding:48px 24px;
     display:flex;flex-direction:column;align-items:center;gap:28px;
-    overflow:auto;
+    overflow:hidden; /* 내부 스크롤 없도록 */
   }
   .stage .intro{text-align:center;max-width:920px}
   .kicker{color:var(--muted);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
   h1,h2{margin:0}
+
+  /* 제목: 데스크톱은 한 줄, 모바일은 두 줄 */
   h2.title{
     margin-top:6px;color:#fff;
     font-size:clamp(22px,3vw,28px);
     text-shadow:0 0 10px rgba(0,240,255,.35);
     display:flex;align-items:center;justify-content:center;gap:10px;
+    line-height:1.25;
+    word-break:keep-all;
   }
+  .title .mobile-br{display:none;} /* 데스크톱에서는 보이지 않음 */
+
   .intro p{margin:14px auto 0;line-height:1.6;color:#d6dce2;max-width:780px;font-size:15px}
 
   .device-note{
@@ -97,14 +103,20 @@
   }
   .project-card:hover::before{opacity:.22;transform:scale(1.04)}
 
-  /* === 실루엣 === */
+  /* === 실루엣 === (자동차 SVG) */
   .bombercar::before{
     background-image:url("data:image/svg+xml;utf8,\
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%23ffffff'>\
-      <rect x='20' y='80' width='160' height='50' rx='10'/>\
-      <rect x='50' y='50' width='100' height='40' rx='8'/>\
-      <circle cx='50' cy='140' r='18'/>\
-      <circle cx='150' cy='140' r='18'/>\
+      <!-- 차체 -->\
+      <rect x='32' y='78' width='136' height='44' rx='10'/>\
+      <!-- 캐빈 -->\
+      <rect x='70' y='52' width='60' height='34' rx='8'/>\
+      <!-- 범퍼 -->\
+      <rect x='28' y='90' width='12' height='20' rx='4'/>\
+      <rect x='160' y='90' width='12' height='20' rx='4'/>\
+      <!-- 바퀴 -->\
+      <circle cx='58' cy='138' r='16'/>\
+      <circle cx='142' cy='138' r='16'/>\
     </svg>");
   }
   .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
@@ -181,18 +193,15 @@
     .stage{padding:16px 14px;gap:12px;overflow:hidden}
     .kicker{font-size:11px}
 
-    /* 모바일 줄바꿈 처리 */
+    /* 모바일: 정확한 줄바꿈 */
     h2.title{
       font-size:18px;
       text-align:center;
-      white-space:pre-line;
+      gap:0;
     }
-    #s2 h2.title{
-      content:none;
-    }
-    #s2 h2.title::before{
-      content:"창의적이고 미래적인\n하이퍼 캐주얼 게임을 연구합니다";
-      white-space:pre;
+    .title .mobile-br{
+      display:block; /* 여기서 줄바꿈 역할 */
+      width:100%; height:0; line-height:0;
     }
     .intro p{display:none}
 
@@ -208,7 +217,7 @@
     .contact{padding:24px 14px 24px;}
     .contact-card{width:94%;padding:22px 16px}
     .contact h2{font-size:20px}
-    /* 세 번째 페이지 폰트 사이즈 한 단계 줄임 */
+    /* 세 번째 페이지 폰트 1단계 축소 */
     #s3 .contact p{font-size:13px;word-break:keep-all}
 
     .dots{right:10px;gap:8px}
@@ -229,7 +238,14 @@
   <section class="snap-section stage" id="s2" aria-label="프로젝트">
     <div class="intro">
       <div class="kicker">DESIGN FUTURE GAMES</div>
-      <h2 class="title"></h2>
+
+      <!-- 줄바꿈을 span과 .mobile-br로 안전하게 제어 -->
+      <h2 class="title">
+        <span>창의적이고 미래적인</span>
+        <span class="mobile-br"></span>
+        <span>하이퍼 캐주얼 게임을 연구합니다</span>
+      </h2>
+
       <p class="device-note">
         <img src="https://img.icons8.com/ios-filled/50/laptop.png" alt=""><span>PC / </span>
         <img src="https://img.icons8.com/ios-filled/50/smartphone.png" alt=""><span>Mobile 최적화</span>

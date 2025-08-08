@@ -35,29 +35,29 @@
     contain:layout paint;
   }
 
-  /* #1 배너 — idle 효과(별빛) */
+  /* #1 배너 — 이미지 + 별빛(캔버스) */
   .hero{
     display:flex;align-items:center;justify-content:center;
     background:#000;overflow:hidden;
     position:relative;
   }
-  /* 천천히 숨쉬는 확대만 유지 */
+  .hero .hero-media{position:relative; z-index:1; width:100%; height:100%;}
   .hero img{
     width:100%;height:100%;
     object-fit:cover;object-position:center;display:block;
     animation: zoomIdle 18s ease-in-out infinite;
     will-change: transform;
   }
-  /* 은은한 청록빛 */
+  /* 은은한 네온 무드 레이어(가장 아래) */
   .hero::after{
     content:"";position:absolute;inset:0;pointer-events:none;
     background:radial-gradient(60% 60% at 70% 30%, rgba(0,240,255,.15), transparent 60%);
-    z-index:1;
+    z-index:0;
   }
-  /* 별빛 캔버스 */
-  .hero-canvas{
-    position:absolute;inset:0;z-index:2;pointer-events:none;
-    opacity:.14; /* 과하지 않게 */
+  /* 별빛(이미지 위로) */
+  .hero .stars{
+    position:absolute; inset:0; z-index:2;
+    pointer-events:none; mix-blend-mode:screen;
   }
 
   @keyframes zoomIdle{
@@ -145,9 +145,9 @@
   .bombercar::before{
     background-image:url("data:image/svg+xml;utf8,\
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%23ffffff'>\
-      <path d='M30 110c0-10 8-18 18-18h6l12-16c3-4 7-6 12-6h44c5 0 10 2 13 6l12 16h5c10 0 18 8 18 18v10c0 6-4 10-10 10h-6a16 16 0 1 1-32 0H78a16 16 0 1 1-32 0h-8c-6 0-8-4-8-10v-10z' />\
-      <circle cx='66' cy='140' r='14' />\
-      <circle cx='134' cy='140' r='14' />\
+      <path d='M30 110c0-10 8-18 18-18h6l12-16c3-4 7-6 12-6h44c5 0 10 2 13 6l12 16h5c10 0 18 8 18 18v10c0 6-4 10-10 10h-6a16 16 0 1 1-32 0H78a16 16 0 1 1-32 0h-8c-6 0-8-4-8-10v-10z'/>\
+      <circle cx='66' cy='140' r='14'/>\
+      <circle cx='134' cy='140' r='14'/>\
     </svg>");
   }
   .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
@@ -257,8 +257,8 @@
 <div class="snap-container" id="snap">
   <!-- 1) 헤더 -->
   <section class="snap-section hero" id="s1" aria-label="배너">
-    <!-- 반짝이는 별빛 캔버스 -->
-    <canvas id="heroStars" class="hero-canvas" aria-hidden="true"></canvas>
+    <!-- 별빛 캔버스 (이미지 위에 보이게 z-index:2) -->
+    <canvas class="stars" id="stars"></canvas>
 
     <picture class="hero-media">
       <!-- 모바일 전용 (세로형) -->
@@ -387,7 +387,7 @@
     },{passive:false});
   }
 
-  /* 모바일: 카드 터치 시 네온 효과 토글 */
+  /* 모바일/PC: 카드 터치/클릭 시 네온 효과 토글 */
   const cards=[...document.querySelectorAll('.project-card')];
   cards.forEach(card=>{
     let t;
@@ -400,76 +400,56 @@
     card.addEventListener('click', fire);
   });
 
-  /* ========= 배너 별빛 애니메이션 ========= */
-  (function initHeroStars(){
-    const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const canvas = document.getElementById('heroStars');
-    if(!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    let width=0, height=0, dpr=1, running=true;
+  /* ===== 헤더 별빛 캔버스 ===== */
+  (function(){
+    const cvs = document.getElementById('stars');
+    if(!cvs) return;
+    const ctx = cvs.getContext('2d');
+    const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let W, H, stars, animId;
 
     function resize(){
-      const sec = document.getElementById('s1');
-      if(!sec) return;
-      width = sec.clientWidth;
-      height = sec.clientHeight;
-      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-      ctx.setTransform(dpr,0,0,dpr,0,0);
+      const r = cvs.getBoundingClientRect();
+      W = Math.floor(r.width * DPR);
+      H = Math.floor(r.height * DPR);
+      cvs.width = W; cvs.height = H;
+      cvs.style.width = r.width + 'px';
+      cvs.style.height = r.height + 'px';
       makeStars();
     }
 
-    function rand(min,max){ return Math.random()*(max-min)+min; }
-
     function makeStars(){
-      const count = Math.round((width*height)/ (prefersReduce ? 120000 : 70000)); // 화면 크기에 비례
-      stars = new Array(count).fill(0).map(()=>{
-        const baseAlpha = rand(0.15, 0.55);
-        return {
-          x: rand(0,width),
-          y: rand(0,height),
-          r: rand(0.5, 1.8),
-          phase: rand(0, Math.PI*2),
-          speed: rand(0.5, 1.3), // 깜빡이는 속도
-          base: baseAlpha,
-        };
-      });
-      draw(true);
+      const count = Math.floor((W*H)/45000); // 밀도
+      stars = Array.from({length: count}, ()=>({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        r: (Math.random()*0.9+0.3)*DPR,
+        a: Math.random()*Math.PI*2,
+        s: Math.random()*0.02 + 0.005   // 깜빡임 속도
+      }));
     }
 
-    function draw(staticOnly=false){
-      ctx.clearRect(0,0,width,height);
-      ctx.fillStyle = '#fff';
-      const time = performance.now()/1000;
-
-      for(const s of stars){
-        const tw = staticOnly ? s.base : s.base + Math.sin(time * s.speed + s.phase)*0.15;
-        ctx.globalAlpha = Math.max(0, Math.min(1, tw));
+    function tick(){
+      ctx.clearRect(0,0,W,H);
+      for(const st of stars){
+        st.a += st.s;
+        const alpha = 0.15 + 0.35*(0.5+0.5*Math.sin(st.a));
+        const grd = ctx.createRadialGradient(st.x, st.y, 0, st.x, st.y, st.r*4);
+        grd.addColorStop(0, `rgba(0,240,255,${alpha})`);
+        grd.addColorStop(1, `rgba(0,240,255,0)`);
+        ctx.fillStyle = grd;
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.arc(st.x, st.y, st.r*4, 0, Math.PI*2);
         ctx.fill();
       }
-      ctx.globalAlpha = 1;
+      animId = requestAnimationFrame(tick);
     }
 
-    function loop(){
-      if(!running) return;
-      draw(false);
-      requestAnimationFrame(loop);
-    }
-
+    const ro = new ResizeObserver(resize);
+    ro.observe(cvs);
     resize();
-    window.addEventListener('resize', resize);
-
-    if(prefersReduce){
-      draw(true);
-      running = false;
-    }else{
-      loop();
+    if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
+      tick();
     }
   })();
 </script>

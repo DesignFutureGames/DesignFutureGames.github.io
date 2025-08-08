@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Design Future Games</title>
 <style>
   :root{
@@ -24,19 +24,19 @@
 
   /* ===== 스냅 컨테이너 ===== */
   .snap-container{
-    height:100vh;
+    height:100vh;               /* 데스크톱 */
     overflow-y:auto;
     scroll-snap-type:y mandatory;
     scroll-behavior:smooth;
     -webkit-overflow-scrolling: touch;
   }
   .snap-section{
-    height:100vh;
+    height:100vh;               /* 데스크톱 */
     scroll-snap-align:start;
     position:relative;
   }
 
-  /* ===== 섹션 #1 : 상단 배너 (기존 이미지 유지) ===== */
+  /* ===== 섹션 #1 : 상단 배너 ===== */
   .hero{
     display:flex;
     align-items:center;
@@ -48,6 +48,7 @@
     width:100%;
     height:100%;
     object-fit:cover;
+    object-position:center;
     display:block;
   }
   .hero::after{ /* 살짝 네온 필름 느낌 */
@@ -57,7 +58,7 @@
     pointer-events:none;
   }
 
-  /* ===== 섹션 #2 : 안내 + 프로젝트 카드 ===== */
+  /* ===== 섹션 #2 : 안내 + 프로젝트 ===== */
   .stage{
     background:linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
     padding:48px 24px;
@@ -66,17 +67,8 @@
     align-items:center;
     gap:28px;
   }
-
-  .stage .intro{
-    text-align:center;
-    max-width:920px;
-  }
-  .kicker{
-    color:var(--muted);
-    font-size:14px;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-  }
+  .stage .intro{ text-align:center; max-width:920px; }
+  .kicker{ color:var(--muted); font-size:14px; letter-spacing:.12em; text-transform:uppercase; }
   h1,h2{margin:0}
   h2.title{
     margin-top:6px;
@@ -85,23 +77,14 @@
     text-shadow:0 0 10px rgba(0,240,255,.35);
     display:flex;align-items:center;justify-content:center;gap:10px;
   }
-  .intro p{
-    margin:14px auto 0;
-    line-height:1.6;
-    color:#d6dce2;
-    max-width:780px;
-    font-size:15px;
-  }
+  .intro p{ margin:14px auto 0; line-height:1.6; color:#d6dce2; max-width:780px; font-size:15px; }
 
-  /* PC/모바일 안내 문구 */
   .device-note{
     display:flex;gap:12px;align-items:center;justify-content:center;
-    color:#cfe9f0; font-size:14px;
-    opacity:.9;
+    color:#cfe9f0; font-size:14px; opacity:.9;
   }
   .device-note img{width:22px;height:22px}
 
-  /* 프로젝트 카드 그리드 */
   .projects{
     width:min(1100px,100%);
     display:grid;
@@ -122,8 +105,6 @@
     transform:translateY(-6px);
     box-shadow:0 10px 26px rgba(0,0,0,.6);
   }
-
-  /* 실루엣 배경 */
   .project-card::before{
     content:"";
     position:absolute; inset:0;
@@ -133,41 +114,23 @@
     opacity:.14;
     transition:opacity .25s ease, transform .25s ease;
   }
-  .project-card:hover::before{
-    opacity:.22; transform:scale(1.04);
-  }
+  .project-card:hover::before{ opacity:.22; transform:scale(1.04); }
 
-  /* 4개 실루엣 – 안정 URL */
-  .bombercar::before{ /* 탑뷰 자동차 */
-    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/top-view-car.png');
-  }
-  .roperun::before{  /* 달리기 */
-    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png');
-  }
-  .changephoto::before{ /* 이미지/틀린그림 */
-    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/image.png');
-  }
-  .idleskill::before{  /* 검 */
-    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png');
-  }
+  /* 실루엣 */
+  .bombercar::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/top-view-car.png'); }
+  .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
+  .changephoto::before{background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/image.png'); }
+  .idleskill::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png'); }
 
   .overlay{
     position:absolute; inset:0;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;
-    color:#fff;
+    text-align:center;color:#fff;
     background:linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
+    padding:0 14px;
   }
-  .overlay h3{
-    font-size:18px;
-    margin:0 0 6px;
-    text-shadow:0 0 10px rgba(0,240,255,.35);
-  }
-  .overlay p{
-    margin:0;
-    color:var(--brand);
-    text-shadow:0 0 8px rgba(0,240,255,.45);
-  }
+  .overlay h3{ font-size:18px; margin:0 0 6px; text-shadow:0 0 10px rgba(0,240,255,.35); }
+  .overlay p{  margin:0; color:#00f0ff; text-shadow:0 0 8px rgba(0,240,255,.45); }
 
   /* ===== 섹션 #3 : 문의 ===== */
   .contact{
@@ -199,7 +162,7 @@
     text-align:center; color:#7f8a96; font-size:12px;
   }
 
-  /* ===== 우측 도트 인디케이터 ===== */
+  /* ===== 우측 도트 ===== */
   .dots{
     position:fixed; right:18px; top:50%; transform:translateY(-50%);
     display:flex; flex-direction:column; gap:10px;
@@ -217,16 +180,61 @@
     box-shadow:0 0 12px rgba(0,240,255,.7);
   }
 
-  /* 작은 화면 최적화 */
-  @media (max-width: 560px){
-    .project-card{height:170px}
-    .overlay h3{font-size:16px}
+  /* ===================== 모바일 전용 대수정 ===================== */
+  @media (max-width: 768px){
+    /* 진짜 화면 높이 단위(svh)로 스냅 */
+    .snap-container{ height:100svh; }
+    .snap-section{   height:100svh; }
+
+    /* 헤더 배너: 너무 크게 안 나오게 비율 축소 + 상단 기준 크롭 */
+    .hero img{
+      height:100%;
+      object-fit:cover;
+      object-position:center top; /* 상단 포커스 */
+    }
+
+    /* 인트로 여백/폰트 축소 */
+    .stage{ padding:28px 16px; gap:18px; }
+    .kicker{ font-size:12px; }
+    h2.title{ font-size:20px; text-wrap:balance; }
+    .intro p{ font-size:14px; margin-top:10px; padding:0 4px; }
+
+    /* 디바이스 노트 축소 */
+    .device-note{ font-size:12px; gap:8px; }
+    .device-note img{ width:18px; height:18px; }
+
+    /* 카드: 1열, 더 낮은 높이 */
+    .projects{
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:6px;
+      width:100%;
+    }
+    .project-card{ height:160px; border-radius:14px; }
+    .project-card::before{ background-size:72%; opacity:.18; }
+    .overlay h3{ font-size:16px; }
+    .overlay p{  font-size:13px; }
+
+    /* 문의 카드 여백/폰트 축소 */
+    .contact{ padding:24px 14px; }
+    .contact-card{ width:94%; padding:22px 16px; }
+    .contact h2{ font-size:20px; }
+    .contact p{ font-size:14px; }
+    footer{ font-size:11px; bottom:10px; }
+
+    /* 도트 작게 + 살짝 안쪽으로 */
+    .dots{ right:10px; gap:8px; }
+    .dot{ width:8px; height:8px; }
+  }
+
+  /* iOS 노치 안전 여백 */
+  @supports (padding: max(0px)) {
+    .snap-container{ padding-bottom: max(0px, env(safe-area-inset-bottom)); }
   }
 </style>
 </head>
 <body>
 
-<!-- 스냅 컨테이너 -->
 <div class="snap-container" id="snap">
   <!-- 1) 상단 헤더 이미지 -->
   <section class="snap-section hero" id="s1" aria-label="배너">
@@ -287,7 +295,7 @@
   </section>
 </div>
 
-<!-- 우측 도트 인디케이터 -->
+<!-- 우측 도트 -->
 <div class="dots" aria-hidden="true">
   <div class="dot" data-target="#s1" aria-label="배너로 이동"></div>
   <div class="dot" data-target="#s2" aria-label="프로젝트로 이동"></div>
@@ -295,11 +303,11 @@
 </div>
 
 <script>
-  // 섹션 활성화 상태 관찰 → 도트 업데이트
   const sections = [...document.querySelectorAll('.snap-section')];
   const dots = [...document.querySelectorAll('.dot')];
   const container = document.getElementById('snap');
 
+  // 현재 섹션 표시
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
@@ -311,17 +319,15 @@
   }, {root: container, threshold: 0.6});
   sections.forEach(s=>io.observe(s));
 
-  // 도트 클릭 이동 (옵션 – 버튼처럼 보이지 않지만 조작 가능)
+  // 도트 클릭 이동
   dots.forEach(dot=>{
     dot.addEventListener('click', ()=>{
       const target = document.querySelector(dot.dataset.target);
-      if(target){
-        target.scrollIntoView({behavior:'smooth', block:'start'});
-      }
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
     });
   });
 
-  // 키보드 ↑ ↓ / PageUp / PageDown 으로 슬라이드 이동
+  // 키보드 이동 (데스크톱 중심)
   function nextIdx(delta){
     const curr = dots.findIndex(d=>d.classList.contains('active'));
     let n = curr + delta;
@@ -333,14 +339,14 @@
     if(['ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); nextIdx(-1); }
   }, {passive:false});
 
-  // 휠 과도 입력 방지 → 다음/이전 섹션으로 스냅
+  // 휠 스냅 (모바일에는 영향 없음)
   let wheelLock = false;
   container.addEventListener('wheel', (e)=>{
+    if (window.matchMedia('(max-width: 768px)').matches) return; // 모바일은 자연 스크롤
     if(wheelLock) return;
     wheelLock = true;
     setTimeout(()=>wheelLock=false, 420);
-    if(e.deltaY > 0) nextIdx(1);
-    else nextIdx(-1);
+    if(e.deltaY > 0) nextIdx(1); else nextIdx(-1);
     e.preventDefault();
   }, {passive:false});
 

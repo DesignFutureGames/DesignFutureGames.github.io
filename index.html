@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Design Future Games</title>
 <style>
   :root{ --brand:#00f0ff; --text:#e9e9e9; --muted:#b7c0c8; }
 
@@ -52,20 +58,7 @@
     gap:28px;overflow:hidden;
   }
   .intro{text-align:center;max-width:920px}
-
-  /* 변경된 kicker 폰트 사이즈 */
-  .kicker {
-    color: var(--muted);
-    font-size: 30px; /* PC 기본 */
-    letter-spacing: .12em;
-    text-transform: uppercase;
-  }
-  @media (max-width: 768px) {
-    .kicker {
-      font-size: 20px; /* 모바일 크기 */
-    }
-  }
-
+  .kicker{color:var(--muted);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
   h1,h2{margin:0}
 
   /* 제목 – PC 한줄, 모바일 두줄 */
@@ -197,6 +190,7 @@
     }
 
     .stage{padding:16px 14px;gap:12px}
+    .kicker{font-size:11px}
     .intro p{display:none}
     .device-note{font-size:11px;gap:8px;margin-top:2px}
     .device-note img{width:16px;height:16px}
@@ -217,3 +211,146 @@
     .dot{width:8px;height:8px}
   }
 </style>
+</head>
+<body>
+
+<div class="snap-container" id="snap">
+  <!-- 1) 헤더 -->
+  <section class="snap-section hero" id="s1" aria-label="배너">
+    <img src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/Design%20Future%20Games_%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%B0%EB%84%88(%ED%8C%9F%EC%BA%90%EC%8A%A4%ED%8A%B8%20%ED%95%9C%EA%B8%80%EC%A0%9C%EA%B1%B0).png?raw=true" alt="Design Future Games 배너">
+    <footer>© 2025 Design Future Games. All rights reserved.</footer>
+  </section>
+
+  <!-- 2) 안내 + 커밍순 -->
+  <section class="snap-section stage" id="s2" aria-label="프로젝트">
+    <div class="intro">
+      <div class="kicker">DESIGN FUTURE GAMES</div>
+      <h2 class="title">
+        <span class="line line1">창의적이고 미래적인</span>
+        <span class="line line2">하이퍼 캐주얼 게임을 연구합니다</span>
+      </h2>
+      <p class="device-note">
+        <img src="https://img.icons8.com/ios-filled/50/laptop.png" alt=""><span>PC / </span>
+        <img src="https://img.icons8.com/ios-filled/50/smartphone.png" alt=""><span>Mobile 최적화</span>
+      </p>
+      <p>우리는 시대의 변화에 맞춰 빠르게 발전하며, 직관적인 재미를 중심으로 한 실험을 계속합니다.</p>
+      <p>아래는 현재 진행 중인 내부 프로젝트입니다.</p>
+    </div>
+
+    <div class="projects" aria-label="개발 중 프로젝트">
+      <div class="project-card bombercar">
+        <div class="overlay"><h3>Bomber Car Project</h3><p>Coming Soon</p></div>
+      </div>
+      <div class="project-card roperun">
+        <div class="overlay"><h3>Rope Run Project</h3><p>Coming Soon</p></div>
+      </div>
+      <div class="project-card changephoto">
+        <div class="overlay"><h3>Change Photo Find it Project</h3><p>Coming Soon</p></div>
+      </div>
+      <div class="project-card idleskill">
+        <div class="overlay"><h3>Idle Skill Damage Project</h3><p>Coming Soon</p></div>
+      </div>
+    </div>
+
+    <footer>© 2025 Design Future Games. All rights reserved.</footer>
+  </section>
+
+  <!-- 3) 유튜브 공식 채널 + 문의 -->
+  <section class="snap-section contact" id="s3" aria-label="유튜브 및 문의">
+    <div class="contact-wrap">
+      <!-- 유튜브 공식 채널 카드 (위) -->
+      <div class="contact-card" aria-labelledby="yt-title">
+        <h2 id="yt-title">
+          <img src="https://img.icons8.com/ios-filled/40/FF0000/youtube-play.png" alt="">
+          유튜브 공식 채널
+        </h2>
+        <p>게임 영상 및 소식을 유튜브에서 확인하세요.</p>
+        <!-- TODO: 아래 링크를 실제 채널 주소로 바꿔주세요 -->
+        <a class="btn" href="https://www.youtube.com/@DesignFutureGames" target="_blank" rel="noopener">채널 바로가기</a>
+      </div>
+
+      <!-- 문의 카드 (아래) -->
+      <div class="contact-card">
+        <h2><img src="https://img.icons8.com/ios-filled/40/00f0ff/new-post.png" alt=""> 문의</h2>
+        <p>게임 제안 / 협업 / 채용 / 버그제보 / 기타</p>
+        <p><strong>Email</strong> : Null@gmail.com</p>
+        <small>빠르게 확인 후 답변 드리겠습니다.</small>
+      </div>
+    </div>
+
+    <footer>© 2025 Design Future Games. All rights reserved.</footer>
+  </section>
+</div>
+
+<!-- 우측 도트 -->
+<div class="dots" aria-hidden="true">
+  <div class="dot" data-target="#s1" aria-label="배너로 이동"></div>
+  <div class="dot" data-target="#s2" aria-label="프로젝트로 이동"></div>
+  <div class="dot" data-target="#s3" aria-label="유튜브 및 문의로 이동"></div>
+</div>
+
+<script>
+  const sections=[...document.querySelectorAll('.snap-section')];
+  const dots=[...document.querySelectorAll('.dot')];
+  const container=document.getElementById('snap');
+
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const idx=sections.indexOf(entry.target);
+        dots.forEach(d=>d.classList.remove('active'));
+        if(idx>=0) dots[idx].classList.add('active');
+      }
+    });
+  },{root:container,threshold:0.6});
+  sections.forEach(s=>io.observe(s));
+
+  dots.forEach(dot=>{
+    dot.addEventListener('click',()=>{
+      const t=document.querySelector(dot.dataset.target);
+      if(t) container.scrollTo({top:t.offsetTop,behavior:'smooth'});
+    });
+  });
+
+  let snapTimer=null;
+  container.addEventListener('scroll',()=>{
+    clearTimeout(snapTimer);
+    snapTimer=setTimeout(()=>{
+      const y=container.scrollTop;
+      let nearest=sections[0],min=Infinity;
+      for(const s of sections){
+        const dy=Math.abs(s.offsetTop-y);
+        if(dy<min){min=dy;nearest=s;}
+      }
+      if(Math.abs(container.scrollTop-nearest.offsetTop)>2){
+        container.scrollTo({top:nearest.offsetTop,behavior:'smooth'});
+      }
+      setTimeout(()=>{
+        const diff=container.scrollTop-nearest.offsetTop;
+        if(Math.abs(diff)>0){container.scrollTo({top:nearest.offsetTop});}
+      },150);
+    },80);
+  },{passive:true});
+
+  function nextIdx(delta){
+    const curr=dots.findIndex(d=>d.classList.contains('active'));
+    let n=Math.max(0,Math.min(sections.length-1,curr+delta));
+    sections[n].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  const isDesktop=matchMedia('(min-width:769px)').matches;
+  if(isDesktop){
+    let wheelLock=false;
+    container.addEventListener('wheel',(e)=>{
+      if(wheelLock) return;
+      wheelLock=true; setTimeout(()=>wheelLock=false,420);
+      if(e.deltaY>0) nextIdx(1); else nextIdx(-1);
+      e.preventDefault();
+    },{passive:false});
+    window.addEventListener('keydown',(e)=>{
+      if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();nextIdx(1);}
+      if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();nextIdx(-1);}
+    },{passive:false});
+  }
+</script>
+</body>
+</html>

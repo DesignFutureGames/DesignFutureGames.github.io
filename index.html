@@ -28,12 +28,14 @@
     scroll-snap-stop:always;         /* 한 칸씩 멈춤 */
     scroll-behavior:smooth;
     -webkit-overflow-scrolling:touch;
+    overscroll-behavior-y: contain;  /* 고무줄 방지 */
   }
   .snap-section{
     height:100vh;
     scroll-snap-align:start;
     scroll-snap-stop:always;
     position:relative;
+    contain: layout paint;           /* 외부 레이아웃 영향 최소화 */
   }
 
   /* ===== #1 헤더 배너 ===== */
@@ -56,8 +58,7 @@
     background:linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
     padding:48px 24px;
     display:flex;flex-direction:column;align-items:center;gap:28px;
-    /* 데스크톱은 안내문도 길지 않으니 필요 시 내부 스크롤 허용 */
-    overflow:auto;
+    overflow:auto; /* 데스크톱 보호용 */
   }
   .stage .intro{text-align:center;max-width:920px}
   .kicker{color:var(--muted);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
@@ -148,12 +149,12 @@
   }
   .dot.active{background:var(--brand);opacity:1;transform:scale(1.15);box-shadow:0 0 12px rgba(0,240,255,.7)}
 
-  /* ========== 모바일 전용: 2섹션 ‘페이지형’으로 압축 ========== */
+  /* ========== 모바일: 2섹션 페이지형 + 스냅 안정화 ========== */
   @media (max-width:768px){
     .snap-container{height:100svh;padding-bottom:max(0px, env(safe-area-inset-bottom))}
     .snap-section{height:100svh}
 
-    /* 배너: 전체가 보이도록 contain + 그라디언트 배경 */
+    /* 배너: 전체 보이게 */
     .hero{
       display:grid;place-items:center;
       background:radial-gradient(120% 120% at 50% 10%, #0d1a35 0%, #07101f 40%, #000 100%);
@@ -165,29 +166,19 @@
       object-position:center;
     }
 
-    /* 2섹션: 내부 스크롤 금지(페이지형) + 레이아웃 압축 */
+    /* 2섹션: 내부 스크롤 제거 + 압축 */
     .stage{
-      padding:16px 14px;
-      gap:12px;
-      overflow:hidden;        /* ← 내부 스크롤 제거 */
+      padding:16px 14px;gap:12px;overflow:hidden;
     }
     .kicker{font-size:11px}
     h2.title{font-size:18px;text-wrap:balance}
-    .intro p{display:none}     /* 설명문 숨김으로 공간 확보 */
+    .intro p{display:none}
 
     .device-note{font-size:11px;gap:8px;margin-top:2px}
     .device-note img{width:16px;height:16px}
 
-    .projects{
-      width:100%;
-      grid-template-columns:1fr; /* 한 줄 배열 */
-      gap:10px;
-      margin-top:4px;
-    }
-    .project-card{
-      height:96px;           /* 카드 높이 축소 */
-      border-radius:12px;
-    }
+    .projects{width:100%;grid-template-columns:1fr;gap:10px;margin-top:4px}
+    .project-card{height:96px;border-radius:12px}
     .project-card::before{background-size:72%;opacity:.18}
     .overlay h3{font-size:14px}
     .overlay p{font-size:12px}
@@ -265,23 +256,19 @@
   const dots = [...document.querySelectorAll('.dot')];
   const container = document.getElementById('snap');
 
-  // 현재 섹션 표시 + 2섹션 내부스크롤 리셋(모바일 대비 안전)
+  /* 현재 섹션 표시만 담당(불필요한 재스크롤 제거) */
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
         const idx = sections.indexOf(entry.target);
         dots.forEach(d=>d.classList.remove('active'));
         if(idx>=0) dots[idx].classList.add('active');
-
-        if (entry.target.id === 's2') {
-          entry.target.scrollTo({ top: 0, behavior: 'auto' });
-        }
       }
     });
   }, {root: container, threshold: 0.6});
   sections.forEach(s=>io.observe(s));
 
-  // 도트 클릭 이동
+  /* 도트 클릭 이동 */
   dots.forEach(dot=>{
     dot.addEventListener('click', ()=>{
       const target = document.querySelector(dot.dataset.target);
@@ -289,7 +276,22 @@
     });
   });
 
-  // 데스크톱에서만 휠 스냅을 강제
+  /* ===== 스크롤 끝나면 가장 가까운 섹션으로 강제 스냅 (모바일 떨림 방지) ===== */
+  let snapTimer = null;
+  container.addEventListener('scroll', ()=>{
+    clearTimeout(snapTimer);
+    snapTimer = setTimeout(()=>{
+      const y = container.scrollTop;
+      let nearest = sections[0], min = Infinity;
+      sections.forEach(s=>{
+        const dy = Math.abs(s.offsetTop - y);
+        if(dy < min){ min = dy; nearest = s; }
+      });
+      nearest.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 80); /* 손을 뗀 뒤 80ms 후 보정 */
+  }, {passive:true});
+
+  /* 데스크톱에서는 휠/키보드로 한 칸씩 이동 유지 */
   function nextIdx(delta){
     const curr = dots.findIndex(d=>d.classList.contains('active'));
     let n = Math.max(0, Math.min(sections.length-1, curr+delta));

@@ -12,12 +12,6 @@
       color: #222;
     }
 
-    header {
-      background-color: #000;
-      padding: 0;
-      text-align: center;
-    }
-
     header img {
       width: 100%;
       height: auto;
@@ -54,16 +48,15 @@
       color: #666;
     }
 
-    /* PC/모바일 분리 */
+    /* 반응형 */
     .only-pc { display: block; }
     .only-mobile { display: none; }
-
     @media screen and (max-width: 768px) {
       .only-pc { display: none; }
       .only-mobile { display: block; }
     }
 
-    /* 개발 중 프로젝트 카드 */
+    /* 개발 중 프로젝트 */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -73,25 +66,44 @@
 
     .project-card {
       position: relative;
-      background: linear-gradient(135deg, #1a1a1a, #333);
       border-radius: 16px;
       height: 200px;
       overflow: hidden;
+      background: #222;
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .project-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url('https://img.icons8.com/ios-filled/100/ffffff/game-controller.png') center/80px no-repeat;
-      opacity: 0.1;
     }
 
     .project-card:hover {
       transform: translateY(-5px) scale(1.03);
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+
+    /* 실루엣 배경 */
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .bombercar::before {
+      background-image: url('https://img.icons8.com/ios-filled/200/ffffff/race-car-top-veiw.png');
+    }
+
+    .roperun::before {
+      background-image: url('https://img.icons8.com/ios-filled/200/ffffff/human-run.png');
+    }
+
+    .changephoto::before {
+      background-image: url('https://img.icons8.com/ios-filled/200/ffffff/spot-difference.png');
+    }
+
+    .idleskill::before {
+      background-image: url('https://img.icons8.com/ios-filled/200/ffffff/sword.png');
     }
 
     .overlay {
@@ -102,8 +114,8 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      text-align: center;
       background: rgba(0,0,0,0.3);
+      text-align: center;
     }
 
     .overlay h3 {
@@ -153,25 +165,25 @@
     <section>
       <h2><img src="https://img.icons8.com/fluency/48/controller.png"/> 개발 중 프로젝트</h2>
       <div class="projects">
-        <div class="project-card">
+        <div class="project-card bombercar">
           <div class="overlay">
             <h3>Bomber Car Project</h3>
             <p>Coming Soon</p>
           </div>
         </div>
-        <div class="project-card">
+        <div class="project-card roperun">
           <div class="overlay">
             <h3>Rope Run Project</h3>
             <p>Coming Soon</p>
           </div>
         </div>
-        <div class="project-card">
+        <div class="project-card changephoto">
           <div class="overlay">
             <h3>Change Photo Find it Project</h3>
             <p>Coming Soon</p>
           </div>
         </div>
-        <div class="project-card">
+        <div class="project-card idleskill">
           <div class="overlay">
             <h3>Idle Skill Damage Project</h3>
             <p>Coming Soon</p>
@@ -182,7 +194,7 @@
 
     <!-- 문의 -->
     <section>
-      <h2><img src="https://img.icons8.com/emoji/48/envelope-emoji.png"/> 문의</h2>
+      <h2><img src="https://img.icons8.com/ios-filled/50/000000/new-post.png"/> 문의</h2>
       <p>게임 제안이나 협업, 채용 문의는 아래 이메일로 보내주세요.</p>
       <p><strong>Email:</strong> Null@gmail.com</p>
     </section>

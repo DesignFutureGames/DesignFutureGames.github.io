@@ -16,7 +16,8 @@
   body{
     margin:0;
     font-family:"Noto Sans KR",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-    color:var(--text); background:#000;
+    color:var(--text);
+    background:#000;
     overflow:hidden; /* 스냅 컨테이너만 스크롤 */
   }
 
@@ -25,17 +26,17 @@
     height:100vh;
     overflow-y:auto;
     scroll-snap-type:y mandatory;
-    scroll-snap-stop:always;         /* 한 칸씩 멈춤 */
+    scroll-snap-stop:always;          /* 한 칸씩 멈춤 */
     scroll-behavior:smooth;
     -webkit-overflow-scrolling:touch;
-    overscroll-behavior-y: contain;  /* 고무줄 방지 */
+    overscroll-behavior-y: contain;   /* 고무줄 방지 */
   }
   .snap-section{
     height:100vh;
     scroll-snap-align:start;
     scroll-snap-stop:always;
     position:relative;
-    contain: layout paint;           /* 외부 레이아웃 영향 최소화 */
+    contain: layout paint;            /* 외부 레이아웃 영향 최소화 */
   }
 
   /* ===== #1 헤더 배너 ===== */
@@ -115,7 +116,15 @@
     background:linear-gradient(160deg,#0a0a0a 0%, #121212 100%);
     display:flex;align-items:center;justify-content:center;
     padding:40px 24px;
+    position: relative; /* 경계 마스크를 위한 기준 */
   }
+  /* 2→3 경계 보이는 문제를 물리적으로 덮는 2px 마스크 */
+  .contact::before{
+    content:"";
+    position:absolute;top:-2px;left:0;right:0;height:2px;
+    background:#000;pointer-events:none;
+  }
+
   .contact-card{
     width:min(680px,92%);background:rgba(255,255,255,.04);
     border:1px solid rgba(255,255,255,.08);border-radius:18px;
@@ -154,7 +163,7 @@
     .snap-container{height:100svh;padding-bottom:max(0px, env(safe-area-inset-bottom))}
     .snap-section{height:100svh}
 
-    /* 배너: 전체 보이게 */
+    /* 배너: 전체 보이게(잘리지 않게) */
     .hero{
       display:grid;place-items:center;
       background:radial-gradient(120% 120% at 50% 10%, #0d1a35 0%, #07101f 40%, #000 100%);
@@ -162,11 +171,11 @@
     .hero img{
       width:100%;height:100%;
       max-width:100%;max-height:100%;
-      object-fit:contain;
+      object-fit:contain;          /* contain으로 크롭 방지 */
       object-position:center;
     }
 
-    /* 2섹션: 내부 스크롤 제거 + 압축 */
+    /* 2섹션: 내부 스크롤 제거 + 컴팩트 UI */
     .stage{
       padding:16px 14px;gap:12px;overflow:hidden;
     }
@@ -183,7 +192,7 @@
     .overlay h3{font-size:14px}
     .overlay p{font-size:12px}
 
-    .contact{padding:24px 14px}
+    .contact{padding:24px 14px 24px;}  /* 상단 패딩 줄여 경계 밀착 */
     .contact-card{width:94%;padding:22px 16px}
     .contact h2{font-size:20px}
     .contact p{font-size:14px}
@@ -256,7 +265,7 @@
   const dots = [...document.querySelectorAll('.dot')];
   const container = document.getElementById('snap');
 
-  /* 현재 섹션 표시만 담당(불필요한 재스크롤 제거) */
+  /* 활성 도트 처리 */
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
@@ -271,24 +280,39 @@
   /* 도트 클릭 이동 */
   dots.forEach(dot=>{
     dot.addEventListener('click', ()=>{
-      const target = document.querySelector(dot.dataset.target);
-      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      const t = document.querySelector(dot.dataset.target);
+      if(t) container.scrollTo({ top: t.offsetTop, behavior:'smooth' });
     });
   });
 
-  /* ===== 스크롤 끝나면 가장 가까운 섹션으로 강제 스냅 (모바일 떨림 방지) ===== */
-  let snapTimer = null;
+  /* ===== 스크롤 정밀 스냅 보정 =====
+     - 스크롤이 멈춘 뒤 가장 가까운 섹션으로 부드럽게 보정
+     - 150ms 뒤 하드 보정(오차 0~2px도 남지 않도록)
+  */
+  let snapTimer=null;
   container.addEventListener('scroll', ()=>{
     clearTimeout(snapTimer);
-    snapTimer = setTimeout(()=>{
+    snapTimer=setTimeout(()=>{
       const y = container.scrollTop;
       let nearest = sections[0], min = Infinity;
-      sections.forEach(s=>{
+      for(const s of sections){
         const dy = Math.abs(s.offsetTop - y);
         if(dy < min){ min = dy; nearest = s; }
-      });
-      nearest.scrollIntoView({behavior:'smooth', block:'start'});
-    }, 80); /* 손을 뗀 뒤 80ms 후 보정 */
+      }
+
+      // 1차: 오차가 2px 이상일 때만 부드럽게 보정
+      if(Math.abs(container.scrollTop - nearest.offsetTop) > 2){
+        container.scrollTo({ top: nearest.offsetTop, behavior:'smooth' });
+      }
+
+      // 2차: 하드 보정(픽셀 틀어짐 없게)
+      setTimeout(()=>{
+        const diff = container.scrollTop - nearest.offsetTop;
+        if(Math.abs(diff) > 0){
+          container.scrollTo({ top: nearest.offsetTop });
+        }
+      },150);
+    },80);
   }, {passive:true});
 
   /* 데스크톱에서는 휠/키보드로 한 칸씩 이동 유지 */

@@ -146,7 +146,7 @@
   .bombercar::before{
     background-image:url("data:image/svg+xml;utf8,\
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%23ffffff'>\
-      <path d='M30 110c0-10 8-18 18-18h6l12-16c3-4 7-6 12-6h44c5 0 10 2 13 6l12 16h5c10 0 18 8 18 18v10c0 6-4 10-10 10h-6a16 16 0 1 1-32 0H78a16 16 0 1 1-32 0h-8c-6 0-8-4-8-10v-10z'/>\
+      <path d='M30 110c0-10 8-18 18-18h6l12-16c3-4 7-6 12-6h44c5 0 10 2 13 6l12 16h5c10 0 18 18 18 18v10c0 6-4 10-10 10h-6a16 16 0 1 1-32 0H78a16 16 0 1 1-32 0h-8c-6 0-8-4-8-10v-10z'/>\
       <circle cx='66' cy='140' r='14'/>\
       <circle cx='134' cy='140' r='14'/>\
     </svg>");
@@ -350,27 +350,6 @@
       if(t) container.scrollTo({top:t.offsetTop,behavior:'smooth'});
     });
   });
-
-  /* 스냅 보정 */
-  let snapTimer=null;
-  container.addEventListener('scroll',()=>{
-    clearTimeout(snapTimer);
-    snapTimer=setTimeout(()=>{
-      const y=container.scrollTop;
-      let nearest=sections[0],min=Infinity;
-      for(const s of sections){
-        const dy=Math.abs(s.offsetTop-y);
-        if(dy<min){min=dy;nearest=s;}
-      }
-      if(Math.abs(container.scrollTop-nearest.offsetTop)>2){
-        container.scrollTo({top:nearest.offsetTop,behavior:'smooth'});
-      }
-      setTimeout(()=>{
-        const diff=container.scrollTop-nearest.offsetTop;
-        if(Math.abs(diff)>0){container.scrollTo({top:nearest.offsetTop});}
-      },150);
-    },80);
-  },{passive:true});
 
   /* 데스크톱: 휠 한 칸씩 */
   if(matchMedia('(min-width:769px)').matches){

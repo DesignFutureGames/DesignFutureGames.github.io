@@ -88,6 +88,8 @@
     position:relative;height:200px;border-radius:16px;background:#111;
     box-shadow:0 6px 18px rgba(0,0,0,.45);overflow:hidden;
     transition:transform .28s ease, box-shadow .28s ease;
+    --neon: rgba(0,240,255,.9);
+    --neon-soft: rgba(0,240,255,.35);
   }
   .project-card:hover{transform:translateY(-6px);box-shadow:0 10px 26px rgba(0,0,0,.6)}
   .project-card::before{
@@ -96,6 +98,27 @@
     opacity:.14;transition:opacity .25s ease, transform .25s ease;
   }
   .project-card:hover::before{opacity:.22;transform:scale(1.04)}
+
+  /* 🟦 네온 테두리 효과 */
+  .project-card::after{
+    content:"";
+    position:absolute;inset:0;border-radius:16px;pointer-events:none;
+    opacity:0;transition:opacity .25s ease, box-shadow .25s ease, filter .25s ease;
+    background:
+      linear-gradient(#0000,#0000) padding-box,
+      radial-gradient(120% 120% at 50% 0%, var(--neon), rgba(0,240,255,0)) border-box;
+    border:2px solid transparent;
+    box-shadow:0 0 0 0 var(--neon);
+    filter:saturate(115%);
+  }
+  .project-card:hover::after,
+  .project-card.active::after{
+    opacity:1;
+    box-shadow:
+      0 0 12px 2px var(--neon),
+      inset 0 0 14px 2px var(--neon-soft),
+      0 0 28px 8px rgba(0,240,255,.25);
+  }
 
   /* 실루엣: 자동차 SVG (봄버카) */
   .bombercar::before{
@@ -125,12 +148,10 @@
   }
   .contact::before{content:"";position:absolute;top:-2px;left:0;right:0;height:2px;background:#000;pointer-events:none}
 
-  /* 두 개 카드 스택 컨테이너 */
   .contact-wrap{
     width:min(760px,92%);
     display:flex;flex-direction:column;gap:22px;align-items:center;
   }
-
   .contact-card{
     width:100%;background:rgba(255,255,255,.04);
     border:1px solid rgba(255,255,255,.08);border-radius:18px;
@@ -145,7 +166,6 @@
   .contact strong{color:#fff}
   .contact small{color:#9aa6b2}
 
-  /* 버튼 */
   .btn{
     display:inline-block;margin-top:10px;padding:10px 16px;
     border-radius:10px;border:1px solid rgba(255,255,255,.18);
@@ -162,7 +182,6 @@
   }
   .contact footer{display:block}
 
-  /* 도트 */
   .dots{
     position:fixed;right:18px;top:50%;transform:translateY(-50%);
     display:flex;flex-direction:column;gap:10px;z-index:20;user-select:none;
@@ -238,18 +257,10 @@
     </div>
 
     <div class="projects" aria-label="개발 중 프로젝트">
-      <div class="project-card bombercar">
-        <div class="overlay"><h3>Bomber Car Project</h3><p>Coming Soon</p></div>
-      </div>
-      <div class="project-card roperun">
-        <div class="overlay"><h3>Rope Run Project</h3><p>Coming Soon</p></div>
-      </div>
-      <div class="project-card changephoto">
-        <div class="overlay"><h3>Change Photo Find it Project</h3><p>Coming Soon</p></div>
-      </div>
-      <div class="project-card idleskill">
-        <div class="overlay"><h3>Idle Skill Damage Project</h3><p>Coming Soon</p></div>
-      </div>
+      <div class="project-card bombercar"><div class="overlay"><h3>Bomber Car Project</h3><p>Coming Soon</p></div></div>
+      <div class="project-card roperun"><div class="overlay"><h3>Rope Run Project</h3><p>Coming Soon</p></div></div>
+      <div class="project-card changephoto"><div class="overlay"><h3>Change Photo Find it Project</h3><p>Coming Soon</p></div></div>
+      <div class="project-card idleskill"><div class="overlay"><h3>Idle Skill Damage Project</h3><p>Coming Soon</p></div></div>
     </div>
 
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
@@ -258,18 +269,12 @@
   <!-- 3) 유튜브 공식 채널 + 문의 -->
   <section class="snap-section contact" id="s3" aria-label="유튜브 및 문의">
     <div class="contact-wrap">
-      <!-- 유튜브 공식 채널 카드 (위) -->
       <div class="contact-card" aria-labelledby="yt-title">
-        <h2 id="yt-title">
-          <img src="https://img.icons8.com/ios-filled/40/FF0000/youtube-play.png" alt="">
-          유튜브 공식 채널
-        </h2>
+        <h2 id="yt-title"><img src="https://img.icons8.com/ios-filled/40/FF0000/youtube-play.png" alt=""> 유튜브 공식 채널</h2>
         <p>게임 영상 및 소식을 유튜브에서 확인하세요.</p>
-        <!-- TODO: 아래 링크를 실제 채널 주소로 바꿔주세요 -->
         <a class="btn" href="https://www.youtube.com/@DesignFutureGames" target="_blank" rel="noopener">채널 바로가기</a>
       </div>
 
-      <!-- 문의 카드 (아래) -->
       <div class="contact-card">
         <h2><img src="https://img.icons8.com/ios-filled/40/00f0ff/new-post.png" alt=""> 문의</h2>
         <p>게임 제안 / 협업 / 채용 / 버그제보 / 기타</p>
@@ -294,6 +299,7 @@
   const dots=[...document.querySelectorAll('.dot')];
   const container=document.getElementById('snap');
 
+  /* 도트 활성화 */
   const io=new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
@@ -305,6 +311,7 @@
   },{root:container,threshold:0.6});
   sections.forEach(s=>io.observe(s));
 
+  /* 도트 클릭 이동 */
   dots.forEach(dot=>{
     dot.addEventListener('click',()=>{
       const t=document.querySelector(dot.dataset.target);
@@ -312,6 +319,7 @@
     });
   });
 
+  /* 스냅 보정 */
   let snapTimer=null;
   container.addEventListener('scroll',()=>{
     clearTimeout(snapTimer);
@@ -332,25 +340,34 @@
     },80);
   },{passive:true});
 
-  function nextIdx(delta){
-    const curr=dots.findIndex(d=>d.classList.contains('active'));
-    let n=Math.max(0,Math.min(sections.length-1,curr+delta));
-    sections[n].scrollIntoView({behavior:'smooth',block:'start'});
-  }
-  const isDesktop=matchMedia('(min-width:769px)').matches;
-  if(isDesktop){
+  /* 데스크톱: 휠 한 칸씩 */
+  if(matchMedia('(min-width:769px)').matches){
     let wheelLock=false;
     container.addEventListener('wheel',(e)=>{
       if(wheelLock) return;
       wheelLock=true; setTimeout(()=>wheelLock=false,420);
-      if(e.deltaY>0) nextIdx(1); else nextIdx(-1);
+      const activeIndex=[...sections].findIndex(s=>{
+        const r=s.getBoundingClientRect();
+        return Math.abs(r.top) < window.innerHeight*0.51;
+      });
+      const next=Math.max(0,Math.min(sections.length-1, activeIndex+(e.deltaY>0?1:-1)));
+      sections[next].scrollIntoView({behavior:'smooth'});
       e.preventDefault();
     },{passive:false});
-    window.addEventListener('keydown',(e)=>{
-      if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();nextIdx(1);}
-      if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();nextIdx(-1);}
-    },{passive:false});
   }
+
+  /* 모바일: 카드 터치 시 네온 효과 토글 */
+  const cards=[...document.querySelectorAll('.project-card')];
+  cards.forEach(card=>{
+    let t;
+    const fire=()=>{
+      card.classList.add('active');
+      clearTimeout(t);
+      t=setTimeout(()=>card.classList.remove('active'), 600);
+    };
+    card.addEventListener('touchstart', fire, {passive:true});
+    card.addEventListener('click', fire);
+  });
 </script>
 </body>
 </html>

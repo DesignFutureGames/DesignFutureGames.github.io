@@ -48,7 +48,7 @@
       color: #666;
     }
 
-    /* 반응형 */
+    /* 반응형 표시 */
     .only-pc { display: block; }
     .only-mobile { display: none; }
     @media screen and (max-width: 768px) {
@@ -56,7 +56,7 @@
       .only-mobile { display: block; }
     }
 
-    /* 개발 중 프로젝트 */
+    /* ===== 개발 중 프로젝트 카드 ===== */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -79,31 +79,37 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
 
-    /* 실루엣 배경 */
+    /* 실루엣 배경 (아이콘8 – 안정 URL 사용) */
     .project-card::before {
       content: "";
       position: absolute;
       inset: 0;
-      opacity: 0.15;
-      background-size: contain;
+      opacity: 0.14;                 /* 기본은 은은하게 */
+      background-size: 65%;
       background-position: center;
       background-repeat: no-repeat;
+      transition: opacity .25s ease;
     }
+    .project-card:hover::before { opacity: 0.22; }  /* 호버 시 조금 선명하게 */
 
+    /* 01 Bomber Car (탑뷰 자동차) */
     .bombercar::before {
-      background-image: url('https://img.icons8.com/ios-filled/200/ffffff/race-car-top-veiw.png');
+      background-image: url('https://img.icons8.com/ios-filled/200/FFFFFF/race-car-top-view.png');
     }
 
+    /* 02 Rope Run (달리기 실루엣) */
     .roperun::before {
-      background-image: url('https://img.icons8.com/ios-filled/200/ffffff/human-run.png');
+      background-image: url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png');
     }
 
+    /* 03 Change Photo Find it (사진 아이콘 – 틀린그림찾기 느낌) */
     .changephoto::before {
-      background-image: url('https://img.icons8.com/ios-filled/200/ffffff/spot-difference.png');
+      background-image: url('https://img.icons8.com/ios-filled/200/FFFFFF/image.png');
     }
 
+    /* 04 Idle Skill Damage (검 실루엣) */
     .idleskill::before {
-      background-image: url('https://img.icons8.com/ios-filled/200/ffffff/sword.png');
+      background-image: url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png');
     }
 
     .overlay {
@@ -114,7 +120,7 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.28);
       text-align: center;
     }
 
@@ -132,13 +138,13 @@
   </style>
 </head>
 <body>
-  <!-- 상단 이미지 -->
+  <!-- 상단 배너 (기존 유지) -->
   <header>
     <img src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/Design%20Future%20Games_%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%B0%EB%84%88(%ED%8C%9F%EC%BA%90%EC%8A%A4%ED%8A%B8%20%ED%95%9C%EA%B8%80%EC%A0%9C%EA%B1%B0).png?raw=true" alt="Design Future Games 배너">
   </header>
 
   <div class="container">
-    <!-- PC 전용 -->
+    <!-- PC 전용 안내 -->
     <div class="only-pc">
       <section>
         <h2><img src="https://img.icons8.com/ios-filled/50/laptop.png"/>PC에서 접속 중</h2>
@@ -146,7 +152,7 @@
       </section>
     </div>
 
-    <!-- 모바일 전용 -->
+    <!-- 모바일 전용 안내 -->
     <div class="only-mobile">
       <section>
         <h2><img src="https://img.icons8.com/ios-filled/50/smartphone.png"/>모바일에서 접속 중</h2>
@@ -171,18 +177,21 @@
             <p>Coming Soon</p>
           </div>
         </div>
+
         <div class="project-card roperun">
           <div class="overlay">
             <h3>Rope Run Project</h3>
             <p>Coming Soon</p>
           </div>
         </div>
+
         <div class="project-card changephoto">
           <div class="overlay">
             <h3>Change Photo Find it Project</h3>
             <p>Coming Soon</p>
           </div>
         </div>
+
         <div class="project-card idleskill">
           <div class="overlay">
             <h3>Idle Skill Damage Project</h3>
@@ -192,9 +201,9 @@
       </div>
     </section>
 
-    <!-- 문의 -->
+    <!-- 문의 (아이콘 교체; 안정적인 주소) -->
     <section>
-      <h2><img src="https://img.icons8.com/ios-filled/50/000000/new-post.png"/> 문의</h2>
+      <h2><img src="https://img.icons8.com/ios-filled/50/000000/new-post.png" alt="메일 아이콘"/> 문의</h2>
       <p>게임 제안이나 협업, 채용 문의는 아래 이메일로 보내주세요.</p>
       <p><strong>Email:</strong> Null@gmail.com</p>
     </section>

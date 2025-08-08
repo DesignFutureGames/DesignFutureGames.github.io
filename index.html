@@ -109,10 +109,18 @@
   .device-note img{width:22px;height:22px}
 
   .projects{
-    width:min(1100px,100%);
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    width:min(1200px,100%); /* 5열을 위해 살짝 넓힘 */
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
     gap:18px;margin-top:10px;
   }
+  /* 데스크톱에서 정확히 5열 고정 */
+  @media (min-width:1024px){
+    .projects{
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+    }
+  }
+
   .project-card{
     position:relative;height:200px;border-radius:16px;background:#111;
     box-shadow:0 6px 18px rgba(0,0,0,.45);overflow:hidden;

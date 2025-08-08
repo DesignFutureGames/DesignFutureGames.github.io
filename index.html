@@ -54,7 +54,7 @@
     background:linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
     padding:48px 24px;
     display:flex;flex-direction:column;align-items:center;
-    justify-content:center; /* ← 중앙 정렬 */
+    justify-content:center; /* 중앙 정렬 */
     gap:28px;overflow:hidden;
   }
   .intro{text-align:center;max-width:920px}
@@ -117,15 +117,22 @@
   .overlay h3{font-size:18px;margin:0 0 6px;text-shadow:0 0 10px rgba(0,240,255,.35)}
   .overlay p{margin:0;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.45)}
 
-  /* #3 문의 */
+  /* #3 문의 + 유튜브 */
   .contact{
     background:linear-gradient(160deg,#0a0a0a 0%, #121212 100%);
     display:flex;align-items:center;justify-content:center;
     padding:40px 24px;position:relative;
   }
   .contact::before{content:"";position:absolute;top:-2px;left:0;right:0;height:2px;background:#000;pointer-events:none}
+
+  /* 두 개 카드 스택 컨테이너 */
+  .contact-wrap{
+    width:min(760px,92%);
+    display:flex;flex-direction:column;gap:22px;align-items:center;
+  }
+
   .contact-card{
-    width:min(680px,92%);background:rgba(255,255,255,.04);
+    width:100%;background:rgba(255,255,255,.04);
     border:1px solid rgba(255,255,255,.08);border-radius:18px;
     padding:28px 24px;text-align:center;backdrop-filter:blur(10px);
     box-shadow:0 10px 28px rgba(0,0,0,.5);
@@ -137,6 +144,18 @@
   .contact p{margin:6px 0;color:#d0d6dd}
   .contact strong{color:#fff}
   .contact small{color:#9aa6b2}
+
+  /* 버튼 */
+  .btn{
+    display:inline-block;margin-top:10px;padding:10px 16px;
+    border-radius:10px;border:1px solid rgba(255,255,255,.18);
+    background:linear-gradient(180deg,rgba(0,240,255,.15),rgba(0,240,255,.05));
+    color:#fff;text-decoration:none;font-weight:600;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,240,255,.25)}
+  .btn:active{transform:translateY(0)}
+
   .snap-section footer{
     position:absolute;left:0;right:0;bottom:14px;text-align:center;
     color:#7f8a96;font-size:12px;display:none;
@@ -183,7 +202,8 @@
     .overlay p{font-size:12px}
 
     .contact{padding:24px 14px 24px}
-    .contact-card{width:94%;padding:22px 16px}
+    .contact-wrap{width:94%;gap:16px}
+    .contact-card{padding:22px 16px}
     .contact h2{font-size:20px}
     #s3 .contact p{font-size:13px;word-break:keep-all}
 
@@ -235,14 +255,29 @@
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
-  <!-- 3) 문의 -->
-  <section class="snap-section contact" id="s3" aria-label="문의">
-    <div class="contact-card">
-      <h2><img src="https://img.icons8.com/ios-filled/40/00f0ff/new-post.png" alt=""> 문의</h2>
-      <p>게임 제안 / 협업 / 채용 문의는 아래 이메일로 보내주세요.</p>
-      <p><strong>Email</strong> : Null@gmail.com</p>
-      <small>빠르게 확인 후 답변 드리겠습니다.</small>
+  <!-- 3) 유튜브 공식 채널 + 문의 -->
+  <section class="snap-section contact" id="s3" aria-label="유튜브 및 문의">
+    <div class="contact-wrap">
+      <!-- 유튜브 공식 채널 카드 (위) -->
+      <div class="contact-card" aria-labelledby="yt-title">
+        <h2 id="yt-title">
+          <img src="https://img.icons8.com/ios-filled/40/FF0000/youtube-play.png" alt="">
+          유튜브 공식 채널
+        </h2>
+        <p>게임 영상 및 소식을 유튜브에서 확인하세요.</p>
+        <!-- TODO: 아래 링크를 실제 채널 주소로 바꿔주세요 -->
+        <a class="btn" href="https://www.youtube.com/@DesignFutureGames" target="_blank" rel="noopener">채널 바로가기</a>
+      </div>
+
+      <!-- 문의 카드 (아래) -->
+      <div class="contact-card">
+        <h2><img src="https://img.icons8.com/ios-filled/40/00f0ff/new-post.png" alt=""> 문의</h2>
+        <p>게임 제안 / 협업 / 채용 문의는 아래 이메일로 보내주세요.</p>
+        <p><strong>Email</strong> : Null@gmail.com</p>
+        <small>빠르게 확인 후 답변 드리겠습니다.</small>
+      </div>
     </div>
+
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 </div>
@@ -251,7 +286,7 @@
 <div class="dots" aria-hidden="true">
   <div class="dot" data-target="#s1" aria-label="배너로 이동"></div>
   <div class="dot" data-target="#s2" aria-label="프로젝트로 이동"></div>
-  <div class="dot" data-target="#s3" aria-label="문의로 이동"></div>
+  <div class="dot" data-target="#s3" aria-label="유튜브 및 문의로 이동"></div>
 </div>
 
 <script>

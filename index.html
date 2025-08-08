@@ -14,40 +14,61 @@
     font-family:"Noto Sans KR",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     color:var(--text);
     background:#000;
-    overflow:hidden;
+    overflow:hidden; /* 스냅 컨테이너만 스크롤 */
   }
 
   /* 스냅 컨테이너 */
   .snap-container{
-    height:100vh; overflow-y:auto;
-    scroll-snap-type:y mandatory; scroll-snap-stop:always;
-    scroll-behavior:smooth; -webkit-overflow-scrolling:touch;
+    height:100vh;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    scroll-snap-stop:always;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
     overscroll-behavior-y:contain;
   }
   .snap-section{
-    height:100vh; scroll-snap-align:start; scroll-snap-stop:always;
-    position:relative; contain:layout paint;
+    height:100vh;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    position:relative;
+    contain:layout paint;
   }
 
   /* #1 배너 */
-  .hero{display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}
-  .hero img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 60% at 70% 30%, rgba(0,240,255,.15), transparent 60%)}
+  .hero{
+    display:flex;align-items:center;justify-content:center;
+    background:#000;overflow:hidden;
+  }
+  .hero img{
+    width:100%;height:100%;
+    object-fit:cover;object-position:center;display:block;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(60% 60% at 70% 30%, rgba(0,240,255,.15), transparent 60%);
+  }
 
   /* #2 안내 + 프로젝트 (PC 기본) */
   .stage{
     background:linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
-    padding:48px 24px; display:flex;flex-direction:column;align-items:center;gap:28px; overflow:hidden;
+    padding:48px 24px;
+    display:flex;flex-direction:column;align-items:center;
+    justify-content:center; /* ← 중앙 정렬 */
+    gap:28px;overflow:hidden;
   }
   .intro{text-align:center;max-width:920px}
   .kicker{color:var(--muted);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
   h1,h2{margin:0}
 
   /* 제목 – PC 한줄, 모바일 두줄 */
-  h2.title{color:#fff;font-size:clamp(22px,3vw,28px);text-shadow:0 0 10px rgba(0,240,255,.35);line-height:1.25;word-break:keep-all}
+  h2.title{
+    color:#fff;font-size:clamp(22px,3vw,28px);
+    text-shadow:0 0 10px rgba(0,240,255,.35);
+    line-height:1.25;word-break:keep-all
+  }
   .title .line{display:inline}
   .title .line1::after{content:" "}
-  /* 모바일에서만 두 줄로 고정 */
   @media (max-width:768px){
     .title{font-size:18px}
     .title .line{display:block}
@@ -70,53 +91,84 @@
   }
   .project-card:hover{transform:translateY(-6px);box-shadow:0 10px 26px rgba(0,0,0,.6)}
   .project-card::before{
-    content:"";position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:65%;opacity:.14;transition:opacity .25s ease, transform .25s ease;
+    content:"";position:absolute;inset:0;
+    background-position:center;background-repeat:no-repeat;background-size:65%;
+    opacity:.14;transition:opacity .25s ease, transform .25s ease;
   }
   .project-card:hover::before{opacity:.22;transform:scale(1.04)}
 
-  /* 실루엣: 자동차 SVG */
+  /* 실루엣: 자동차 SVG (봄버카) */
   .bombercar::before{
     background-image:url("data:image/svg+xml;utf8,\
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%23ffffff'>\
-      <rect x='32' y='78' width='136' height='44' rx='10'/>\
-      <rect x='70' y='52' width='60' height='34' rx='8'/>\
-      <rect x='28' y='90' width='12' height='20' rx='4'/>\
-      <rect x='160' y='90' width='12' height='20' rx='4'/>\
-      <circle cx='58' cy='138' r='16'/>\
-      <circle cx='142' cy='138' r='16'/>\
+      <path d='M30 110c0-10 8-18 18-18h6l12-16c3-4 7-6 12-6h44c5 0 10 2 13 6l12 16h5c10 0 18 8 18 18v10c0 6-4 10-10 10h-6a16 16 0 1 1-32 0H78a16 16 0 1 1-32 0h-8c-6 0-8-4-8-10v-10z'/>\
+      <circle cx='66' cy='140' r='14'/>\
+      <circle cx='134' cy='140' r='14'/>\
     </svg>");
   }
   .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
   .changephoto::before{background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/image.png'); }
   .idleskill::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png'); }
 
-  .overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.35));padding:0 14px}
+  .overlay{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.35));padding:0 14px;
+  }
   .overlay h3{font-size:18px;margin:0 0 6px;text-shadow:0 0 10px rgba(0,240,255,.35)}
   .overlay p{margin:0;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.45)}
 
   /* #3 문의 */
-  .contact{background:linear-gradient(160deg,#0a0a0a 0%, #121212 100%);display:flex;align-items:center;justify-content:center;padding:40px 24px;position:relative}
+  .contact{
+    background:linear-gradient(160deg,#0a0a0a 0%, #121212 100%);
+    display:flex;align-items:center;justify-content:center;
+    padding:40px 24px;position:relative;
+  }
   .contact::before{content:"";position:absolute;top:-2px;left:0;right:0;height:2px;background:#000;pointer-events:none}
-  .contact-card{width:min(680px,92%);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px 24px;text-align:center;backdrop-filter:blur(10px);box-shadow:0 10px 28px rgba(0,0,0,.5)}
-  .contact h2{font-size:24px;margin:0 0 12px;display:flex;align-items:center;justify-content:center;gap:10px;color:#fff;text-shadow:0 0 12px rgba(0,240,255,.28)}
+  .contact-card{
+    width:min(680px,92%);background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);border-radius:18px;
+    padding:28px 24px;text-align:center;backdrop-filter:blur(10px);
+    box-shadow:0 10px 28px rgba(0,0,0,.5);
+  }
+  .contact h2{
+    font-size:24px;margin:0 0 12px;display:flex;align-items:center;justify-content:center;gap:10px;
+    color:#fff;text-shadow:0 0 12px rgba(0,240,255,.28)
+  }
   .contact p{margin:6px 0;color:#d0d6dd}
   .contact strong{color:#fff}
   .contact small{color:#9aa6b2}
-  .snap-section footer{position:absolute;left:0;right:0;bottom:14px;text-align:center;color:#7f8a96;font-size:12px;display:none}
+  .snap-section footer{
+    position:absolute;left:0;right:0;bottom:14px;text-align:center;
+    color:#7f8a96;font-size:12px;display:none;
+  }
   .contact footer{display:block}
 
   /* 도트 */
-  .dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:20;user-select:none}
-  .dot{width:10px;height:10px;border-radius:50%;background:#5f6b77;opacity:.55;box-shadow:0 0 0 2px rgba(255,255,255,.12) inset;transition:transform .2s ease, background .2s ease, opacity .2s ease;cursor:pointer}
+  .dots{
+    position:fixed;right:18px;top:50%;transform:translateY(-50%);
+    display:flex;flex-direction:column;gap:10px;z-index:20;user-select:none;
+  }
+  .dot{
+    width:10px;height:10px;border-radius:50%;background:#5f6b77;opacity:.55;
+    box-shadow:0 0 0 2px rgba(255,255,255,.12) inset;
+    transition:transform .2s ease, background .2s ease, opacity .2s ease;cursor:pointer;
+  }
   .dot.active{background:var(--brand);opacity:1;transform:scale(1.15);box-shadow:0 0 12px rgba(0,240,255,.7)}
 
-  /* 모바일 전체 */
+  /* 모바일 */
   @media (max-width:768px){
     .snap-container{height:100svh;padding-bottom:max(0px, env(safe-area-inset-bottom))}
     .snap-section{height:100svh}
 
-    .hero{display:grid;place-items:center;background:radial-gradient(120% 120% at 50% 10%, #0d1a35 0%, #07101f 40%, #000 100%)}
-    .hero img{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center}
+    .hero{
+      display:grid;place-items:center;
+      background:radial-gradient(120% 120% at 50% 10%, #0d1a35 0%, #07101f 40%, #000 100%);
+    }
+    .hero img{
+      width:100%;height:100%;
+      max-width:100%;max-height:100%;
+      object-fit:contain;object-position:center;
+    }
 
     .stage{padding:16px 14px;gap:12px}
     .kicker{font-size:11px}
@@ -133,7 +185,6 @@
     .contact{padding:24px 14px 24px}
     .contact-card{width:94%;padding:22px 16px}
     .contact h2{font-size:20px}
-    /* 문의 본문 1단계 축소 */
     #s3 .contact p{font-size:13px;word-break:keep-all}
 
     .dots{right:10px;gap:8px}
@@ -154,13 +205,10 @@
   <section class="snap-section stage" id="s2" aria-label="프로젝트">
     <div class="intro">
       <div class="kicker">DESIGN FUTURE GAMES</div>
-
-      <!-- 두 줄 제목: PC 한 줄, 모바일 두 줄 -->
       <h2 class="title">
         <span class="line line1">창의적이고 미래적인</span>
         <span class="line line2">하이퍼 캐주얼 게임을 연구합니다</span>
       </h2>
-
       <p class="device-note">
         <img src="https://img.icons8.com/ios-filled/50/laptop.png" alt=""><span>PC / </span>
         <img src="https://img.icons8.com/ios-filled/50/smartphone.png" alt=""><span>Mobile 최적화</span>
@@ -191,7 +239,7 @@
   <section class="snap-section contact" id="s3" aria-label="문의">
     <div class="contact-card">
       <h2><img src="https://img.icons8.com/ios-filled/40/00f0ff/new-post.png" alt=""> 문의</h2>
-      <p>게임 제안 / 협업 / 채용 문의는</p><p>아래 이메일로 보내주세요.</p>
+      <p>게임 제안 / 협업 / 채용 문의는 아래 이메일로 보내주세요.</p>
       <p><strong>Email</strong> : Null@gmail.com</p>
       <small>빠르게 확인 후 답변 드리겠습니다.</small>
     </div>

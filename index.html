@@ -27,6 +27,9 @@
     -webkit-overflow-scrolling:touch;
     overscroll-behavior-y:contain;
   }
+  /* 초기 1초 페이드인 동안 스크롤 잠금 */
+  .snap-container.locked{ overflow:hidden }
+
   .snap-section{
     height:100vh;
     scroll-snap-align:start;
@@ -46,8 +49,13 @@
     width:100%;height:100%;
     object-fit:cover;object-position:center;display:block;
     animation: zoomIdle 18s ease-in-out infinite;
-    will-change: transform;
+    will-change: transform, opacity;
+    /* 페이드인 준비 */
+    opacity:0;
+    transition:opacity 1s ease;
   }
+  .hero img.show{ opacity:1 } /* 로딩 후 1초 페이드인 */
+
   /* 은은한 네온 무드 레이어(가장 아래) */
   .hero::after{
     content:"";position:absolute;inset:0;pointer-events:none;
@@ -58,7 +66,6 @@
   .hero .stars{
     position:absolute; inset:0; z-index:2;
     pointer-events:none;
-    /* mix-blend-mode 제거 → 어떤 배경에서도 보이도록 */
   }
 
   @keyframes zoomIdle{
@@ -255,7 +262,7 @@
 </head>
 <body>
 
-<div class="snap-container" id="snap">
+<div class="snap-container locked" id="snap">
   <!-- 1) 헤더 -->
   <section class="snap-section hero" id="s1" aria-label="배너">
     <!-- 별빛 캔버스 (이미지 위에 보이게 z-index:2) -->
@@ -266,7 +273,8 @@
       <source srcset="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/DesignFutureGames.png?raw=true"
               media="(max-width: 768px)">
       <!-- PC 전용 (가로형) -->
-      <img src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/Design%20Future%20Games_%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%B0%EB%84%88(%ED%8C%9F%EC%BA%90%EC%8A%A4%ED%8A%B8%20%ED%95%9C%EA%B8%80%EC%A0%9C%EA%B1%B0).png?raw=true"
+      <img id="heroImg"
+           src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/Design%20Future%20Games_%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%B0%EB%84%88(%ED%8C%9F%EC%BA%90%EC%8A%A4%ED%8A%B8%20%ED%95%9C%EA%B8%80%EC%A0%9C%EA%B1%B0).png?raw=true"
            alt="Design Future Games 배너">
     </picture>
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
@@ -284,7 +292,7 @@
         <img src="https://img.icons8.com/ios-filled/50/laptop.png" alt=""><span>PC / </span>
         <img src="https://img.icons8.com/ios-filled/50/smartphone.png" alt=""><span>Mobile 최적화</span>
       </p>
-      <p>우리는 시대의 변화에 맞춰 빠르게 발전하며, 직관적인 재미를 중심으로 한 실험을 계속합니다.</p>
+      <p>우리는 시대의 변화에 맞춰 빠르게 발전하며, 직관적인 재미를 중심으로 실험을 계속합니다.</p>
       <p>아래는 현재 진행 중인 내부 프로젝트입니다.</p>
     </div>
 
@@ -331,6 +339,32 @@
   const dots=[...document.querySelectorAll('.dot')];
   const container=document.getElementById('snap');
 
+  /* ===== 1초 페이드인 & 스크롤 잠금 해제 ===== */
+  const heroImg = document.getElementById('heroImg');
+  let canScroll = false;
+
+  function unlockScroll(){
+    if (canScroll) return;
+    canScroll = true;
+    container.classList.remove('locked');
+  }
+  function startFadeIn(){
+    // 레이아웃 적용 후 다음 프레임에서 show 추가 → 트랜지션 확실히 발생
+    requestAnimationFrame(()=> heroImg.classList.add('show'));
+  }
+
+  // 이미지가 로드된 뒤 페이드인 시작 → 트랜지션 끝나면 스크롤 해제
+  heroImg.addEventListener('load', startFadeIn);
+  heroImg.addEventListener('transitionend', (e)=>{
+    if(e.propertyName === 'opacity'){ unlockScroll(); }
+  });
+
+  // 캐시 히트 등으로 이미 로드 완료된 경우
+  if (heroImg.complete){ startFadeIn(); }
+
+  // 네트워크가 너무 느린 경우를 위한 안전장치(최대 2.5초 뒤 강제 해제)
+  setTimeout(unlockScroll, 2500);
+
   /* 도트 활성화 */
   const io=new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
@@ -343,18 +377,20 @@
   },{root:container,threshold:0.6});
   sections.forEach(s=>io.observe(s));
 
-  /* 도트 클릭 이동 */
+  /* 도트 클릭 이동 (잠금 중엔 무시) */
   dots.forEach(dot=>{
     dot.addEventListener('click',()=>{
+      if(!canScroll) return;
       const t=document.querySelector(dot.dataset.target);
       if(t) container.scrollTo({top:t.offsetTop,behavior:'smooth'});
     });
   });
 
-  /* 데스크톱: 휠 한 칸씩 */
+  /* 데스크톱: 휠 한 칸씩 (잠금 중엔 무시) */
   if(matchMedia('(min-width:769px)').matches){
     let wheelLock=false;
     container.addEventListener('wheel',(e)=>{
+      if(!canScroll) return;
       if(wheelLock) return;
       wheelLock=true; setTimeout(()=>wheelLock=false,420);
       const activeIndex=[...sections].findIndex(s=>{
@@ -404,18 +440,17 @@
     function rand(a,b){ return Math.random()*(b-a)+a; }
 
     function createStars(){
-      // ★ 밀도 10배 증가
-      const density = 4500; // 낮을수록 많아짐 (기존 45000 → 4500)
+      const density = 4500; // 낮을수록 많아짐
       const count = Math.floor((W*H)/density);
       stars = Array.from({length: count}, ()=>{
-        const speed = rand(0.02, 0.08) * DPR; // 아주 느리게 흐름
+        const speed = rand(0.02, 0.08) * DPR;
         const angle = rand(0, Math.PI*2);
         return {
           x: rand(0, W),
           y: rand(0, H),
           r: rand(0.6, 2.0) * DPR,
-          tw: rand(0, Math.PI*2),     // 깜빡임 위상
-          tws: rand(0.6, 1.6),        // 깜빡임 속도
+          tw: rand(0, Math.PI*2),
+          tws: rand(0.6, 1.6),
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed
         };
@@ -425,17 +460,13 @@
     function draw(){
       ctx.clearRect(0,0,W,H);
       for(const s of stars){
-        // 위치 이동
         s.x += s.vx; s.y += s.vy;
-        // 화면 밖으로 나가면 반대편에서 재등장 (wrap)
         if(s.x < 0) s.x += W; else if(s.x > W) s.x -= W;
         if(s.y < 0) s.y += H; else if(s.y > H) s.y -= H;
 
-        // 반짝임
         s.tw += 0.02 * s.tws;
         const a = 0.12 + 0.45*(0.5 + 0.5*Math.sin(s.tw));
 
-        // 중심(화이트) + 외곽(청록) 그라디언트
         const radius = s.r*3.2;
         const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, radius);
         g.addColorStop(0, `rgba(255,255,255,${a})`);
@@ -448,7 +479,6 @@
       rafId = requestAnimationFrame(draw);
     }
 
-    // 리사이즈 옵저버로 PC/모바일 모두 정확한 크기 유지
     const ro = new ResizeObserver(resize);
     ro.observe(document.getElementById('s1'));
     resize();

@@ -7,7 +7,6 @@
 <style>
   :root{
     --brand:#00f0ff;
-    --bg:#111;
     --text:#e9e9e9;
     --muted:#b7c0c8;
   }
@@ -16,10 +15,10 @@
   html,body{height:100%}
   body{
     margin:0;
-    font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    font-family:"Noto Sans KR",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     color:var(--text);
     background:#000;
-    overflow:hidden;            /* 스냅 컨테이너만 스크롤 */
+    overflow:hidden; /* 스냅 컨테이너만 스크롤 */
   }
 
   /* ===== 스냅 컨테이너 ===== */
@@ -28,93 +27,74 @@
     overflow-y:auto;
     scroll-snap-type:y mandatory;
     scroll-behavior:smooth;
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling:touch;
   }
   .snap-section{
     height:100vh;               /* 데스크톱 */
     scroll-snap-align:start;
+    scroll-snap-stop:always;    /* 한 칸씩 멈춤 */
     position:relative;
   }
 
-  /* ===== 섹션 #1 : 상단 배너 ===== */
+  /* ===== #1 헤더 배너 ===== */
   .hero{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#000;
-    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    background:#000;overflow:hidden;
   }
   .hero img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center;
+    width:100%;height:100%;
+    object-fit:cover;object-position:center;
     display:block;
   }
-  .hero::after{ /* 살짝 네온 필름 느낌 */
-    content:"";
-    position:absolute; inset:0;
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
     background:radial-gradient(60% 60% at 70% 30%, rgba(0,240,255,.15), transparent 60%);
-    pointer-events:none;
   }
 
-  /* ===== 섹션 #2 : 안내 + 프로젝트 ===== */
+  /* ===== #2 안내 + 프로젝트 ===== */
   .stage{
     background:linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
     padding:48px 24px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:28px;
+    display:flex;flex-direction:column;align-items:center;gap:28px;
+
+    /* 모바일에서 내부 내용이 길어질 수 있으니, 섹션 안에서 자체 스크롤 허용 */
+    overflow:auto;
   }
-  .stage .intro{ text-align:center; max-width:920px; }
-  .kicker{ color:var(--muted); font-size:14px; letter-spacing:.12em; text-transform:uppercase; }
+  .stage .intro{text-align:center;max-width:920px}
+  .kicker{color:var(--muted);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
   h1,h2{margin:0}
   h2.title{
-    margin-top:6px;
+    margin-top:6px;color:#fff;
     font-size:clamp(22px,3vw,28px);
-    color:#fff;
     text-shadow:0 0 10px rgba(0,240,255,.35);
     display:flex;align-items:center;justify-content:center;gap:10px;
   }
-  .intro p{ margin:14px auto 0; line-height:1.6; color:#d6dce2; max-width:780px; font-size:15px; }
+  .intro p{margin:14px auto 0;line-height:1.6;color:#d6dce2;max-width:780px;font-size:15px}
 
   .device-note{
     display:flex;gap:12px;align-items:center;justify-content:center;
-    color:#cfe9f0; font-size:14px; opacity:.9;
+    color:#cfe9f0;font-size:14px;opacity:.9
   }
   .device-note img{width:22px;height:22px}
 
   .projects{
     width:min(1100px,100%);
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-    gap:18px;
-    margin-top:10px;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:18px;margin-top:10px;
   }
   .project-card{
-    position:relative;
-    height:200px;
-    border-radius:16px;
-    background:#111;
-    box-shadow:0 6px 18px rgba(0,0,0,.45);
-    overflow:hidden;
+    position:relative;height:200px;border-radius:16px;background:#111;
+    box-shadow:0 6px 18px rgba(0,0,0,.45);overflow:hidden;
     transition:transform .28s ease, box-shadow .28s ease;
   }
-  .project-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 10px 26px rgba(0,0,0,.6);
-  }
+  .project-card:hover{transform:translateY(-6px);box-shadow:0 10px 26px rgba(0,0,0,.6)}
   .project-card::before{
-    content:"";
-    position:absolute; inset:0;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:65%;
-    opacity:.14;
-    transition:opacity .25s ease, transform .25s ease;
+    content:"";position:absolute;inset:0;
+    background-position:center;background-repeat:no-repeat;background-size:65%;
+    opacity:.14;transition:opacity .25s ease, transform .25s ease;
   }
-  .project-card:hover::before{ opacity:.22; transform:scale(1.04); }
+  .project-card:hover::before{opacity:.22;transform:scale(1.04)}
 
   /* 실루엣 */
   .bombercar::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/top-view-car.png'); }
@@ -123,126 +103,98 @@
   .idleskill::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png'); }
 
   .overlay{
-    position:absolute; inset:0;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;color:#fff;
-    background:linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.35));
     padding:0 14px;
   }
-  .overlay h3{ font-size:18px; margin:0 0 6px; text-shadow:0 0 10px rgba(0,240,255,.35); }
-  .overlay p{  margin:0; color:#00f0ff; text-shadow:0 0 8px rgba(0,240,255,.45); }
+  .overlay h3{font-size:18px;margin:0 0 6px;text-shadow:0 0 10px rgba(0,240,255,.35)}
+  .overlay p{margin:0;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.45)}
 
-  /* ===== 섹션 #3 : 문의 ===== */
+  /* ===== #3 문의 ===== */
   .contact{
     background:linear-gradient(160deg,#0a0a0a 0%, #121212 100%);
     display:flex;align-items:center;justify-content:center;
     padding:40px 24px;
   }
   .contact-card{
-    width:min(680px,92%);
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;
-    padding:28px 24px;
-    text-align:center;
-    backdrop-filter: blur(10px);
+    width:min(680px,92%);background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);border-radius:18px;
+    padding:28px 24px;text-align:center;backdrop-filter:blur(10px);
     box-shadow:0 10px 28px rgba(0,0,0,.5);
   }
   .contact h2{
-    font-size:24px;margin:0 0 12px;
-    display:flex;align-items:center;justify-content:center;gap:10px;
-    color:#fff; text-shadow:0 0 12px rgba(0,240,255,.28);
+    font-size:24px;margin:0 0 12px;display:flex;align-items:center;justify-content:center;gap:10px;
+    color:#fff;text-shadow:0 0 12px rgba(0,240,255,.28)
   }
   .contact p{margin:6px 0;color:#d0d6dd}
   .contact strong{color:#fff}
   .contact small{color:#9aa6b2}
 
-  footer{
-    position:absolute; left:0; right:0; bottom:14px;
-    text-align:center; color:#7f8a96; font-size:12px;
+  /* 푸터: 기본 숨김(모바일 오류 방지). 마지막 섹션만 보여줌 */
+  .snap-section footer{
+    position:absolute;left:0;right:0;bottom:14px;text-align:center;
+    color:#7f8a96;font-size:12px;display:none;
   }
+  .contact footer{display:block}
 
   /* ===== 우측 도트 ===== */
   .dots{
-    position:fixed; right:18px; top:50%; transform:translateY(-50%);
-    display:flex; flex-direction:column; gap:10px;
-    z-index:20; user-select:none;
+    position:fixed;right:18px;top:50%;transform:translateY(-50%);
+    display:flex;flex-direction:column;gap:10px;z-index:20;user-select:none;
   }
   .dot{
-    width:10px;height:10px;border-radius:50%;
-    background:#5f6b77; opacity:.55;
+    width:10px;height:10px;border-radius:50%;background:#5f6b77;opacity:.55;
     box-shadow:0 0 0 2px rgba(255,255,255,.12) inset;
-    transition:transform .2s ease, background .2s ease, opacity .2s ease;
-    cursor:pointer;
+    transition:transform .2s ease, background .2s ease, opacity .2s ease;cursor:pointer;
   }
-  .dot.active{
-    background:var(--brand); opacity:1; transform:scale(1.15);
-    box-shadow:0 0 12px rgba(0,240,255,.7);
-  }
+  .dot.active{background:var(--brand);opacity:1;transform:scale(1.15);box-shadow:0 0 12px rgba(0,240,255,.7)}
 
-  /* ===================== 모바일 전용 대수정 ===================== */
-  @media (max-width: 768px){
-    /* 진짜 화면 높이 단위(svh)로 스냅 */
-    .snap-container{ height:100svh; }
-    .snap-section{   height:100svh; }
+  /* ========== 모바일 전용 ==========
+     - 진짜 화면 높이(svh)
+     - 배너 상단 기준 크롭
+     - 2섹션 내부 스크롤
+     - 카드/도트/텍스트 축소
+  */
+  @media (max-width:768px){
+    .snap-container{height:100svh;padding-bottom:max(0px, env(safe-area-inset-bottom))}
+    .snap-section{height:100svh}
 
-    /* 헤더 배너: 너무 크게 안 나오게 비율 축소 + 상단 기준 크롭 */
-    .hero img{
-      height:100%;
-      object-fit:cover;
-      object-position:center top; /* 상단 포커스 */
-    }
+    .hero img{object-position:center top}   /* 상단 포커스 */
 
-    /* 인트로 여백/폰트 축소 */
-    .stage{ padding:28px 16px; gap:18px; }
-    .kicker{ font-size:12px; }
-    h2.title{ font-size:20px; text-wrap:balance; }
-    .intro p{ font-size:14px; margin-top:10px; padding:0 4px; }
+    .stage{padding:28px 16px;gap:18px;overflow:auto}
+    .kicker{font-size:12px}
+    h2.title{font-size:20px;text-wrap:balance}
+    .intro p{font-size:14px;margin-top:10px;padding:0 4px}
 
-    /* 디바이스 노트 축소 */
-    .device-note{ font-size:12px; gap:8px; }
-    .device-note img{ width:18px; height:18px; }
+    .device-note{font-size:12px;gap:8px}
+    .device-note img{width:18px;height:18px}
 
-    /* 카드: 1열, 더 낮은 높이 */
-    .projects{
-      grid-template-columns: 1fr;
-      gap:14px;
-      margin-top:6px;
-      width:100%;
-    }
-    .project-card{ height:160px; border-radius:14px; }
-    .project-card::before{ background-size:72%; opacity:.18; }
-    .overlay h3{ font-size:16px; }
-    .overlay p{  font-size:13px; }
+    .projects{grid-template-columns:1fr;gap:14px;margin-top:6px;width:100%}
+    .project-card{height:160px;border-radius:14px}
+    .project-card::before{background-size:72%;opacity:.18}
+    .overlay h3{font-size:16px}
+    .overlay p{font-size:13px}
 
-    /* 문의 카드 여백/폰트 축소 */
-    .contact{ padding:24px 14px; }
-    .contact-card{ width:94%; padding:22px 16px; }
-    .contact h2{ font-size:20px; }
-    .contact p{ font-size:14px; }
-    footer{ font-size:11px; bottom:10px; }
+    .contact{padding:24px 14px}
+    .contact-card{width:94%;padding:22px 16px}
+    .contact h2{font-size:20px}
+    .contact p{font-size:14px}
 
-    /* 도트 작게 + 살짝 안쪽으로 */
-    .dots{ right:10px; gap:8px; }
-    .dot{ width:8px; height:8px; }
-  }
-
-  /* iOS 노치 안전 여백 */
-  @supports (padding: max(0px)) {
-    .snap-container{ padding-bottom: max(0px, env(safe-area-inset-bottom)); }
+    .dots{right:10px;gap:8px}
+    .dot{width:8px;height:8px}
   }
 </style>
 </head>
 <body>
 
 <div class="snap-container" id="snap">
-  <!-- 1) 상단 헤더 이미지 -->
+  <!-- 1) 헤더 -->
   <section class="snap-section hero" id="s1" aria-label="배너">
     <img src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/Design%20Future%20Games_%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%B0%EB%84%88(%ED%8C%9F%EC%BA%90%EC%8A%A4%ED%8A%B8%20%ED%95%9C%EA%B8%80%EC%A0%9C%EA%B1%B0).png?raw=true" alt="Design Future Games 배너">
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
-  <!-- 2) 안내 + 개발 중 프로젝트 -->
+  <!-- 2) 안내 + 커밍순 -->
   <section class="snap-section stage" id="s2" aria-label="프로젝트">
     <div class="intro">
       <div class="kicker">DESIGN FUTURE GAMES</div>
@@ -256,30 +208,20 @@
 
     <div class="projects" aria-label="개발 중 프로젝트">
       <div class="project-card bombercar">
-        <div class="overlay">
-          <h3>Bomber Car Project</h3>
-          <p>Coming Soon</p>
-        </div>
+        <div class="overlay"><h3>Bomber Car Project</h3><p>Coming Soon</p></div>
       </div>
       <div class="project-card roperun">
-        <div class="overlay">
-          <h3>Rope Run Project</h3>
-          <p>Coming Soon</p>
-        </div>
+        <div class="overlay"><h3>Rope Run Project</h3><p>Coming Soon</p></div>
       </div>
       <div class="project-card changephoto">
-        <div class="overlay">
-          <h3>Change Photo Find it Project</h3>
-          <p>Coming Soon</p>
-        </div>
+        <div class="overlay"><h3>Change Photo Find it Project</h3><p>Coming Soon</p></div>
       </div>
       <div class="project-card idleskill">
-        <div class="overlay">
-          <h3>Idle Skill Damage Project</h3>
-          <p>Coming Soon</p>
-        </div>
+        <div class="overlay"><h3>Idle Skill Damage Project</h3><p>Coming Soon</p></div>
       </div>
     </div>
+
+    <!-- 첫째/둘째 섹션 푸터는 모바일에서 숨김 (CSS에서 제어) -->
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
@@ -313,7 +255,7 @@
       if(entry.isIntersecting){
         const idx = sections.indexOf(entry.target);
         dots.forEach(d=>d.classList.remove('active'));
-        if (idx >= 0) dots[idx].classList.add('active');
+        if(idx>=0) dots[idx].classList.add('active');
       }
     });
   }, {root: container, threshold: 0.6});
@@ -323,44 +265,32 @@
   dots.forEach(dot=>{
     dot.addEventListener('click', ()=>{
       const target = document.querySelector(dot.dataset.target);
-      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
     });
   });
 
-  // 키보드 이동 (데스크톱 중심)
+  // 데스크톱에서만 휠로 스냅을 강제,
+  // 모바일은 브라우저 기본 스크롤/스냅만 사용 (두 칸 이동 문제 방지)
   function nextIdx(delta){
     const curr = dots.findIndex(d=>d.classList.contains('active'));
-    let n = curr + delta;
-    n = Math.max(0, Math.min(sections.length-1, n));
+    let n = Math.max(0, Math.min(sections.length-1, curr+delta));
     sections[n].scrollIntoView({behavior:'smooth', block:'start'});
   }
-  window.addEventListener('keydown', (e)=>{
-    if(['ArrowDown','PageDown'].includes(e.key)){ e.preventDefault(); nextIdx(1); }
-    if(['ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); nextIdx(-1); }
-  }, {passive:false});
+  const isDesktop = matchMedia('(min-width:769px)').matches;
+  if(isDesktop){
+    let wheelLock=false;
+    container.addEventListener('wheel',(e)=>{
+      if(wheelLock) return;
+      wheelLock=true; setTimeout(()=>wheelLock=false,420);
+      if(e.deltaY>0) nextIdx(1); else nextIdx(-1);
+      e.preventDefault();
+    }, {passive:false});
 
-  // 휠 스냅 (모바일에는 영향 없음)
-  let wheelLock = false;
-  container.addEventListener('wheel', (e)=>{
-    if (window.matchMedia('(max-width: 768px)').matches) return; // 모바일은 자연 스크롤
-    if(wheelLock) return;
-    wheelLock = true;
-    setTimeout(()=>wheelLock=false, 420);
-    if(e.deltaY > 0) nextIdx(1); else nextIdx(-1);
-    e.preventDefault();
-  }, {passive:false});
-
-  // 터치 스와이프 (모바일)
-  let touchStartY = null;
-  container.addEventListener('touchstart', (e)=>{ touchStartY = e.changedTouches[0].clientY; }, {passive:true});
-  container.addEventListener('touchend', (e)=>{
-    if(touchStartY === null) return;
-    const dy = e.changedTouches[0].clientY - touchStartY;
-    if(Math.abs(dy) > 60){
-      nextIdx(dy < 0 ? 1 : -1);
-    }
-    touchStartY = null;
-  }, {passive:true});
+    window.addEventListener('keydown',(e)=>{
+      if(['ArrowDown','PageDown'].includes(e.key)){ e.preventDefault(); nextIdx(1); }
+      if(['ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); nextIdx(-1); }
+    }, {passive:false});
+  }
 </script>
 </body>
 </html>

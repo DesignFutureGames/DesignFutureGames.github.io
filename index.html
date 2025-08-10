@@ -261,7 +261,7 @@
     .device-note{font-size:11px;gap:8px;margin-top:2px}
     .device-note img{width:16px;height:16px}
 
-    .projects{width:100%;grid-template-columns:1fr;gap:10px;margin-top:4px}
+    .projects{width:100%;grid-template-columns:1fr;gap:24px;margin-top:4px}
     .project-card{height:96px;border-radius:12px}
     .project-card::before{background-size:72%;opacity:.18}
     .overlay h3{font-size:14px}
@@ -276,13 +276,98 @@
     .dots{right:10px;gap:8px}
     .dot{width:8px;height:8px}
   }
+</style>
 
-@media (max-width: 768px){
-  .projects {
-    gap: 24px; /* slightly increased from default 18px */
-  }
+<!-- ===== Extra polish for Page 2 & 3 ===== -->
+<style>
+/* Page 2 — futuristic grid aura */
+.stage{
+  position:relative;
+  background:
+    radial-gradient(60% 60% at 85% 10%, rgba(0,240,255,.10), transparent 60%),
+    radial-gradient(60% 60% at 10% 90%, rgba(255,0,200,.06), transparent 60%),
+    linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
+  overflow:hidden;
 }
+.stage::after{
+  content:"";
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
+  opacity:.08;
+  transform: translateY(0);
+  animation: gridShift 18s linear infinite;
+  pointer-events:none;
+}
+@keyframes gridShift{
+  0%{ transform: translateY(0) }
+  100%{ transform: translateY(-40px) }
+}
+.project-card::before{ filter: drop-shadow(0 0 6px rgba(0,240,255,.35)); }
+.project-card:hover::before{ opacity:.26; transform:scale(1.06); filter: drop-shadow(0 0 10px rgba(0,240,255,.55)); }
+.project-card{ transition: transform .28s ease, box-shadow .28s ease, filter .28s ease; }
+.project-card:hover{ transform: translateY(-8px) scale(1.01); }
 
+/* Page 3 — hologram panels */
+.contact{
+  position:relative;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)),
+    linear-gradient(160deg,#0a0a0a 0%, #121212 100%);
+  overflow:hidden;
+}
+.contact::after{
+  content:"";
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.05) 0 1px,
+    transparent 1px 4px
+  );
+  opacity:.06;
+  animation: scan 9s linear infinite;
+  pointer-events:none;
+}
+@keyframes scan{
+  0%{ transform: translateY(0) }
+  100%{ transform: translateY(4px) }
+}
+.contact-card{
+  position:relative;
+  background: rgba(20, 30, 40, 0.55);
+  border:1px solid rgba(0,240,255,.18);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.5),
+    inset 0 0 40px rgba(0,240,255,.04);
+}
+.contact-card::after{
+  content:"";
+  position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(0,240,255,.45), rgba(0,240,255,0) 60%);
+  opacity:.25;
+  transition: opacity .25s ease;
+}
+.contact-card:hover::after{ opacity:.45; }
+.contact-card:hover{
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.6),
+    0 0 24px rgba(0,240,255,.18),
+    inset 0 0 44px rgba(0,240,255,.06);
+  transform: translateY(-3px);
+}
+@keyframes pulseGlow{
+  0%,100%{ filter: drop-shadow(0 0 4px rgba(0,240,255,.35)); }
+  50%{ filter: drop-shadow(0 0 12px rgba(0,240,255,.75)); }
+}
+.contact-card h2 img{ animation: pulseGlow 2.4s ease-in-out infinite; }
+
+@media (max-width:768px){
+  .contact-wrap{ gap:20px; }
+  .contact-card{ border-radius:16px; }
+}
 </style>
 </head>
 <body>
@@ -340,12 +425,12 @@
         <p>게임 영상 및 소식을 유튜브에서 확인하세요.</p>
         <a class="btn" href="https://www.youtube.com/@DesignFutureGames" target="_blank" rel="noopener">채널 바로가기</a>
       </div>
+
       <div class="contact-card" aria-labelledby="fb-title">
         <h2 id="fb-title"><img src="https://img.icons8.com/ios-filled/40/1877F2/facebook-new.png" alt=""> 페이스북 페이지</h2>
         <p>업데이트와 소식을 페이스북에서 확인하세요.</p>
         <a class="btn" href="https://www.facebook.com/profile.php?id=61578938024733&locale=ko_KR" target="_blank" rel="noopener">페이지 바로가기</a>
       </div>
-
 
       <div class="contact-card">
         <h2><img src="https://img.icons8.com/ios-filled/40/00f0ff/new-post.png" alt=""> 문의</h2>

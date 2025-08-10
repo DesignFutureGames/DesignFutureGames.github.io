@@ -678,3 +678,36 @@
 </script>
 </body>
 </html>
+
+
+/* ===== Visibility boost for P2/P3 backgrounds (stronger & obvious) ===== */
+<style>
+/* Projects section glow stronger */
+.stage::before{
+  opacity:.9 !important;
+  filter: blur(26px) saturate(125%) !important;
+  background:
+    radial-gradient(45% 65% at 20% 22%, rgba(0,240,255,.28), transparent 62%),
+    radial-gradient(55% 75% at 84% 82%, rgba(255,0,180,.20), transparent 62%),
+    radial-gradient(60% 40% at 62% 30%, rgba(0,200,255,.14), transparent 60%);
+}
+/* Grid lines slightly more visible */
+.stage::after{
+  opacity:.12 !important;
+  background-size: 48px 48px, 48px 48px !important;
+}
+
+/* Contact section sweeping light much clearer */
+.contact::before{
+  opacity:.75 !important;
+  filter: blur(28px) !important;
+  background:
+    linear-gradient(90deg, rgba(0,240,255,0) 0%, rgba(0,240,255,.24) 50%, rgba(0,240,255,0) 100%),
+    radial-gradient(110% 70% at -20% 50%, rgba(0,240,255,.16), transparent 60%),
+    radial-gradient(110% 70% at 120% 50%, rgba(255,0,180,.12), transparent 60%);
+}
+@media (prefers-reduced-motion: reduce){
+  .stage::before, .contact::before{ animation: none !important; }
+}
+</style>
+

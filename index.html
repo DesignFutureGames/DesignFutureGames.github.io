@@ -379,6 +379,49 @@
   .contact-wrap{ gap:20px; }
   .contact-card{ border-radius:16px; }
 }
+
+/* ==== Extra background polish (lightweight, subtle) ==== */
+
+/* Page 2 (Projects) — neon grid already exists via ::after.
+   Add soft moving glows behind content using ::before. */
+.stage{ position:relative; }
+.stage > *{ position:relative; z-index:1; } /* ensure content stays above pseudo-layers */
+.stage::before{
+  content:""; position:absolute; inset:-4% -2%;
+  pointer-events:none; z-index:0;
+  background:
+    radial-gradient(40% 60% at 18% 12%, rgba(0,240,255,.18), transparent 60%),
+    radial-gradient(50% 70% at 82% 88%, rgba(255,0,180,.10), transparent 60%);
+  filter: blur(14px) saturate(110%);
+  opacity:.65;
+  animation: stageGlow 24s ease-in-out infinite alternate;
+}
+@keyframes stageGlow{
+  0%{ transform: translateY(0) scale(1); opacity:.55; }
+  100%{ transform: translateY(-2%) scale(1.03); opacity:.75; }
+}
+
+/* Page 3 (Contact) — keep scanlines (::after), add flowing hologram light (::before) */
+.contact{ position:relative; }
+.contact > *{ position:relative; z-index:1; }
+.contact::before{
+  content:""; position:absolute; inset:-8% -20%;
+  pointer-events:none; z-index:0;
+  background: linear-gradient(90deg, rgba(0,240,255,0) 0%, rgba(0,240,255,.18) 50%, rgba(0,240,255,0) 100%);
+  filter: blur(22px);
+  transform: translateX(-35%);
+  animation: holoSweep 12s ease-in-out infinite alternate;
+  opacity:.55;
+}
+@keyframes holoSweep{
+  0%{ transform: translateX(-35%) skewX(-2deg); }
+  100%{ transform: translateX(35%) skewX(2deg); }
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce){
+  .stage::before, .contact::before{ animation: none !important; }
+}
 </style>
 </head>
 <body>

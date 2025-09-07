@@ -159,6 +159,14 @@
       0 0 28px 8px rgba(0,240,255,.25);
   }
 
+  /* --- 새로 추가: 썸네일 이미지 카드 용 --- */
+  .project-card .thumb{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    display:block;
+  }
+  .project-card.no-silhouette::before{ content:none !important; } /* 실루엣 제거 */
+
   /* 실루엣: 자동차 SVG (봄버카) */
   .bombercar::before{
     background-image:url("data:image/svg+xml;utf8,\
@@ -169,7 +177,7 @@
     </svg>");
   }
   .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
-  .changephoto::before{background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/image.png'); }
+  .changephoto::before{background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/image.png'); } /* (썸네일 카드에서는 .no-silhouette로 제거됨) */
   .idleskill::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png'); }
 
   /* 실루엣: 은하(갤럭시) SVG */
@@ -478,7 +486,7 @@
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
-  <!-- 2) 안내 + 커밍순 -->
+  <!-- 2) 안내 + 커밍순(프로젝트) -->
   <section class="snap-section stage" id="s2" aria-label="프로젝트">
     <div class="intro">
       <div class="kicker">DESIGN FUTURE GAMES</div>
@@ -495,11 +503,36 @@
     </div>
 
     <div class="projects" aria-label="개발 중 프로젝트">
-      <div class="project-card bombercar"><div class="overlay"><h3>Bomber Car Project</h3><p>Coming Soon</p></div></div>
-      <div class="project-card roperun"><div class="overlay"><h3>Rope Run Project</h3><p>Coming Soon</p></div></div>
-      <div class="project-card changephoto"><div class="overlay"><h3>Change Photo Find it Project</h3><p>Coming Soon</p></div></div>
-      <div class="project-card idleskill"><div class="overlay"><h3>Idle Skill Damage Project</h3><p>Coming Soon</p></div></div>
-      <div class="project-card idlegalaxy"><div class="overlay"><h3>Idle Galaxy Ultimate Project</h3><p>Coming Soon</p></div></div>
+      <!-- ✅ 1) Change Photo — 이미지 삽입 + 실루엣/커밍순 제거 + 1번으로 이동 -->
+      <div class="project-card changephoto no-silhouette">
+        <img class="thumb"
+             src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/%EC%BD%98%EC%86%94512.png?raw=true"
+             alt="Change Photo Find it Project 썸네일"
+             loading="lazy" decoding="async">
+        <div class="overlay">
+          <h3>Change Photo Find it Project</h3>
+        </div>
+      </div>
+
+      <!-- 2) Bomber Car -->
+      <div class="project-card bombercar">
+        <div class="overlay"><h3>Bomber Car Project</h3><p>Coming Soon</p></div>
+      </div>
+
+      <!-- 3) Rope Run -->
+      <div class="project-card roperun">
+        <div class="overlay"><h3>Rope Run Project</h3><p>Coming Soon</p></div>
+      </div>
+
+      <!-- 4) Idle Skill Damage -->
+      <div class="project-card idleskill">
+        <div class="overlay"><h3>Idle Skill Damage Project</h3><p>Coming Soon</p></div>
+      </div>
+
+      <!-- 5) Idle Galaxy -->
+      <div class="project-card idlegalaxy">
+        <div class="overlay"><h3>Idle Galaxy Ultimate Project</h3><p>Coming Soon</p></div>
+      </div>
     </div>
 
     <footer>© 2025 Design Future Games. All rights reserved.</footer>

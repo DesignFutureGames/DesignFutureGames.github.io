@@ -4,24 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Design Future Games</title>
-<meta name="description" content="창의적이고 미래적인 하이퍼 캐주얼 게임 스튜디오 — Design Future Games">
+<meta name="description" content="창의적이고 미래적인 하이퍼 캐주얼 게임 스튜디오 — Design Future Games" />
 
 <style>
   :root{ --brand:#00f0ff; --text:#e9e9e9; --muted:#b7c0c8; }
 
-  *{box-sizing:border-box}
-  html,body{height:100%}
+  *{ box-sizing:border-box }
+  html,body{ height:100% }
   body{
     margin:0;
     font-family:"Noto Sans KR",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-    color:var(--text);
-    background:#000;
-    overflow:hidden; /* 스냅 컨테이너만 스크롤 */
+    color:var(--text); background:#000; overflow:hidden; /* 스냅 컨테이너만 스크롤 */
   }
 
-  /* 스냅 컨테이너 */
+  /* ===== 스냅 컨테이너 ===== */
   .snap-container{
-    height:100vh;
+    height:100dvh; /* 모바일 URL 바 안전 */
     overflow-y:auto;
     scroll-snap-type:y mandatory;
     scroll-snap-stop:always;
@@ -29,259 +27,272 @@
     -webkit-overflow-scrolling:touch;
     overscroll-behavior-y:contain;
   }
-  /* 초기 1초 페이드인 동안 스크롤 잠금 */
   .snap-container.locked{ overflow:hidden }
-
   .snap-section{
-    height:100vh;
+    height:100dvh;
     scroll-snap-align:start;
     scroll-snap-stop:always;
     position:relative;
     contain:layout paint;
   }
 
-  /* #1 배너 — 이미지 + 별빛(캔버스) */
-  .hero{
-    display:flex;align-items:center;justify-content:center;
-    background:#000;overflow:hidden;
-    position:relative;
-  }
+  /* ===== Page 1: Hero ===== */
+  .hero{ display:flex;align-items:center;justify-content:center; position:relative; overflow:hidden; background:#000; }
   .hero .hero-media{position:relative; z-index:1; width:100%; height:100%;}
   .hero img{
-    width:100%;height:100%;
-    object-fit:cover;object-position:center;display:block;
-    animation: zoomIdle 18s ease-in-out infinite;
-    will-change: transform, opacity;
-    opacity:0; /* 페이드인 준비 */
-    transition:opacity 1s ease;
+    width:100%; height:100%; object-fit:cover; object-position:center; display:block;
+    opacity:0; transition:opacity 1s ease;
+    animation: zoomIdle 18s ease-in-out infinite; will-change:transform,opacity;
   }
-  .hero img.show{ opacity:1 } /* 로딩 후 1초 페이드인 */
-
-  /* 은은한 네온 무드 레이어(가장 아래) */
+  .hero img.show{ opacity:1 }
   .hero::after{
-    content:"";position:absolute;inset:0;pointer-events:none;
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
     background:radial-gradient(60% 60% at 70% 30%, rgba(0,240,255,.15), transparent 60%);
-    z-index:0;
   }
-  /* 별빛(이미지 위로) */
-  .hero .stars{
-    position:absolute; inset:0; z-index:2;
-    pointer-events:none;
-  }
+  .stars{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+  @keyframes zoomIdle{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+  @media (prefers-reduced-motion: reduce){ .hero img{ animation:none } }
 
-  @keyframes zoomIdle{
-    0%,100%{ transform:scale(1); }
-    50%{ transform:scale(1.03); }
-  }
-
-  /* 모션 민감 사용자 보호 */
-  @media (prefers-reduced-motion: reduce){
-    .hero img{ animation:none }
-  }
-
-  /* 공통: 프로젝트/연락 페이지 베이스 */
+  /* ===== 공통(2,3,4 페이지 베이스) ===== */
   .stage{
-    background:linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
-    padding:48px 24px;
-    display:flex;flex-direction:column;align-items:center;
-    justify-content:center; /* 중앙 정렬 */
-    gap:28px;overflow:hidden;
     position:relative;
+    background:
+      radial-gradient(45% 65% at 20% 22%, rgba(0,240,255,.28), transparent 62%),
+      radial-gradient(55% 75% at 84% 82%, rgba(255,0,180,.20), transparent 62%),
+      linear-gradient(135deg,#0b1220 0%, #0a1a2a 50%, #0c1f33 100%);
+    padding:48px 24px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:28px; overflow:hidden;
   }
-  .intro{text-align:center;max-width:920px}
-  .kicker{color:var(--muted);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
-  h1,h2{margin:0}
-
-  h2.title{
-    color:#fff;font-size:clamp(22px,3vw,28px);
-    text-shadow:0 0 10px rgba(0,240,255,.35);
-    line-height:1.25;word-break:keep-all
+  .stage::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size:48px 48px, 48px 48px;
+    opacity:.12; animation:gridShift 18s linear infinite;
   }
+  @keyframes gridShift{ 0%{transform:translateY(0)} 100%{transform:translateY(-48px)} }
 
-  .intro p{margin:14px auto 0;line-height:1.6;color:#d6dce2;max-width:780px;font-size:15px}
-  .device-note{display:flex;gap:12px;align-items:center;justify-content:center;color:var(--muted);font-size:14px;opacity:.9}
-  .device-note img{width:22px;height:22px}
+  .intro{ text-align:center; max-width:920px }
+  .kicker{ color:var(--muted); font-size:14px; letter-spacing:.12em; text-transform:uppercase }
+  h1,h2{ margin:0 }
+  h2.title{ color:#fff; font-size:clamp(22px,3vw,28px); text-shadow:0 0 10px rgba(0,240,255,.35); line-height:1.25; word-break:keep-all }
+  .intro p{ margin:14px auto 0; line-height:1.6; color:#d6dce2; max-width:780px; font-size:15px }
+  .device-note{ display:flex; gap:12px; align-items:center; justify-content:center; color:var(--muted); font-size:14px; opacity:.9 }
+  .device-note img{ width:22px; height:22px }
 
   .projects{
     width:min(1200px,100%);
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:18px;margin-top:10px;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:18px; margin-top:10px;
   }
-  /* 데스크톱에서 정확히 5열 고정 */
-  @media (min-width:1024px){
-    .projects{ grid-template-columns:repeat(5, minmax(0, 1fr)); }
-  }
+  @media (min-width:1024px){ .projects{ grid-template-columns:repeat(5, minmax(0, 1fr)); } }
 
   .project-card{
-    position:relative;height:200px;border-radius:16px;background:#111;
-    box-shadow:0 6px 18px rgba(0,0,0,.45);overflow:hidden;
-    transition:transform .28s ease, box-shadow .28s ease;
-    --neon: rgba(0,240,255,.9);
-    --neon-soft: rgba(0,240,255,.35);
-    text-decoration:none; color:inherit; /* 링크일 때 스타일 유지 */
-    display:block; /* <a>를 카드처럼 */
+    position:relative; height:200px; border-radius:16px; background:#111; overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,.45);
+    transition:transform .28s ease, box-shadow .28s ease, filter .28s ease;
+    text-decoration:none; color:inherit; display:block;
+    --neon: rgba(0,240,255,.9); --neon-soft: rgba(0,240,255,.35);
   }
-  .project-card:hover{transform:translateY(-6px);box-shadow:0 10px 26px rgba(0,0,0,.6)}
   .project-card::before{
-    content:"";position:absolute;inset:0;
-    background-position:center;background-repeat:no-repeat;background-size:65%;
-    opacity:.14;transition:opacity .25s ease, transform .25s ease;
+    content:""; position:absolute; inset:0; background-position:center; background-repeat:no-repeat; background-size:65%;
+    opacity:.14; transition:opacity .25s ease, transform .25s ease;
   }
-  .project-card:hover::before{opacity:.22;transform:scale(1.04)}
-
-  /* 네온 테두리 효과 */
+  .project-card:hover{ transform:translateY(-6px) scale(1.01); box-shadow:0 10px 26px rgba(0,0,0,.6) }
+  .project-card:hover::before{ opacity:.22; transform:scale(1.04) }
   .project-card::after{
-    content:"";
-    position:absolute;inset:0;border-radius:16px;pointer-events:none;
-    opacity:0;transition:opacity .25s ease, box-shadow .25s ease, filter .25s ease;
-    background:
-      linear-gradient(#0000,#0000) padding-box,
-      radial-gradient(120% 120% at 50% 0%, var(--neon), rgba(0,240,255,0)) border-box;
-    border:2px solid transparent;
-    box-shadow:0 0 0 0 var(--neon);
-    filter:saturate(115%);
+    content:""; position:absolute; inset:0; border-radius:16px; pointer-events:none; opacity:0;
+    background:linear-gradient(#0000,#0000) padding-box,
+               radial-gradient(120% 120% at 50% 0%, var(--neon), rgba(0,240,255,0)) border-box;
+    border:2px solid transparent; box-shadow:0 0 0 0 var(--neon); filter:saturate(115%);
+    transition:opacity .25s ease, box-shadow .25s ease, filter .25s ease;
   }
-  .project-card:hover::after,
-  .project-card.active::after{
-    opacity:1;
-    box-shadow:
-      0 0 12px 2px var(--neon),
-      inset 0 0 14px 2px var(--neon-soft),
-      0 0 28px 8px rgba(0,240,255,.25);
+  .project-card:hover::after, .project-card.active::after{
+    opacity:1; box-shadow:0 0 12px 2px var(--neon), inset 0 0 14px 2px var(--neon-soft), 0 0 28px 8px rgba(0,240,255,.25);
   }
-
   .project-card .thumb{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
   .project-card.no-silhouette::before{ content:none !important; }
 
-  /* 실루엣 아이콘 */
-  .bombercar::before{
+  /* 실루엣 아이콘 (커밍순용) */
+  .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
+  .idleskill::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png'); }
+  .idlegalaxy::before{
     background-image:url("data:image/svg+xml;utf8,\
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%23ffffff'>\
-      <path d='M30 110c0-10 8-18 18-18h6l12-16c3-4 7-6 12-6h44c5 0 10 2 13 6l12 16h5c10 0 18 8 18 18v10c0 6-4 10-10 10h-6a16 16 0 1 1-32 0H78a16 16 0 1 1-32 0h-8c-6 0-8-4-8-10v-10z'/>\
-      <circle cx='66' cy='140' r='14'/>\
-      <circle cx='134' cy='140' r='14'/>\
+      <path d='M100 30a70 70 0 1 0 70 70 70.08 70.08 0 0 0-70-70zm0 126a56 56 0 1 1 56-56 56.06 56.06 0 0 1-56 56z'/>\
+      <circle cx='100' cy='100' r='12'/>\
+      <path d='M20 100a80 80 0 0 1 160 0 80 80 0 0 1-160 0zm146 0a66 66 0 0 0-132 0 66 66 0 0 0 132 0z'/>\
     </svg>");
   }
-  .roperun::before{    background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/running.png'); }
-  .changephoto::before{background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/image.png'); }
-  .idleskill::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/sword.png'); }
-  $1
-  .archery::before{ background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/archery.png'); }
-  .tankbattle::before{ background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/tank.png'); }
-.overlay{ position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center; text-align:center;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.35));padding:0 14px; }
-  .overlay h3{font-size:18px;margin:0 0 6px;text-shadow:0 0 10px rgba(0,240,255,.35)}
-  .overlay p{margin:0;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.45)}
+  .archery::before{     background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/archery.png'); }
+  .tankbattle::before{  background-image:url('https://img.icons8.com/ios-filled/200/FFFFFF/tank.png'); }
 
-  /* #4 문의 + 유튜브 */
-  .contact{ background:linear-gradient(160deg,#0a0a0a 0%, #121212 100%); display:flex;align-items:center;justify-content:center; padding:40px 24px;position:relative; }
-  .contact::before{content:""; position:absolute; inset:-8% -20%; pointer-events:none; z-index:0; background: linear-gradient(90deg, rgba(0,240,255,0) 0%, rgba(0,240,255,.18) 50%, rgba(0,240,255,0) 100%); filter: blur(22px); transform: translateX(-35%); animation: holoSweep 12s ease-in-out infinite alternate; opacity:.55;}
-  .contact::after{content:"";position:absolute;inset:0;background: repeating-linear-gradient(to bottom, rgba(255,255,255,.05) 0 1px, transparent 1px 4px); opacity:.06; animation: scan 9s linear infinite; pointer-events:none; }
-
-  .contact-wrap{ width:min(760px,92%); display:flex;flex-direction:column;gap:22px;align-items:center; }
-  .contact-card{ width:100%;background:rgba(20, 30, 40, 0.55); border:1px solid rgba(0,240,255,.18); border-radius:18px; padding:28px 24px;text-align:center;backdrop-filter:blur(10px); box-shadow:0 10px 28px rgba(0,0,0,.5); position:relative;}
-  .contact h2{ font-size:24px;margin:0 0 12px;display:flex;align-items:center;justify-content:center;gap:10px; color:#fff;text-shadow:0 0 12px rgba(0,240,255,.28) }
-  .contact p{margin:6px 0;color:#d0d6dd}
-  .contact strong{color:#fff}
-  .contact small{color:#9aa6b2}
-
-  .btn{ display:inline-block;margin-top:10px;padding:10px 16px; border-radius:10px;border:1px solid rgba(255,255,255,.18); background:linear-gradient(180deg,rgba(0,240,255,.15),rgba(0,240,255,.05)); color:#fff;text-decoration:none;font-weight:600; transition:transform .15s ease, box-shadow .15s ease, background .15s ease; }
-  .btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,240,255,.25)}
-  .btn:active{transform:translateY(0)}
-
-  .snap-section footer{ position:absolute;left:0;right:0;bottom:14px;text-align:center; color:#7f8a96;font-size:12px;display:none; }
-  .contact footer{display:block}
-
-  .dots{ position:fixed;right:18px;top:50%;transform:translateY(-50%); display:flex;flex-direction:column;gap:10px;z-index:20;user-select:none; }
-  .dot{ width:10px;height:10px;border-radius:50%;background:#5f6b77;opacity:.55; box-shadow:0 0 0 2px rgba(255,255,255,.12) inset; transition:transform .2s ease, background .2s ease, opacity .2s ease;cursor:pointer; }
-  .dot.active{background:var(--brand);opacity:1;transform:scale(1.15);box-shadow:0 0 12px rgba(0,240,255,.7)}
-
-  /* 모바일 */
-  @media (max-width:768px){
-    .snap-container{height:100svh;padding-bottom:max(0px, env(safe-area-inset-bottom))}
-    .snap-section{height:100svh}
-
-    .hero{ display:grid;place-items:center; background:radial-gradient(120% 120% at 50% 10%, #0d1a35 0%, #07101f 40%, #000 100%); }
-    .hero img{ width:100%;height:100%; max-width:100%;max-height:100%; object-fit:cover;object-position:center; }
-
-    .stage{padding:16px 14px;gap:12px}
-    .kicker{font-size:11px}
-    .intro p{display:none}
-    .device-note{font-size:11px;gap:8px;margin-top:2px}
-    .device-note img{width:16px;height:16px}
-
-    .projects{width:100%;grid-template-columns:1fr;gap:24px;margin-top:4px}
-    .project-card{height:96px;border-radius:12px}
-    .project-card::before{background-size:72%;opacity:.18}
-    .overlay h3{font-size:14px}
-    .overlay p{font-size:12px}
-
-    .contact{padding:24px 14px 24px}
-    .contact-wrap{width:94%;gap:16px}
-    .contact-card{padding:22px 16px}
-    .contact h2{font-size:20px}
-    #s4 .contact p{font-size:13px;word-break:keep-all}
-
-    .dots{right:10px;gap:8px}
-    .dot{width:8px;height:8px}
+  .overlay{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:#fff; padding:0 14px;
+    background:linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
   }
+  .overlay h3{ font-size:18px; margin:0 0 6px; text-shadow:0 0 10px rgba(0,240,255,.35) }
+  .overlay p{ margin:0; color:#00f0ff; text-shadow:0 0 8px rgba(0,240,255,.45) }
 
-  /* ==== 배경 폴리시(그리드/글로우/스윕) ==== */
-  .stage::after{ content:""; position:absolute; inset:0; background-image: linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px, 48px 48px; opacity:.12; animation: gridShift 18s linear infinite; pointer-events:none; }
-  .stage::before{ content:""; position:absolute; inset:-4% -2%; pointer-events:none; z-index:0; background: radial-gradient(45% 65% at 20% 22%, rgba(0,240,255,.28), transparent 62%), radial-gradient(55% 75% at 84% 82%, rgba(255,0,180,.20), transparent 62%), radial-gradient(60% 40% at 62% 30%, rgba(0,200,255,.14), transparent 60%); filter: blur(26px) saturate(125%); opacity:.9; animation: stageGlow 24s ease-in-out infinite alternate; }
+  /* ===== Page 4: Contact ===== */
+  .contact{
+    background:linear-gradient(160deg,#0a0a0a 0%, #121212 100%);
+    display:flex; align-items:center; justify-content:center; padding:40px 24px; position:relative; overflow:hidden;
+  }
+  .contact::before{
+    content:""; position:absolute; inset:-8% -20%; pointer-events:none; z-index:0;
+    background: linear-gradient(90deg, rgba(0,240,255,0) 0%, rgba(0,240,255,.18) 50%, rgba(0,240,255,0) 100%);
+    filter: blur(22px); transform: translateX(-35%); animation: holoSweep 12s ease-in-out infinite alternate; opacity:.55;
+  }
+  .contact::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.05) 0 1px, transparent 1px 4px);
+    opacity:.06; animation: scan 9s linear infinite;
+  }
+  @keyframes holoSweep{ 0%{ transform:translateX(-35%) skewX(-2deg) } 100%{ transform:translateX(35%) skewX(2deg) } }
+  @keyframes scan{ 0%{ transform:translateY(0) } 100%{ transform:translateY(4px) } }
 
-  @keyframes gridShift{ 0%{ transform: translateY(0) } 100%{ transform: translateY(-48px) } }
-  @keyframes stageGlow{ 0%{ transform: translateY(0) scale(1); opacity:.55; } 100%{ transform: translateY(-2%) scale(1.03); opacity:.75; } }
-  @keyframes scan{ 0%{ transform: translateY(0) } 100%{ transform: translateY(4px) } }
-  @keyframes holoSweep{ 0%{ transform: translateX(-35%) skewX(-2deg); } 100%{ transform: translateX(35%) skewX(2deg); } }
+  .contact-wrap{ width:min(760px,92%); display:flex; flex-direction:column; gap:22px; align-items:center; }
+  .contact-card{
+    width:100%; background:rgba(20,30,40,.55); border:1px solid rgba(0,240,255,.18); border-radius:18px;
+    padding:28px 24px; text-align:center; backdrop-filter:blur(10px);
+    box-shadow:0 10px 28px rgba(0,0,0,.5); position:relative;
+  }
+  .contact h2{ font-size:24px; margin:0 0 12px; display:flex; align-items:center; justify-content:center; gap:10px;
+    color:#fff; text-shadow:0 0 12px rgba(0,240,255,.28) }
+  .contact p{ margin:6px 0; color:#d0d6dd } .contact strong{ color:#fff } .contact small{ color:#9aa6b2 }
 
-  /* ===== Mobile URL bar fix ===== */
-  .snap-container, .snap-section{ height:100dvh; }
-  @supports not (height: 100dvh){ .snap-container, .snap-section{ height: calc(var(--vh, 1vh) * 100); } }
+  .btn{
+    display:inline-block; margin-top:10px; padding:10px 16px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.18);
+    background:linear-gradient(180deg,rgba(0,240,255,.15),rgba(0,240,255,.05));
+    color:#fff; text-decoration:none; font-weight:600;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(0,240,255,.25) }
+  .btn:active{ transform:translateY(0) }
+
+  .snap-section footer{ position:absolute; left:0; right:0; bottom:14px; text-align:center; color:#7f8a96; font-size:12px; display:none; }
+  .contact footer, #s2 footer, #s3 footer, #s1 footer{ display:block }
+
+  /* ===== 우측 도트 ===== */
+  .dots{ position:fixed; right:18px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index:20; user-select:none; }
+  .dot{ width:10px; height:10px; border-radius:50%; background:#5f6b77; opacity:.55; box-shadow:0 0 0 2px rgba(255,255,255,.12) inset; cursor:pointer;
+        transition:transform .2s ease, background .2s ease, opacity .2s ease; }
+  .dot.active{ background:var(--brand); opacity:1; transform:scale(1.15); box-shadow:0 0 12px rgba(0,240,255,.7) }
+
+  /* ===== 모바일 ===== */
+  @media (max-width:768px){
+    .intro p{ display:none }
+    .kicker{ font-size:11px }
+    .device-note{ font-size:11px; gap:8px; margin-top:2px }
+    .device-note img{ width:16px; height:16px }
+    .projects{ width:100%; grid-template-columns:1fr; gap:24px; margin-top:4px }
+    .project-card{ height:96px; border-radius:12px }
+    .project-card::before{ background-size:72%; opacity:.18 }
+    .overlay h3{ font-size:14px } .overlay p{ font-size:12px }
+    .contact{ padding:24px 14px }
+    .contact-wrap{ width:94%; gap:16px }
+    .contact-card{ padding:22px 16px }
+    .contact h2{ font-size:20px }
+    .dots{ right:10px; gap:8px } .dot{ width:8px; height:8px }
+  }
 </style>
 </head>
 <body>
 
 <div class="snap-container locked" id="snap">
-  <!-- 1) 헤더 -->
+  <!-- ===== Page 1: Hero ===== -->
   <section class="snap-section hero" id="s1" aria-label="배너">
-    <!-- 별빛 캔버스 (이미지 위에 보이게 z-index:2) -->
     <canvas class="stars" id="stars"></canvas>
-
     <picture class="hero-media">
-      <!-- 모바일 전용 (세로형) -->
       <source srcset="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/DesignFutureGames.png?raw=true" media="(max-width: 768px)">
-      <!-- PC 전용 (가로형) -->
-      <img id="heroImg" src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/Design%20Future%20Games_%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%B0%EB%84%88(%ED%8C%9F%EC%BA%90%EC%8A%A4%ED%8A%B8%20%ED%95%9C%EA%B8%80%EC%A0%9C%EA%B1%B0).png?raw=true" alt="Design Future Games 배너" decoding="async" fetchpriority="high" width="1920" height="1080">
+      <img id="heroImg"
+           src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/Design%20Future%20Games_%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%B0%EB%84%88(%ED%8C%9F%EC%BA%90%EC%8A%A4%ED%8A%B8%20%ED%95%9C%EA%B8%80%EC%A0%9C%EA%B1%B0).png?raw=true"
+           alt="Design Future Games 배너" decoding="async" fetchpriority="high" width="1920" height="1080">
     </picture>
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
-  <!-- 2) 출시 프로젝트 -->
-  $1
+  <!-- ===== Page 2: 출시 프로젝트 ===== -->
+  <section class="snap-section stage" id="s2" aria-label="출시 프로젝트">
+    <div class="intro">
+      <div class="kicker">RELEASED PROJECTS</div>
+      <h2 class="title">현재 출시된 프로젝트</h2>
+      <p class="device-note">
+        <img src="https://img.icons8.com/ios-filled/50/laptop.png" alt=""><span>PC / </span>
+        <img src="https://img.icons8.com/ios-filled/50/smartphone.png" alt=""><span>Mobile 최적화</span>
+      </p>
+    </div>
+
+    <div class="projects" aria-label="출시된 프로젝트">
+      <!-- Change Photo Find it -->
+      <a class="project-card changephoto no-silhouette"
+         href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit"
+         target="_blank" rel="noopener" aria-label="Change Photo Find it Project - Google Play로 이동">
+        <img class="thumb"
+             src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/%EC%BD%98%EC%86%94512.png?raw=true"
+             alt="Change Photo Find it Project 썸네일" loading="lazy" decoding="async">
+        <div class="overlay"><h3>Change Photo Find it Project</h3></div>
+      </a>
+
+      <!-- Bomber Car : Speed Race (요청하신 새 이미지) -->
+      <a class="project-card bombercar no-silhouette"
+         href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar&hl=en-US&ah=4s06Fh4vTNGlRBgr9-R4OIniDY0"
+         target="_blank" rel="noopener" aria-label="Bomber Car : Speed Race - Google Play로 이동">
+        <img class="thumb"
+             src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/%EB%B4%84%EB%B2%84%EC%B9%B4%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true"
+             alt="Bomber Car : Speed Race 썸네일" loading="lazy" decoding="async">
+        <div class="overlay"><h3>Bomber Car : Speed Race</h3></div>
+      </a>
+
+      <!-- Golf : Mini (신규 추가) -->
       <a class="project-card golfmini no-silhouette"
          href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini"
-         target="_blank" rel="noopener"
-         aria-label="Golf : Mini - Google Play로 이동">
+         target="_blank" rel="noopener" aria-label="Golf : Mini - Google Play로 이동">
         <img class="thumb"
              src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/%EB%AF%B8%EB%8B%88%EA%B3%A8%ED%94%84%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true"
-             alt="Golf : Mini 썸네일"
-             loading="lazy" decoding="async">
+             alt="Golf : Mini 썸네일" loading="lazy" decoding="async">
         <div class="overlay"><h3>Golf : Mini</h3></div>
-      </a>$2© 2025 Design Future Games. All rights reserved.</footer>
+      </a>
+    </div>
+
+    <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
-  <!-- 3) 커밍순 프로젝트 -->
-  $1
+  <!-- ===== Page 3: 커밍순 ===== -->
+  <section class="snap-section stage" id="s3" aria-label="커밍순 프로젝트">
+    <div class="intro">
+      <div class="kicker">COMING SOON</div>
+      <h2 class="title">커밍순 프로젝트</h2>
+      <p>개발 중인 내부 프로젝트들입니다. 정식 정보는 추후 공개됩니다.</p>
+    </div>
+
+    <div class="projects" aria-label="커밍순 프로젝트">
+      <div class="project-card roperun">
+        <div class="overlay"><h3>Rope Run Project</h3><p>Coming Soon</p></div>
+      </div>
+      <div class="project-card idleskill">
+        <div class="overlay"><h3>Idle Skill Damage Project</h3><p>Coming Soon</p></div>
+      </div>
+      <div class="project-card idlegalaxy">
+        <div class="overlay"><h3>Idle Galaxy Ultimate Project</h3><p>Coming Soon</p></div>
+      </div>
       <div class="project-card archery">
         <div class="overlay"><h3>World Archery Project</h3><p>Coming Soon</p></div>
       </div>
       <div class="project-card tankbattle">
         <div class="overlay"><h3>World Tank Battle Project</h3><p>Coming Soon</p></div>
-      </div>$2© 2025 Design Future Games. All rights reserved.</footer>
+      </div>
+    </div>
+
+    <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
-  <!-- 4) 유튜브 공식 채널 + 문의 (기존 유지) -->
+  <!-- ===== Page 4: Contact ===== -->
   <section class="snap-section contact" id="s4" aria-label="유튜브 및 문의">
     <div class="contact-wrap">
       <div class="contact-card" aria-labelledby="yt-title">
@@ -308,7 +319,7 @@
   </section>
 </div>
 
-<!-- 우측 도트 (4개로 업데이트) -->
+<!-- ===== 우측 도트 ===== -->
 <div class="dots" aria-hidden="true">
   <div class="dot" data-target="#s1" aria-label="배너로 이동"></div>
   <div class="dot" data-target="#s2" aria-label="출시 프로젝트로 이동"></div>
@@ -321,19 +332,17 @@
   const dots=[...document.querySelectorAll('.dot')];
   const container=document.getElementById('snap');
 
-  /* ===== 1초 페이드인 & 스크롤 잠금 해제 ===== */
+  /* ===== 1초 페이드인 후 스크롤 해제 ===== */
   const heroImg = document.getElementById('heroImg');
   let canScroll = false;
-
   function unlockScroll(){ if (canScroll) return; canScroll = true; container.classList.remove('locked'); }
   function startFadeIn(){ requestAnimationFrame(()=> heroImg.classList.add('show')); }
-
   heroImg.addEventListener('load', startFadeIn);
-  heroImg.addEventListener('transitionend', (e)=>{ if(e.propertyName === 'opacity'){ unlockScroll(); } });
+  heroImg.addEventListener('transitionend', (e)=>{ if(e.propertyName === 'opacity') unlockScroll(); });
   if (heroImg.complete){ startFadeIn(); }
   setTimeout(unlockScroll, 2500);
 
-  /* 도트 활성화 */
+  /* ===== 현재 섹션 → 도트 활성화 ===== */
   const io=new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
@@ -345,7 +354,7 @@
   },{root:container,threshold:0.6});
   sections.forEach(s=>io.observe(s));
 
-  /* 도트 클릭 이동 (잠금 중엔 무시) */
+  /* ===== 도트 클릭 이동 ===== */
   dots.forEach(dot=>{
     dot.addEventListener('click',()=>{
       if(!canScroll) return;
@@ -354,12 +363,11 @@
     });
   });
 
-  /* 데스크톱: 휠 한 칸씩 (잠금 중엔 무시) */
+  /* ===== 데스크톱 휠: 한 섹션씩 ===== */
   if(matchMedia('(min-width:769px)').matches){
     let wheelLock=false;
     container.addEventListener('wheel',(e)=>{
-      if(!canScroll) return;
-      if(wheelLock) return;
+      if(!canScroll || wheelLock) return;
       wheelLock=true; setTimeout(()=>wheelLock=false,420);
       const activeIndex=[...sections].findIndex(s=>{
         const r=s.getBoundingClientRect();
@@ -371,75 +379,64 @@
     },{passive:false});
   }
 
-  /* 카드 클릭/터치 네온 효과 */
-  const cards=[...document.querySelectorAll('.project-card')];
-  cards.forEach(card=>{
-    let t; const fire=()=>{ card.classList.add('active'); clearTimeout(t); t=setTimeout(()=>card.classList.remove('active'), 600); };
-    card.addEventListener('touchstart', fire, {passive:true});
-    card.addEventListener('click', fire);
-  });
-
-  /* ===== 헤더 별빛 캔버스 ===== */
+  /* ===== Hero 별빛 캔버스 ===== */
   (function(){
-    const cvs = document.getElementById('stars'); if(!cvs) return; const ctx = cvs.getContext('2d');
+    const cvs = document.getElementById('stars'); if(!cvs) return;
+    const ctx = cvs.getContext('2d');
     const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-    let W=0, H=0, stars=[], rafId=null; let running=false;
+    let W=0, H=0, stars=[], rafId=null, running=false;
 
     function resize(){
-      const sec = document.getElementById('s1'); const r = sec.getBoundingClientRect();
-      const cssW = Math.max(1, r.width); const cssH = Math.max(1, r.height);
+      const r = document.getElementById('s1').getBoundingClientRect();
+      const cssW = Math.max(1, r.width), cssH = Math.max(1, r.height);
       W = Math.floor(cssW * DPR); H = Math.floor(cssH * DPR);
-      cvs.width = W; cvs.height = H; cvs.style.width = cssW + 'px'; cvs.style.height = cssH + 'px';
+      cvs.width = W; cvs.height = H; cvs.style.width = cssW+'px'; cvs.style.height = cssH+'px';
       createStars();
     }
     function rand(a,b){ return Math.random()*(b-a)+a; }
     function createStars(){
-      const density = 4500; // 낮을수록 많아짐
+      const density = 4500;
       const count = Math.floor((W*H)/density);
       stars = Array.from({length: count}, ()=>{
-        const speed = rand(0.02, 0.08) * DPR; const angle = rand(0, Math.PI*2);
-        return { x: rand(0, W), y: rand(0, H), r: rand(0.6, 2.0) * DPR, tw: rand(0, Math.PI*2), tws: rand(0.6, 1.6), vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed };
+        const speed = rand(0.02, 0.08) * DPR, angle = rand(0, Math.PI*2);
+        return { x: rand(0,W), y: rand(0,H), r: rand(0.6,2.0)*DPR, tw: rand(0,Math.PI*2), tws: rand(0.6,1.6), vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed };
       });
     }
     function draw(){
-      if(!running) return; ctx.clearRect(0,0,W,H);
+      if(!running) return;
+      ctx.clearRect(0,0,W,H);
       for(const s of stars){
         s.x += s.vx; s.y += s.vy;
         if(s.x < 0) s.x += W; else if(s.x > W) s.x -= W;
         if(s.y < 0) s.y += H; else if(s.y > H) s.y -= H;
-        s.tw += 0.02 * s.tws; const a = 0.12 + 0.45*(0.5 + 0.5*Math.sin(s.tw));
-        const radius = s.r*3.2; const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, radius);
-        g.addColorStop(0, `rgba(255,255,255,${a})`); g.addColorStop(1, `rgba(0,240,255,0)`);
+        s.tw += 0.02 * s.tws;
+        const a = 0.12 + 0.45*(0.5 + 0.5*Math.sin(s.tw));
+        const radius = s.r*3.2;
+        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, radius);
+        g.addColorStop(0, `rgba(255,255,255,${a})`);
+        g.addColorStop(1, `rgba(0,240,255,0)`);
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(s.x, s.y, radius, 0, Math.PI*2); ctx.fill();
       }
       rafId = requestAnimationFrame(draw);
     }
-
-    const ro = new ResizeObserver(resize); ro.observe(document.getElementById('s1')); resize();
-    const prefersReduce = () => (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    new ResizeObserver(resize).observe(document.getElementById('s1')); resize();
+    const prefersReduce = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const heroObserver = new IntersectionObserver(([entry])=>{
       const shouldRun = entry.isIntersecting && !prefersReduce();
-      if(shouldRun && !running){ running = true; cancelAnimationFrame(rafId); draw(); }
-      else if(!shouldRun && running){ running = false; cancelAnimationFrame(rafId); }
-    },{root:document.getElementById('snap'),threshold:0.3});
+      if(shouldRun && !running){ running=true; cancelAnimationFrame(rafId); draw(); }
+      else if(!shouldRun && running){ running=false; cancelAnimationFrame(rafId); }
+    },{root:container,threshold:0.3});
     heroObserver.observe(document.getElementById('s1'));
 
     document.addEventListener('visibilitychange', ()=>{
       if(document.hidden){ running=false; cancelAnimationFrame(rafId); }
       else{
-        const s1 = document.getElementById('s1').getBoundingClientRect();
-        const inView = (s1.top < window.innerHeight) && (s1.bottom > 0);
+        const r = document.getElementById('s1').getBoundingClientRect();
+        const inView = (r.top < window.innerHeight) && (r.bottom > 0);
         if(inView && !prefersReduce()){ running=true; cancelAnimationFrame(rafId); draw(); }
       }
     });
-  })();
-
-  /* ===== Fix mobile URL bar / viewport height ===== */
-  (function(){
-    const setVH = () => { const vh = window.innerHeight * 0.01; document.documentElement.style.setProperty('--vh', `${vh}px`); };
-    setVH(); let raf; const onResize = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(setVH); };
-    window.addEventListener('resize', onResize); window.addEventListener('orientationchange', onResize);
   })();
 </script>
 </body>

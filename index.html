@@ -200,6 +200,13 @@
     .contact h2{ font-size:20px }
     .dots{ right:10px; gap:8px } .dot{ width:8px; height:8px }
   }
+
+  /* ===== 데스크톱 Hero 이미지 조정 ===== */
+  @media (min-width:1024px){
+    .hero img{
+      object-fit: contain;
+    }
+  }
 </style>
 </head>
 <body>
@@ -208,12 +215,12 @@
   <!-- ===== Page 1: Hero ===== -->
   <section class="snap-section hero" id="s1" aria-label="배너">
     <canvas class="stars" id="stars"></canvas>
-<picture class="hero-media">
-  <source srcset="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%20%EC%9A%A9.png?raw=true" media="(max-width: 768px)">
-  <img id="heroImg"
-       src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%20%EC%9A%A9.png?raw=true"
-       alt="Design Future Games 배너" decoding="async" fetchpriority="high" width="1920" height="1080">
-</picture>
+    <picture class="hero-media">
+      <source srcset="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%20%EC%9A%A9.png?raw=true" media="(max-width: 768px)">
+      <img id="heroImg"
+           src="https://github.com/DesignFutureGames/DesignFutureGames.github.io/blob/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%20%EC%9A%A9.png?raw=true"
+           alt="Design Future Games 배너" decoding="async" fetchpriority="high" width="1920" height="1080">
+    </picture>
     <footer>© 2025 Design Future Games. All rights reserved.</footer>
   </section>
 
@@ -239,7 +246,7 @@
         <div class="overlay"><h3>Change Photo Find it Project</h3></div>
       </a>
 
-      <!-- Bomber Car : Speed Race (요청하신 새 이미지) -->
+      <!-- Bomber Car : Speed Race -->
       <a class="project-card bombercar no-silhouette"
          href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar&hl=en-US&ah=4s06Fh4vTNGlRBgr9-R4OIniDY0"
          target="_blank" rel="noopener" aria-label="Bomber Car : Speed Race - Google Play로 이동">
@@ -249,7 +256,7 @@
         <div class="overlay"><h3>Bomber Car : Speed Race</h3></div>
       </a>
 
-      <!-- Golf : Mini (신규 추가) -->
+      <!-- Golf : Mini -->
       <a class="project-card golfmini no-silhouette"
          href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini"
          target="_blank" rel="noopener" aria-label="Golf : Mini - Google Play로 이동">

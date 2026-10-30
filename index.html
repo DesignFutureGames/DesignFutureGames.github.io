@@ -4,16 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Design Future Games — 작은 플레이, 새로운 즐거움</title>
-<meta name="description" content="Design Future Games의 모바일 게임 7종. Cat Life: Idle, Bomber Car, Kick survival, Golf : Mini 등 지금 Google Play에서 플레이하세요.">
+<meta name="description" content="Design Future Games의 모바일 게임 8종. Swipe Ball: Global Rankings, Cat Life: Idle, Bomber Car, Golf : Mini 등 지금 Google Play에서 플레이하세요.">
 <meta name="theme-color" content="#2FB8FF">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Design Future Games — 작은 플레이, 새로운 즐거움">
-<meta property="og:description" content="모바일 게임 7종을 만드는 인디 게임 스튜디오. 지금 Google Play에서 플레이하세요.">
+<meta property="og:description" content="모바일 게임 8종을 만드는 인디 게임 스튜디오. 지금 Google Play에서 플레이하세요.">
 <meta property="og:url" content="https://designfuturegames.github.io/">
 <meta property="og:image" content="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s512">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
 /* ============================================================
    Design Future Games — tokens
@@ -43,11 +44,11 @@
   --r-md:20px;
   --r-sm:14px;
 
-  --bw:4px;                 /* toy outline weight */
-  --lift:8px;               /* bevel depth */
+  --bw:4px;
+  --lift:8px;
 
-  --pad: clamp(20px, 5vw, 64px);
-  --wrap: 1200px;
+  --pad:clamp(20px,5vw,64px);
+  --wrap:1200px;
 
   --f-display:'Fredoka','Jua','Noto Sans KR',system-ui,sans-serif;
   --f-body:'Noto Sans KR','Fredoka',system-ui,sans-serif;
@@ -69,32 +70,57 @@ body{
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-h1,h2,h3,h4{font-family:var(--f-display);font-weight:700;line-height:1.05;margin:0;letter-spacing:-.01em}
+h1,h2,h3,h4{
+  font-family:var(--f-display);
+  font-weight:700;
+  line-height:1.05;
+  margin:0;
+  letter-spacing:-.01em;
+}
 p{margin:0}
 ul{margin:0;padding:0;list-style:none}
 
-:focus-visible{outline:4px solid var(--ink);outline-offset:4px;border-radius:6px}
+:focus-visible{
+  outline:4px solid var(--ink);
+  outline-offset:4px;
+  border-radius:6px;
+}
 
-.wrap{width:min(100% - var(--pad)*2, var(--wrap));margin-inline:auto}
+.wrap{
+  width:min(100% - var(--pad)*2,var(--wrap));
+  margin-inline:auto;
+}
 
 .skip{
-  position:absolute;left:12px;top:-100px;z-index:200;
-  background:var(--gold);color:var(--ink);border:var(--bw) solid var(--ink);
-  border-radius:var(--r-sm);padding:10px 18px;font-family:var(--f-display);
+  position:absolute;
+  left:12px;
+  top:-100px;
+  z-index:200;
+  background:var(--gold);
+  color:var(--ink);
+  border:var(--bw) solid var(--ink);
+  border-radius:var(--r-sm);
+  padding:10px 18px;
+  font-family:var(--f-display);
   transition:top .15s;
 }
 .skip:focus{top:12px}
 
 /* ============================================================
-   toy button — the signature element
+   toy button
    ============================================================ */
 .btn{
   --b-face1:var(--gold);
   --b-face2:var(--gold-mid);
   --b-deep:var(--gold-deep);
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--f-display);font-weight:700;
-  font-size:clamp(16px,2vw,20px);line-height:1;
+
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:clamp(16px,2vw,20px);
+  line-height:1;
   letter-spacing:.01em;
   padding:16px 28px 17px;
   color:var(--ink);
@@ -107,7 +133,7 @@ ul{margin:0;padding:0;list-style:none}
     0 var(--lift) 0 var(--bw) var(--ink),
     0 calc(var(--lift) + 8px) 18px rgba(18,35,63,.22);
   transform:translateY(0);
-  transition:transform .08s ease, box-shadow .08s ease;
+  transition:transform .08s ease,box-shadow .08s ease;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
 }
@@ -119,50 +145,124 @@ ul{margin:0;padding:0;list-style:none}
     0 0 0 var(--b-deep),
     0 0 0 var(--bw) var(--ink);
 }
-.btn--sky{--b-face1:#7FDBFF;--b-face2:#2AA6EE;--b-deep:#0C6AA8;color:#062B45}
-.btn--white{--b-face1:#FFFFFF;--b-face2:#F0E7D4;--b-deep:#BCAE92}
-.btn--sm{font-size:15px;padding:12px 20px 13px;--lift:6px;border-radius:var(--r-sm)}
+.btn--sky{
+  --b-face1:#7FDBFF;
+  --b-face2:#2AA6EE;
+  --b-deep:#0C6AA8;
+  color:#062B45;
+}
+.btn--white{
+  --b-face1:#FFFFFF;
+  --b-face2:#F0E7D4;
+  --b-deep:#BCAE92;
+}
+.btn--sm{
+  font-size:15px;
+  padding:12px 20px 13px;
+  --lift:6px;
+  border-radius:var(--r-sm);
+}
 
 /* ============================================================
    nav
    ============================================================ */
-.nav{position:fixed;inset:14px 0 auto;z-index:100;pointer-events:none}
+.nav{
+  position:fixed;
+  inset:14px 0 auto;
+  z-index:100;
+  pointer-events:none;
+}
 .nav__bar{
   pointer-events:auto;
-  display:flex;align-items:center;gap:18px;
-  width:min(100% - 28px, var(--wrap));margin-inline:auto;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  width:min(100% - 28px,var(--wrap));
+  margin-inline:auto;
   padding:10px 12px 10px 14px;
   background:rgba(255,255,255,.92);
   backdrop-filter:blur(10px);
   border:var(--bw) solid var(--ink);
   border-radius:22px;
-  box-shadow:0 6px 0 rgba(18,35,63,.9), 0 14px 26px rgba(18,35,63,.18);
+  box-shadow:
+    0 6px 0 rgba(18,35,63,.9),
+    0 14px 26px rgba(18,35,63,.18);
 }
-.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  flex:0 0 auto;
+}
 .brand__mark{
-  width:44px;height:44px;flex:0 0 auto;
-  display:grid;place-items:center;
-  font-family:var(--f-display);font-weight:700;font-size:19px;
+  width:44px;
+  height:44px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:19px;
   background:linear-gradient(180deg,var(--gold),var(--gold-mid));
-  border:3px solid var(--ink);border-radius:13px;
+  border:3px solid var(--ink);
+  border-radius:13px;
   box-shadow:inset 0 3px 0 rgba(255,255,255,.65);
 }
-.brand__txt{font-family:var(--f-display);font-weight:700;font-size:15px;line-height:1.05;letter-spacing:.02em}
-.brand__txt small{display:block;font-size:10.5px;letter-spacing:.22em;color:var(--ink-soft);font-weight:500}
-.nav__links{display:flex;gap:6px;margin-left:auto;align-items:center}
-.nav__links a{
-  font-family:var(--f-display);font-weight:600;font-size:16px;
-  padding:9px 15px;border-radius:12px;border:3px solid transparent;
-  transition:background .15s, border-color .15s;
+.brand__txt{
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:15px;
+  line-height:1.05;
+  letter-spacing:.02em;
 }
-.nav__links a:hover{background:var(--cream);border-color:var(--ink)}
+.brand__txt small{
+  display:block;
+  font-size:10.5px;
+  letter-spacing:.22em;
+  color:var(--ink-soft);
+  font-weight:500;
+}
+.nav__links{
+  display:flex;
+  gap:6px;
+  margin-left:auto;
+  align-items:center;
+}
+.nav__links a{
+  font-family:var(--f-display);
+  font-weight:600;
+  font-size:16px;
+  padding:9px 15px;
+  border-radius:12px;
+  border:3px solid transparent;
+  transition:background .15s,border-color .15s;
+}
+.nav__links a:hover{
+  background:var(--cream);
+  border-color:var(--ink);
+}
 .nav__cta{margin-left:6px}
 .burger{
-  margin-left:auto;display:none;width:48px;height:44px;
-  align-items:center;justify-content:center;gap:5px;flex-direction:column;
-  background:var(--cream);border:3px solid var(--ink);border-radius:13px;cursor:pointer;
+  margin-left:auto;
+  display:none;
+  width:48px;
+  height:44px;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  flex-direction:column;
+  background:var(--cream);
+  border:3px solid var(--ink);
+  border-radius:13px;
+  cursor:pointer;
 }
-.burger span{display:block;width:20px;height:3px;background:var(--ink);border-radius:2px}
+.burger span{
+  display:block;
+  width:20px;
+  height:3px;
+  background:var(--ink);
+  border-radius:2px;
+}
 
 /* ============================================================
    hero
@@ -175,22 +275,75 @@ ul{margin:0;padding:0;list-style:none}
   text-align:center;
 }
 .cloud{
-  position:absolute;background:#fff;border-radius:999px;opacity:.55;
-  filter:blur(.4px);pointer-events:none;
+  position:absolute;
+  background:#fff;
+  border-radius:999px;
+  opacity:.55;
+  filter:blur(.4px);
+  pointer-events:none;
 }
-.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:999px}
-.c1{width:190px;height:52px;left:-8%;top:16%;animation:drift 46s linear infinite}
-.c1::before{width:96px;height:96px;left:34px;top:-42px}
-.c2{width:140px;height:42px;right:4%;top:11%;opacity:.42;animation:drift 62s linear infinite reverse}
-.c2::before{width:74px;height:74px;left:26px;top:-32px}
-.c3{width:230px;height:60px;left:58%;top:52%;opacity:.28;animation:drift 74s linear infinite}
-.c3::before{width:110px;height:110px;left:52px;top:-48px}
-@keyframes drift{from{transform:translateX(-12vw)}to{transform:translateX(112vw)}}
+.cloud::before,.cloud::after{
+  content:"";
+  position:absolute;
+  background:#fff;
+  border-radius:999px;
+}
+.c1{
+  width:190px;
+  height:52px;
+  left:-8%;
+  top:16%;
+  animation:drift 46s linear infinite;
+}
+.c1::before{
+  width:96px;
+  height:96px;
+  left:34px;
+  top:-42px;
+}
+.c2{
+  width:140px;
+  height:42px;
+  right:4%;
+  top:11%;
+  opacity:.42;
+  animation:drift 62s linear infinite reverse;
+}
+.c2::before{
+  width:74px;
+  height:74px;
+  left:26px;
+  top:-32px;
+}
+.c3{
+  width:230px;
+  height:60px;
+  left:58%;
+  top:52%;
+  opacity:.28;
+  animation:drift 74s linear infinite;
+}
+.c3::before{
+  width:110px;
+  height:110px;
+  left:52px;
+  top:-48px;
+}
+@keyframes drift{
+  from{transform:translateX(-12vw)}
+  to{transform:translateX(112vw)}
+}
 
 .hero__eyebrow{
-  display:inline-block;font-family:var(--f-display);font-weight:600;font-size:15px;
-  color:var(--ink);background:#fff;
-  padding:8px 18px;border:3px solid var(--ink);border-radius:999px;
+  display:inline-block;
+  font-family:var(--f-display);
+  font-weight:600;
+  font-size:15px;
+  color:var(--ink);
+  background:#fff;
+  padding:8px 18px;
+  border:3px solid var(--ink);
+  border-radius:999px;
   box-shadow:0 4px 0 rgba(18,35,63,.9);
   margin-bottom:26px;
 }
@@ -200,190 +353,458 @@ ul{margin:0;padding:0;list-style:none}
   color:#fff;
   margin:0 0 4px;
   text-shadow:
-    4px 0 0 var(--ink), -4px 0 0 var(--ink), 0 4px 0 var(--ink), 0 -4px 0 var(--ink),
-    3px 3px 0 var(--ink), -3px 3px 0 var(--ink), 3px -3px 0 var(--ink), -3px -3px 0 var(--ink),
+    4px 0 0 var(--ink),
+    -4px 0 0 var(--ink),
+    0 4px 0 var(--ink),
+    0 -4px 0 var(--ink),
+    3px 3px 0 var(--ink),
+    -3px 3px 0 var(--ink),
+    3px -3px 0 var(--ink),
+    -3px -3px 0 var(--ink),
     0 12px 0 rgba(8,52,86,.35);
 }
 .hero h1 .joy{color:var(--gold)}
 .hero__sub{
-  margin:26px auto 34px;max-width:30ch;
-  color:#06314F;font-weight:500;font-size:clamp(16px,2.1vw,19px);line-height:1.8;
+  margin:26px auto 34px;
+  max-width:30ch;
+  color:#06314F;
+  font-weight:500;
+  font-size:clamp(16px,2.1vw,19px);
+  line-height:1.8;
   text-shadow:0 2px 0 rgba(255,255,255,.4);
 }
-.hero__actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero__actions{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
 
 /* roster of real app icons */
 .roster{
-  display:flex;flex-wrap:wrap;justify-content:center;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
   gap:clamp(10px,1.8vw,20px);
   margin:clamp(48px,7vw,76px) auto 0;
-  max-width:880px;
+  max-width:1008px;
 }
 .roster a{
-  width:clamp(62px,9.5vw,108px);aspect-ratio:1;
-  border:var(--bw) solid var(--ink);border-radius:24%;
-  overflow:hidden;background:#fff;
-  box-shadow:0 6px 0 rgba(18,35,63,.85), 0 12px 20px rgba(6,44,74,.3);
+  width:clamp(62px,9.5vw,108px);
+  aspect-ratio:1;
+  border:var(--bw) solid var(--ink);
+  border-radius:24%;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:
+    0 6px 0 rgba(18,35,63,.85),
+    0 12px 20px rgba(6,44,74,.3);
   transition:transform .18s cubic-bezier(.34,1.56,.64,1);
 }
-.roster a img{width:100%;height:100%;object-fit:cover}
+.roster a img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 .roster a:nth-child(odd){transform:rotate(-5deg)}
 .roster a:nth-child(even){transform:rotate(5deg) translateY(8px)}
 .roster a:nth-child(3n){transform:rotate(-2deg) translateY(-6px)}
-.roster a:hover,.roster a:focus-visible{transform:rotate(0) translateY(-10px) scale(1.06)}
+.roster a:hover,.roster a:focus-visible{
+  transform:rotate(0) translateY(-10px) scale(1.06);
+}
 
-.wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:clamp(60px,9vw,130px);display:block}
+.wave{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  width:100%;
+  height:clamp(60px,9vw,130px);
+  display:block;
+}
 
 /* ============================================================
    sections
    ============================================================ */
 .sec{padding:clamp(72px,10vw,128px) 0}
-.sec__head{max-width:660px;margin:0 0 clamp(36px,5vw,56px)}
-.sec__head h2{font-size:clamp(34px,6vw,64px);margin-bottom:18px}
-.sec__head p{color:var(--ink-soft);font-weight:500}
+.sec__head{
+  max-width:660px;
+  margin:0 0 clamp(36px,5vw,56px);
+}
+.sec__head h2{
+  font-size:clamp(34px,6vw,64px);
+  margin-bottom:18px;
+}
+.sec__head p{
+  color:var(--ink-soft);
+  font-weight:500;
+}
 .count{
-  display:inline-block;vertical-align:.18em;margin-left:14px;
-  font-size:clamp(15px,1.8vw,19px);font-family:var(--f-display);
-  background:var(--gold);border:3px solid var(--ink);border-radius:999px;
-  padding:5px 16px;box-shadow:0 4px 0 var(--gold-deep),0 4px 0 3px var(--ink);
+  display:inline-block;
+  vertical-align:.18em;
+  margin-left:14px;
+  font-size:clamp(15px,1.8vw,19px);
+  font-family:var(--f-display);
+  background:var(--gold);
+  border:3px solid var(--ink);
+  border-radius:999px;
+  padding:5px 16px;
+  box-shadow:
+    0 4px 0 var(--gold-deep),
+    0 4px 0 3px var(--ink);
 }
 
 /* ============================================================
    game cards
    ============================================================ */
-.games{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.6vw,30px)}
+.games{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(20px,2.6vw,30px);
+}
 .card{
   --accent:var(--amber);
-  position:relative;display:flex;flex-direction:column;
+  position:relative;
+  display:flex;
+  flex-direction:column;
   background:var(--white);
-  border:var(--bw) solid var(--ink);border-radius:var(--r-lg);
+  border:var(--bw) solid var(--ink);
+  border-radius:var(--r-lg);
   overflow:hidden;
-  box-shadow:0 var(--lift) 0 var(--ink), 0 calc(var(--lift) + 8px) 22px rgba(18,35,63,.16);
-  transition:transform .16s cubic-bezier(.34,1.56,.64,1), box-shadow .16s;
+  box-shadow:
+    0 var(--lift) 0 var(--ink),
+    0 calc(var(--lift) + 8px) 22px rgba(18,35,63,.16);
+  transition:
+    transform .16s cubic-bezier(.34,1.56,.64,1),
+    box-shadow .16s;
 }
-.card:hover{transform:translateY(-7px);box-shadow:0 15px 0 var(--ink),0 28px 34px rgba(18,35,63,.22)}
-.card:active{transform:translateY(4px);box-shadow:0 4px 0 var(--ink)}
-
+.card:hover{
+  transform:translateY(-7px);
+  box-shadow:
+    0 15px 0 var(--ink),
+    0 28px 34px rgba(18,35,63,.22);
+}
+.card:active{
+  transform:translateY(4px);
+  box-shadow:0 4px 0 var(--ink);
+}
 .card__art{
-  position:relative;aspect-ratio:16/9;overflow:hidden;
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
   background:var(--accent);
   border-bottom:var(--bw) solid var(--ink);
 }
-.card__art img{width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
+.card__art img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.02);
+}
 .card__art::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(18,35,63,0) 45%,rgba(18,35,63,.45) 100%);
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(18,35,63,0) 45%,
+    rgba(18,35,63,.45) 100%
+  );
 }
 .card__tag{
-  position:absolute;left:14px;top:14px;z-index:2;
-  font-family:var(--f-display);font-weight:600;font-size:12.5px;letter-spacing:.06em;
-  background:var(--accent);color:#fff;
-  padding:5px 12px;border:3px solid var(--ink);border-radius:999px;
+  position:absolute;
+  left:14px;
+  top:14px;
+  z-index:2;
+  font-family:var(--f-display);
+  font-weight:600;
+  font-size:12.5px;
+  letter-spacing:.06em;
+  background:var(--accent);
+  color:#fff;
+  padding:5px 12px;
+  border:3px solid var(--ink);
+  border-radius:999px;
   text-shadow:0 1px 0 rgba(0,0,0,.35);
 }
-.card__body{display:flex;gap:16px;padding:0 20px 20px;align-items:flex-start}
+.card__body{
+  display:flex;
+  gap:16px;
+  padding:0 20px 20px;
+  align-items:flex-start;
+}
 .card__icon{
-  width:76px;height:76px;flex:0 0 auto;margin-top:-30px;z-index:2;
-  border:var(--bw) solid var(--ink);border-radius:22%;overflow:hidden;background:#fff;
+  width:76px;
+  height:76px;
+  flex:0 0 auto;
+  margin-top:-30px;
+  z-index:2;
+  border:var(--bw) solid var(--ink);
+  border-radius:22%;
+  overflow:hidden;
+  background:#fff;
   box-shadow:0 5px 0 rgba(18,35,63,.9);
 }
-.card__icon img{width:100%;height:100%;object-fit:cover}
-.card__text{padding-top:14px;min-width:0}
-.card__text h3{font-size:21px;line-height:1.25;margin-bottom:7px;word-break:keep-all}
-.card__text p{font-size:14.5px;line-height:1.65;color:var(--ink-soft);font-weight:500;word-break:keep-all}
+.card__icon img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.card__text{
+  padding-top:14px;
+  min-width:0;
+}
+.card__text h3{
+  font-size:21px;
+  line-height:1.25;
+  margin-bottom:7px;
+  word-break:keep-all;
+}
+.card__text p{
+  font-size:14.5px;
+  line-height:1.65;
+  color:var(--ink-soft);
+  font-weight:500;
+  word-break:keep-all;
+}
 .card__foot{
-  margin-top:auto;padding:0 20px 20px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:auto;
+  padding:0 20px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 .card__play{
-  font-family:var(--f-display);font-weight:700;font-size:15px;
-  background:var(--accent);color:#fff;
-  padding:10px 18px;border:3px solid var(--ink);border-radius:var(--r-sm);
+  font-family:var(--f-display);
+  font-weight:700;
+  font-size:15px;
+  background:var(--accent);
+  color:#fff;
+  padding:10px 18px;
+  border:3px solid var(--ink);
+  border-radius:var(--r-sm);
   box-shadow:0 5px 0 rgba(18,35,63,.9);
   text-shadow:0 1px 0 rgba(0,0,0,.3);
 }
-.card__store{font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.card__store{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  font-weight:500;
+}
+.card__legal{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 16px;
+  padding:0 20px 18px;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--ink-soft);
+}
+.card__legal a{
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.card__legal a:hover{color:var(--ink)}
+#swipe-ball{scroll-margin-top:110px}
 
 /* featured tile */
-.card--big{grid-column:span 2;flex-direction:row;align-items:stretch}
-.card--big .card__art{aspect-ratio:auto;flex:1 1 52%;border-bottom:0;border-right:var(--bw) solid var(--ink)}
+.card--big{
+  grid-column:span 2;
+  flex-direction:row;
+  align-items:stretch;
+}
+.card--big .card__art{
+  aspect-ratio:auto;
+  flex:1 1 52%;
+  border-bottom:0;
+  border-right:var(--bw) solid var(--ink);
+}
 .card--big .card__art img{filter:saturate(1.05)}
 .card--big .card__side{
-  flex:1 1 48%;display:flex;flex-direction:column;justify-content:center;
-  gap:18px;padding:clamp(24px,3vw,40px);
-  background:
-    radial-gradient(120% 100% at 0% 0%, #FFF3D2 0%, #FFFFFF 62%);
+  flex:1 1 48%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:18px;
+  padding:clamp(24px,3vw,40px);
+  background:radial-gradient(
+    120% 100% at 0% 0%,
+    #FFF3D2 0%,
+    #FFFFFF 62%
+  );
 }
-.card--big .card__icon{width:96px;height:96px;margin-top:0}
-.card--big h3{font-size:clamp(26px,3vw,36px);margin-bottom:10px}
+.card--big .card__icon{
+  width:96px;
+  height:96px;
+  margin-top:0;
+}
+.card--big h3{
+  font-size:clamp(26px,3vw,36px);
+  margin-bottom:10px;
+}
 .card--big p{font-size:15.5px}
-.card--big .card__foot{padding:0;margin-top:4px}
+.card--big .card__foot{
+  padding:0;
+  margin-top:4px;
+}
 
 /* ============================================================
    studio
    ============================================================ */
 .studio{
-  background:var(--ink);color:#fff;
+  background:var(--ink);
+  color:#fff;
   border-top:var(--bw) solid var(--ink);
-  position:relative;overflow:hidden;
+  position:relative;
+  overflow:hidden;
 }
 .studio::before{
-  content:"";position:absolute;inset:0;opacity:.14;
-  background-image:radial-gradient(circle at 1px 1px, #fff 1.6px, transparent 1.7px);
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.14;
+  background-image:radial-gradient(
+    circle at 1px 1px,
+    #fff 1.6px,
+    transparent 1.7px
+  );
   background-size:26px 26px;
 }
 .studio .wrap{position:relative}
-.studio h2{font-size:clamp(32px,5.4vw,58px);max-width:16ch;margin-bottom:22px;word-break:keep-all}
-.studio p{color:#C6D6EA;max-width:56ch;font-weight:500;word-break:keep-all}
-.stats{display:flex;flex-wrap:wrap;gap:14px;margin:36px 0 34px}
+.studio h2{
+  font-size:clamp(32px,5.4vw,58px);
+  max-width:16ch;
+  margin-bottom:22px;
+  word-break:keep-all;
+}
+.studio p{
+  color:#C6D6EA;
+  max-width:56ch;
+  font-weight:500;
+  word-break:keep-all;
+}
+.stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin:36px 0 34px;
+}
 .stat{
   background:rgba(255,255,255,.07);
   border:3px solid rgba(255,255,255,.28);
-  border-radius:var(--r-md);padding:16px 22px;min-width:150px;
+  border-radius:var(--r-md);
+  padding:16px 22px;
+  min-width:150px;
 }
-.stat b{display:block;font-family:var(--f-display);font-size:30px;line-height:1.1;color:var(--gold)}
-.stat span{font-size:13px;color:#A9BFDA;letter-spacing:.04em}
+.stat b{
+  display:block;
+  font-family:var(--f-display);
+  font-size:30px;
+  line-height:1.1;
+  color:var(--gold);
+}
+.stat span{
+  font-size:13px;
+  color:#A9BFDA;
+  letter-spacing:.04em;
+}
 
 /* ============================================================
    contact
    ============================================================ */
 .contact{
-  background:linear-gradient(180deg,var(--gold) 0%, var(--gold-mid) 100%);
+  background:linear-gradient(180deg,var(--gold) 0%,var(--gold-mid) 100%);
   border-top:var(--bw) solid var(--ink);
   text-align:center;
 }
-.contact h2{font-size:clamp(32px,6vw,62px);margin-bottom:18px}
-.contact p{max-width:34ch;margin:0 auto 32px;font-weight:500;color:#5A3F00;word-break:keep-all}
-.contact .btn{--b-face1:#fff;--b-face2:#EFE3C9;--b-deep:#A8926B}
+.contact h2{
+  font-size:clamp(32px,6vw,62px);
+  margin-bottom:18px;
+}
+.contact p{
+  max-width:34ch;
+  margin:0 auto 32px;
+  font-weight:500;
+  color:#5A3F00;
+  word-break:keep-all;
+}
+.contact .btn{
+  --b-face1:#fff;
+  --b-face2:#EFE3C9;
+  --b-deep:#A8926B;
+}
 
 /* ============================================================
    footer
    ============================================================ */
-.foot{background:var(--ink);color:#93A9C6;padding:44px 0;border-top:var(--bw) solid var(--ink)}
-.foot__row{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
-.foot a{color:#fff;font-weight:500}
+.foot{
+  background:var(--ink);
+  color:#93A9C6;
+  padding:44px 0;
+  border-top:var(--bw) solid var(--ink);
+}
+.foot__row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  align-items:center;
+  justify-content:space-between;
+}
+.foot a{
+  color:#fff;
+  font-weight:500;
+}
 .foot a:hover{color:var(--gold)}
-.foot__links{display:flex;gap:20px;flex-wrap:wrap;font-size:15px}
-.foot small{font-size:13px;letter-spacing:.02em}
+.foot__links{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  font-size:15px;
+}
+.foot small{
+  font-size:13px;
+  letter-spacing:.02em;
+}
 
 /* ============================================================
    responsive
    ============================================================ */
 @media (max-width:980px){
   .games{grid-template-columns:repeat(2,1fr)}
-  .card--big{grid-column:span 2;flex-direction:column}
-  .card--big .card__art{aspect-ratio:16/9;border-right:0;border-bottom:var(--bw) solid var(--ink)}
+  .card--big{
+    grid-column:span 2;
+    flex-direction:column;
+  }
+  .card--big .card__art{
+    aspect-ratio:16/9;
+    border-right:0;
+    border-bottom:var(--bw) solid var(--ink);
+  }
   .card--big .card__icon{margin-top:-38px}
 }
+
 @media (max-width:760px){
   .nav__links{
-    display:none;position:absolute;top:calc(100% + 10px);right:0;left:0;
-    flex-direction:column;align-items:stretch;gap:4px;
-    background:#fff;border:var(--bw) solid var(--ink);border-radius:20px;padding:10px;
+    display:none;
+    position:absolute;
+    top:calc(100% + 10px);
+    right:0;
+    left:0;
+    flex-direction:column;
+    align-items:stretch;
+    gap:4px;
+    background:#fff;
+    border:var(--bw) solid var(--ink);
+    border-radius:20px;
+    padding:10px;
     box-shadow:0 6px 0 rgba(18,35,63,.9);
   }
   .nav__links.open{display:flex}
-  .nav__links a{text-align:center;font-size:17px}
+  .nav__links a{
+    text-align:center;
+    font-size:17px;
+  }
   .nav__cta{margin-left:0}
   .burger{display:flex}
   .brand__txt{display:none}
@@ -391,15 +812,22 @@ ul{margin:0;padding:0;list-style:none}
   .games{grid-template-columns:1fr}
   .card--big{grid-column:span 1}
   .card__body{gap:13px}
-  .card__icon{width:66px;height:66px}
+  .card__icon{
+    width:66px;
+    height:66px;
+  }
 }
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  *,*::before,*::after{
+    animation:none!important;
+    transition-duration:.01ms!important;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <a class="skip" href="#games">게임 목록으로 건너뛰기</a>
@@ -434,7 +862,11 @@ ul{margin:0;padding:0;list-style:none}
   <div class="wrap">
     <span class="hero__eyebrow">인디 게임 스튜디오</span>
     <h1>SMALL PLAY<br><span class="joy">BIG JOY!</span></h1>
-    <p class="hero__sub">잠깐의 플레이가 즐거운 하루로.<br>Design Future Games가 만드는 일곱 가지 즐거움.</p>
+
+    <p class="hero__sub">
+      잠깐의 플레이가 즐거운 하루로.<br>
+      Design Future Games가 만드는 여덟 가지 즐거움.
+    </p>
 
     <div class="hero__actions">
       <a class="btn" href="#games">게임 전체 보기</a>
@@ -445,21 +877,31 @@ ul{margin:0;padding:0;list-style:none}
       <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.catlifeidle" target="_blank" rel="noopener" aria-label="Cat Life: Idle">
         <img src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s256" alt="Cat Life: Idle 아이콘" loading="lazy" width="256" height="256">
       </a>
+
+      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball" target="_blank" rel="noopener" aria-label="Swipe Ball: Global Rankings">
+        <img src="https://play-lh.googleusercontent.com/FC0S3K3sVcAh27gBNveOAHduRdg76m42ARgWBBBWlKrHUw8BX4GdwwISmkgncAlWPqAq_4-F6DHkDZXZa8DCbw=s256" alt="Swipe Ball: Global Rankings 아이콘" loading="lazy" width="256" height="256">
+      </a>
+
       <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar" target="_blank" rel="noopener" aria-label="Bomber Car : Speed Race">
         <img src="https://play-lh.googleusercontent.com/BMR7FNaajHoMoT60mC5AhySe0yLqO_sddI0fmVmta0C3VkDi4DbQm89_aZ1y8nH0cHdPO-QIOAZFm5Qf1fV0=s256" alt="Bomber Car : Speed Race 아이콘" loading="lazy" width="256" height="256">
       </a>
+
       <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor" target="_blank" rel="noopener" aria-label="Kick survival">
         <img src="https://play-lh.googleusercontent.com/h1c337Eohv506ByOnAVMQqHBlfW9D_evuWsLSQzAhZQX-m3sGHeOeECXN_3-U4AcCQBoyMnJeUAXGJwAoMfGew=s256" alt="Kick survival 아이콘" loading="lazy" width="256" height="256">
       </a>
+
       <a href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic" target="_blank" rel="noopener" aria-label="Block King Master : Classic">
         <img src="https://play-lh.googleusercontent.com/8VL44jdJesWwwiLVwyvVAxnV-g6K-xfhRIhIyO6D52n23WxIAXri19-EQYd2aKPG9aHWjeqcaERWtZlous5ryg=s256" alt="Block King Master : Classic 아이콘" loading="lazy" width="256" height="256">
       </a>
+
       <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini" target="_blank" rel="noopener" aria-label="Golf : Mini">
         <img src="https://play-lh.googleusercontent.com/fhZvttrtvayi9PHzwAHl7mOrR0GcMPEI6QNs0nAppvXX29NCCJtjsQJLV1JPj_EC6rLFAnmg5us8fBE1XWVDiA=s256" alt="Golf : Mini 아이콘" loading="lazy" width="256" height="256">
       </a>
+
       <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster" target="_blank" rel="noopener" aria-label="Slingshot Master">
         <img src="https://play-lh.googleusercontent.com/0ZorUjeALFaleoY24sEmJEPK52uERaivaa1dg-N-nuxoKZtEbM_Cn-rts7dlmGW3VdZk8FfzUaXKQhFWFANY=s256" alt="Slingshot Master 아이콘" loading="lazy" width="256" height="256">
       </a>
+
       <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit" target="_blank" rel="noopener" aria-label="Changed Photo : Find It!">
         <img src="https://play-lh.googleusercontent.com/ntnSOnHabYK7Zppnb4WagoSNND2Vilhkp28eTTj0K8liLfmA8JkOL8-WSXUvxGEobr_KTv3VTq-_VV4EkzsGlQ=s256" alt="Changed Photo : Find It! 아이콘" loading="lazy" width="256" height="256">
       </a>
@@ -477,7 +919,7 @@ ul{margin:0;padding:0;list-style:none}
 <section class="sec" id="games">
   <div class="wrap">
     <div class="sec__head">
-      <h2>지금 플레이<span class="count">7 GAMES</span></h2>
+      <h2>지금 플레이<span class="count">8 GAMES</span></h2>
       <p>질주하는 액션부터 느긋한 고양이 카페까지. 전부 Google Play에서 바로 시작할 수 있어요.</p>
     </div>
 
@@ -489,14 +931,17 @@ ul{margin:0;padding:0;list-style:none}
           <span class="card__tag">IDLE</span>
           <img src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s640" alt="Cat Life: Idle 대표 이미지" loading="lazy">
         </div>
+
         <div class="card__side">
           <span class="card__icon">
             <img src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s192" alt="" loading="lazy">
           </span>
+
           <div>
             <h3>Cat Life: Idle</h3>
             <p>고양이를 돌보고 나만의 아늑한 카페를 가꿔보세요. 작은 카페에서 시작되는 느긋한 하루.</p>
           </div>
+
           <div class="card__foot">
             <span class="card__play">플레이하기</span>
             <span class="card__store">Google Play</span>
@@ -504,114 +949,175 @@ ul{margin:0;padding:0;list-style:none}
         </div>
       </a>
 
-      <!-- 2 -->
+      <!-- Swipe Ball -->
+      <article class="card" id="swipe-ball" style="--accent:var(--teal)">
+        <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <span class="card__tag">PUZZLE · DUEL</span>
+          <img src="https://play-lh.googleusercontent.com/vOo1vaARu0pquY8VriJxNjLgyPsaM5QTp48o6if8WlJrMVhFR5HISdE6wKNWR3adiTq13YHoa2uEL6JLBUTZ=w800" alt="" loading="lazy">
+        </a>
+
+        <div class="card__body">
+          <span class="card__icon">
+            <img src="https://play-lh.googleusercontent.com/FC0S3K3sVcAh27gBNveOAHduRdg76m42ARgWBBBWlKrHUw8BX4GdwwISmkgncAlWPqAq_4-F6DHkDZXZa8DCbw=s192" alt="" loading="lazy">
+          </span>
+
+          <div class="card__text">
+            <h3>
+              <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball" target="_blank" rel="noopener">Swipe Ball: Global Rankings</a>
+            </h3>
+            <p>스와이프로 볼을 움직여 모든 타일을 칠하세요. 1:1 듀얼, 랭킹 모드와 6가지 미니게임까지 즐겨보세요.</p>
+          </div>
+        </div>
+
+        <div class="card__legal" aria-label="Swipe Ball 정책 안내">
+          <a href="https://designfuturegames.github.io/swipe-ball-privacy/privacy/en.html" target="_blank" rel="noopener">개인정보처리방침</a>
+          <a href="https://designfuturegames.github.io/swipe-ball-privacy/terms/en.html" target="_blank" rel="noopener">이용약관</a>
+        </div>
+
+        <div class="card__foot">
+          <a class="card__play" href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball" target="_blank" rel="noopener" aria-label="Swipe Ball: Global Rankings Google Play에서 플레이하기">플레이하기</a>
+          <span class="card__store">Google Play</span>
+        </div>
+      </article>
+
+      <!-- Bomber Car -->
       <article class="card" style="--accent:var(--red)">
         <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">RACING</span>
           <img src="https://play-lh.googleusercontent.com/aRzMv1DEfx25wlwvOhHWyXhe1jjvTHRMulxoVZZreQyW9npgvKzUlWRxfE2yYZ2uEjzmgzahK5VodFlZWkV72Q=w800" alt="" loading="lazy">
         </a>
+
         <div class="card__body">
-          <span class="card__icon"><img src="https://play-lh.googleusercontent.com/BMR7FNaajHoMoT60mC5AhySe0yLqO_sddI0fmVmta0C3VkDi4DbQm89_aZ1y8nH0cHdPO-QIOAZFm5Qf1fV0=s192" alt="" loading="lazy"></span>
+          <span class="card__icon">
+            <img src="https://play-lh.googleusercontent.com/BMR7FNaajHoMoT60mC5AhySe0yLqO_sddI0fmVmta0C3VkDi4DbQm89_aZ1y8nH0cHdPO-QIOAZFm5Qf1fV0=s192" alt="" loading="lazy">
+          </span>
+
           <div class="card__text">
             <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar" target="_blank" rel="noopener">Bomber Car : Speed Race</a></h3>
             <p>피하고, 쏘고, 질주하세요. 멈추지 않는 자동차 액션.</p>
           </div>
         </div>
+
         <div class="card__foot">
           <span class="card__play">플레이하기</span>
           <span class="card__store">Google Play</span>
         </div>
       </article>
 
-      <!-- 3 -->
+      <!-- Kick survival -->
       <article class="card" style="--accent:var(--purple)">
         <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">SURVIVAL</span>
           <img src="https://play-lh.googleusercontent.com/DQDzPUwUGOSXQDfKC1Ll-5-kbFiHX7PPpSMZivX4SUe-0LCwd3GqG2V36c-QFG2RmDlXtMQoSqJi8L9hyrNbQw=w800" alt="" loading="lazy">
         </a>
+
         <div class="card__body">
-          <span class="card__icon"><img src="https://play-lh.googleusercontent.com/h1c337Eohv506ByOnAVMQqHBlfW9D_evuWsLSQzAhZQX-m3sGHeOeECXN_3-U4AcCQBoyMnJeUAXGJwAoMfGew=s192" alt="" loading="lazy"></span>
+          <span class="card__icon">
+            <img src="https://play-lh.googleusercontent.com/h1c337Eohv506ByOnAVMQqHBlfW9D_evuWsLSQzAhZQX-m3sGHeOeECXN_3-U4AcCQBoyMnJeUAXGJwAoMfGew=s192" alt="" loading="lazy">
+          </span>
+
           <div class="card__text">
             <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor" target="_blank" rel="noopener">Kick survival</a></h3>
             <p>좁아지는 전장에서 99명을 걷어차고 마지막까지 살아남으세요.</p>
           </div>
         </div>
+
         <div class="card__foot">
           <span class="card__play">플레이하기</span>
           <span class="card__store">Google Play</span>
         </div>
       </article>
 
-      <!-- 4 -->
+      <!-- Block King Master -->
       <article class="card" style="--accent:var(--teal)">
         <a class="card__art" href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">PUZZLE</span>
           <img src="https://play-lh.googleusercontent.com/c9Ntf9B6nABbJuLMbZuykj_kXCHvcMCzoAXZ8aHcL5YaG2F9xejaeDEHht64v0Fk2wa-PXYZJOG0fUGeQ0BcAyQ=w800" alt="" loading="lazy">
         </a>
+
         <div class="card__body">
-          <span class="card__icon"><img src="https://play-lh.googleusercontent.com/8VL44jdJesWwwiLVwyvVAxnV-g6K-xfhRIhIyO6D52n23WxIAXri19-EQYd2aKPG9aHWjeqcaERWtZlous5ryg=s192" alt="" loading="lazy"></span>
+          <span class="card__icon">
+            <img src="https://play-lh.googleusercontent.com/8VL44jdJesWwwiLVwyvVAxnV-g6K-xfhRIhIyO6D52n23WxIAXri19-EQYd2aKPG9aHWjeqcaERWtZlous5ryg=s192" alt="" loading="lazy">
+          </span>
+
           <div class="card__text">
             <h3><a href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic" target="_blank" rel="noopener">Block King Master : Classic</a></h3>
             <p>블록을 맞추고 비우는, 단순하고 시원한 즐거움.</p>
           </div>
         </div>
+
         <div class="card__foot">
           <span class="card__play">플레이하기</span>
           <span class="card__store">Google Play</span>
         </div>
       </article>
 
-      <!-- 5 -->
+      <!-- Golf : Mini -->
       <article class="card" style="--accent:var(--green)">
         <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">SPORTS</span>
           <img src="https://play-lh.googleusercontent.com/Zktw76lHZz36ZqkUm3y8cVznKchB-xcuL0VGZ2X_pJmbCFKCX-iYP6OFgoLqa1ICOj5pTOK1KXFLyH2EPzANK24=w800" alt="" loading="lazy">
         </a>
+
         <div class="card__body">
-          <span class="card__icon"><img src="https://play-lh.googleusercontent.com/fhZvttrtvayi9PHzwAHl7mOrR0GcMPEI6QNs0nAppvXX29NCCJtjsQJLV1JPj_EC6rLFAnmg5us8fBE1XWVDiA=s192" alt="" loading="lazy"></span>
+          <span class="card__icon">
+            <img src="https://play-lh.googleusercontent.com/fhZvttrtvayi9PHzwAHl7mOrR0GcMPEI6QNs0nAppvXX29NCCJtjsQJLV1JPj_EC6rLFAnmg5us8fBE1XWVDiA=s192" alt="" loading="lazy">
+          </span>
+
           <div class="card__text">
             <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini" target="_blank" rel="noopener">Golf : Mini</a></h3>
             <p>정해진 타수 안에서 가장 짧은 경로를 찾아 기분 좋은 홀인원.</p>
           </div>
         </div>
+
         <div class="card__foot">
           <span class="card__play">플레이하기</span>
           <span class="card__store">Google Play</span>
         </div>
       </article>
 
-      <!-- 6 -->
+      <!-- Slingshot Master -->
       <article class="card" style="--accent:var(--orange)">
         <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">ACTION</span>
           <img src="https://play-lh.googleusercontent.com/cUk6cjASmml5y-KIK3Q7zHUSSAWQDw5n8cAPvLpl8U00_hFiT8S6Rj5MHYAkwxAh7iwjIVA_5wMf0-zcXwTy=w800" alt="" loading="lazy">
         </a>
+
         <div class="card__body">
-          <span class="card__icon"><img src="https://play-lh.googleusercontent.com/0ZorUjeALFaleoY24sEmJEPK52uERaivaa1dg-N-nuxoKZtEbM_Cn-rts7dlmGW3VdZk8FfzUaXKQhFWFANY=s192" alt="" loading="lazy"></span>
+          <span class="card__icon">
+            <img src="https://play-lh.googleusercontent.com/0ZorUjeALFaleoY24sEmJEPK52uERaivaa1dg-N-nuxoKZtEbM_Cn-rts7dlmGW3VdZk8FfzUaXKQhFWFANY=s192" alt="" loading="lazy">
+          </span>
+
           <div class="card__text">
             <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster" target="_blank" rel="noopener">Slingshot Master</a></h3>
             <p>당기고 쏘세요. 불·물·얼음·풀 속성 캐릭터 12명을 키워 적을 물리치세요.</p>
           </div>
         </div>
+
         <div class="card__foot">
           <span class="card__play">플레이하기</span>
           <span class="card__store">Google Play</span>
         </div>
       </article>
 
-      <!-- 7 -->
+      <!-- Changed Photo -->
       <article class="card" style="--accent:var(--pink)">
         <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">OBSERVATION</span>
           <img src="https://play-lh.googleusercontent.com/PyWRY0A8kHcb2SXBjKMPq_dV0nlGX1fNBy8niQBhUhk0MY2wsXqmQAP2Y3Xfbj27M4ssrsgm3ocUxXlyZFBo=w800" alt="" loading="lazy">
         </a>
+
         <div class="card__body">
-          <span class="card__icon"><img src="https://play-lh.googleusercontent.com/ntnSOnHabYK7Zppnb4WagoSNND2Vilhkp28eTTj0K8liLfmA8JkOL8-WSXUvxGEobr_KTv3VTq-_VV4EkzsGlQ=s192" alt="" loading="lazy"></span>
+          <span class="card__icon">
+            <img src="https://play-lh.googleusercontent.com/ntnSOnHabYK7Zppnb4WagoSNND2Vilhkp28eTTj0K8liLfmA8JkOL8-WSXUvxGEobr_KTv3VTq-_VV4EkzsGlQ=s192" alt="" loading="lazy">
+          </span>
+
           <div class="card__text">
             <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit" target="_blank" rel="noopener">Changed Photo : Find It!</a></h3>
             <p>한 장의 사진 속, 서서히 달라지는 순간을 시간 안에 찾아보세요.</p>
           </div>
         </div>
+
         <div class="card__foot">
           <span class="card__play">플레이하기</span>
           <span class="card__store">Google Play</span>
@@ -629,7 +1135,7 @@ ul{margin:0;padding:0;list-style:none}
     <p>질주하는 액션부터 차분히 몰입하는 퍼즐, 고양이와 함께하는 휴식까지. 누구나 가볍게 시작하고 자기만의 재미를 발견할 수 있는 모바일 게임을 만듭니다.</p>
 
     <div class="stats">
-      <div class="stat"><b>7</b><span>출시한 게임</span></div>
+      <div class="stat"><b>8</b><span>출시한 게임</span></div>
       <div class="stat"><b>30,000+</b><span>누적 다운로드</span></div>
       <div class="stat"><b>3+</b><span>전체 이용가</span></div>
     </div>
@@ -653,10 +1159,13 @@ ul{margin:0;padding:0;list-style:none}
 <footer class="foot">
   <div class="wrap foot__row">
     <small>© 2026 Design Future Games. All rights reserved.</small>
+
     <div class="foot__links">
       <a href="https://www.youtube.com/@DesignFutureGames" target="_blank" rel="noopener">YouTube</a>
       <a href="https://www.facebook.com/profile.php?id=61578938024733" target="_blank" rel="noopener">Facebook</a>
       <a href="https://play.google.com/store/apps/dev?id=7456297752893192149" target="_blank" rel="noopener">Google Play</a>
+      <a href="https://designfuturegames.github.io/swipe-ball-privacy/privacy/en.html" target="_blank" rel="noopener">Swipe Ball 개인정보처리방침</a>
+      <a href="https://designfuturegames.github.io/swipe-ball-privacy/terms/en.html" target="_blank" rel="noopener">Swipe Ball 이용약관</a>
       <a href="#top">맨 위로</a>
     </div>
   </div>
@@ -666,16 +1175,20 @@ ul{margin:0;padding:0;list-style:none}
 (function(){
   var b = document.getElementById('burger');
   var l = document.getElementById('navlinks');
+
   if(!b || !l) return;
-  b.addEventListener('click', function(){
+
+  b.addEventListener('click',function(){
     var open = l.classList.toggle('open');
-    b.setAttribute('aria-expanded', String(open));
-    b.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    b.setAttribute('aria-expanded',String(open));
+    b.setAttribute('aria-label',open ? '메뉴 닫기' : '메뉴 열기');
   });
-  l.addEventListener('click', function(e){
+
+  l.addEventListener('click',function(e){
     if(e.target.tagName === 'A'){
       l.classList.remove('open');
       b.setAttribute('aria-expanded','false');
+      b.setAttribute('aria-label','메뉴 열기');
     }
   });
 })();

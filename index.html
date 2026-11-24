@@ -5,34 +5,29 @@
 <meta name="google-site-verification" content="5qe5DOGkLPKoYBF3HrvMy7ZeZfhX9einnidOiiiMi44">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Design Future Games — 작은 플레이, 새로운 즐거움</title>
-<meta name="description" content="Design Future Games의 모바일 게임 8종. Swipe Ball: Global Rankings, Cat Life: Idle, Bomber Car, Golf : Mini 등 지금 Google Play에서 플레이하세요.">
+<meta name="description" content="Design Future Games의 모바일 게임 9종. Legend Survival: Runestone, Swipe Ball: Global Rankings, Cat Life: Idle 등 지금 Google Play에서 플레이하세요.">
 <meta name="theme-color" content="#2FB8FF">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Design Future Games — 작은 플레이, 새로운 즐거움">
-<meta property="og:description" content="모바일 게임 8종을 만드는 인디 게임 스튜디오. 지금 Google Play에서 플레이하세요.">
+<meta property="og:description" content="모바일 게임 9종을 만드는 인디 게임 스튜디오. 지금 Google Play에서 플레이하세요.">
 <meta property="og:url" content="https://designfuturegames.github.io/">
-<meta property="og:image" content="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s512">
+<meta property="og:image" content="https://play-lh.googleusercontent.com/y52GUYGH0CxSj2dWPagglQLlli59B7IgA7mt-lQ-npHgwAuhsgftLi-c2-sybPcRKLd8S7GX6L2QFOtVNPs0=w1052-h592">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================================
-   Design Future Games — tokens
-   ============================================================ */
+/* 공통 설정 */
 :root{
   --ink:#12233F;
   --ink-soft:#43597C;
   --cream:#FFF6E4;
   --white:#FFFFFF;
-
   --sky-top:#59CEFF;
   --sky-bot:#1A8FE0;
-
   --gold:#FFD24A;
   --gold-mid:#FFB321;
   --gold-deep:#D07E00;
-
   --red:#FF4D3D;
   --green:#2FBF5B;
   --purple:#7B5BFF;
@@ -40,26 +35,23 @@
   --pink:#FF4FA3;
   --orange:#FF8A00;
   --amber:#FFB020;
-
   --r-lg:28px;
   --r-md:20px;
   --r-sm:14px;
-
   --bw:4px;
   --lift:8px;
-
   --pad:clamp(20px,5vw,64px);
   --wrap:1200px;
-
   --f-display:'Fredoka','Jua','Noto Sans KR',system-ui,sans-serif;
   --f-body:'Noto Sans KR','Fredoka',system-ui,sans-serif;
 }
 
-/* ============================================================
-   base
-   ============================================================ */
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:120px;
+  -webkit-text-size-adjust:100%;
+}
 body{
   margin:0;
   background:var(--cream);
@@ -107,14 +99,11 @@ ul{margin:0;padding:0;list-style:none}
 }
 .skip:focus{top:12px}
 
-/* ============================================================
-   toy button
-   ============================================================ */
+/* 버튼 */
 .btn{
   --b-face1:var(--gold);
   --b-face2:var(--gold-mid);
   --b-deep:var(--gold-deep);
-
   display:inline-flex;
   align-items:center;
   gap:10px;
@@ -146,12 +135,6 @@ ul{margin:0;padding:0;list-style:none}
     0 0 0 var(--b-deep),
     0 0 0 var(--bw) var(--ink);
 }
-.btn--sky{
-  --b-face1:#7FDBFF;
-  --b-face2:#2AA6EE;
-  --b-deep:#0C6AA8;
-  color:#062B45;
-}
 .btn--white{
   --b-face1:#FFFFFF;
   --b-face2:#F0E7D4;
@@ -164,9 +147,7 @@ ul{margin:0;padding:0;list-style:none}
   border-radius:var(--r-sm);
 }
 
-/* ============================================================
-   nav
-   ============================================================ */
+/* 내비게이션 */
 .nav{
   position:fixed;
   inset:14px 0 auto;
@@ -174,6 +155,7 @@ ul{margin:0;padding:0;list-style:none}
   pointer-events:none;
 }
 .nav__bar{
+  position:relative;
   pointer-events:auto;
   display:flex;
   align-items:center;
@@ -265,76 +247,20 @@ ul{margin:0;padding:0;list-style:none}
   border-radius:2px;
 }
 
-/* ============================================================
-   hero
-   ============================================================ */
+/* 신규 게임 메인 배너 */
 .hero{
   position:relative;
-  padding:150px 0 190px;
-  background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-bot) 100%);
+  padding:155px 0 130px;
+  background:linear-gradient(135deg,#12233f 0%,#263b73 55%,#4e3690 100%);
   overflow:hidden;
-  text-align:center;
+  text-align:left;
 }
-.cloud{
-  position:absolute;
-  background:#fff;
-  border-radius:999px;
-  opacity:.55;
-  filter:blur(.4px);
-  pointer-events:none;
+.launch-grid{
+  display:grid;
+  grid-template-columns:1fr 1.25fr;
+  gap:36px;
+  align-items:center;
 }
-.cloud::before,.cloud::after{
-  content:"";
-  position:absolute;
-  background:#fff;
-  border-radius:999px;
-}
-.c1{
-  width:190px;
-  height:52px;
-  left:-8%;
-  top:16%;
-  animation:drift 46s linear infinite;
-}
-.c1::before{
-  width:96px;
-  height:96px;
-  left:34px;
-  top:-42px;
-}
-.c2{
-  width:140px;
-  height:42px;
-  right:4%;
-  top:11%;
-  opacity:.42;
-  animation:drift 62s linear infinite reverse;
-}
-.c2::before{
-  width:74px;
-  height:74px;
-  left:26px;
-  top:-32px;
-}
-.c3{
-  width:230px;
-  height:60px;
-  left:58%;
-  top:52%;
-  opacity:.28;
-  animation:drift 74s linear infinite;
-}
-.c3::before{
-  width:110px;
-  height:110px;
-  left:52px;
-  top:-48px;
-}
-@keyframes drift{
-  from{transform:translateX(-12vw)}
-  to{transform:translateX(112vw)}
-}
-
 .hero__eyebrow{
   display:inline-block;
   font-family:var(--f-display);
@@ -349,7 +275,9 @@ ul{margin:0;padding:0;list-style:none}
   margin-bottom:26px;
 }
 .hero h1{
-  font-size:clamp(46px,10.5vw,124px);
+  font-size:clamp(44px,5.6vw,72px);
+  line-height:1.06;
+  overflow-wrap:anywhere;
   letter-spacing:-.02em;
   color:#fff;
   margin:0 0 4px;
@@ -365,33 +293,103 @@ ul{margin:0;padding:0;list-style:none}
     0 12px 0 rgba(8,52,86,.35);
 }
 .hero h1 .joy{color:var(--gold)}
+.hero h1 small{
+  display:block;
+  font-size:clamp(21px,2.5vw,31px);
+  letter-spacing:.15em;
+  margin-top:16px;
+  color:#cce8ff;
+  text-shadow:none;
+}
 .hero__sub{
-  margin:26px auto 34px;
-  max-width:30ch;
-  color:#06314F;
+  margin:26px 0;
+  color:#e1eaff;
   font-weight:500;
-  font-size:clamp(16px,2.1vw,19px);
+  font-size:17px;
   line-height:1.8;
-  text-shadow:0 2px 0 rgba(255,255,255,.4);
+  word-break:keep-all;
 }
 .hero__actions{
   display:flex;
-  gap:14px;
-  justify-content:center;
+  gap:18px;
+  justify-content:flex-start;
   flex-wrap:wrap;
 }
+.launch-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:28px;
+}
+.launch-tags span{
+  border:1px solid #9eb4e5;
+  border-radius:99px;
+  padding:5px 11px;
+  font-size:13px;
+  color:#e5edff;
+  background:#ffffff0c;
+}
+.launch-art{
+  display:block;
+  border:4px solid var(--ink);
+  border-radius:24px;
+  overflow:hidden;
+  background:white;
+  box-shadow:0 10px 0 #0c152a,0 24px 55px #080c2a66;
+  transform:rotate(2deg);
+}
+.launch-art>img{
+  width:100%;
+  height:auto;
+  aspect-ratio:1052/592;
+  object-fit:contain;
+}
+.launch-caption{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:18px;
+  text-align:left;
+}
+.launch-caption img{
+  width:54px;
+  height:54px;
+  border-radius:13px;
+}
+.launch-caption b{
+  display:block;
+  font-family:var(--f-display);
+  font-size:20px;
+  line-height:1.25;
+}
+.launch-caption small{
+  display:block;
+  color:var(--ink-soft);
+  font-size:13px;
+  margin-top:5px;
+}
+.launch-caption strong{
+  margin-left:auto;
+  font-size:26px;
+}
 
-/* roster of real app icons */
+/* 게임 아이콘 */
+.roster-title{
+  margin-top:62px;
+  text-align:center;
+  color:#e1eaff;
+  font-size:15px;
+}
 .roster{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:clamp(10px,1.8vw,20px);
-  margin:clamp(48px,7vw,76px) auto 0;
+  margin:24px auto 0;
   max-width:1008px;
 }
 .roster a{
-  width:clamp(62px,9.5vw,108px);
+  width:clamp(56px,7vw,88px);
   aspect-ratio:1;
   border:var(--bw) solid var(--ink);
   border-radius:24%;
@@ -413,7 +411,6 @@ ul{margin:0;padding:0;list-style:none}
 .roster a:hover,.roster a:focus-visible{
   transform:rotate(0) translateY(-10px) scale(1.06);
 }
-
 .wave{
   position:absolute;
   left:0;
@@ -424,9 +421,7 @@ ul{margin:0;padding:0;list-style:none}
   display:block;
 }
 
-/* ============================================================
-   sections
-   ============================================================ */
+/* 섹션 */
 .sec{padding:clamp(72px,10vw,128px) 0}
 .sec__head{
   max-width:660px;
@@ -455,9 +450,7 @@ ul{margin:0;padding:0;list-style:none}
     0 4px 0 3px var(--ink);
 }
 
-/* ============================================================
-   game cards
-   ============================================================ */
+/* 게임 카드 */
 .games{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -592,10 +585,23 @@ ul{margin:0;padding:0;list-style:none}
   font-size:12.5px;
   color:var(--ink-soft);
   font-weight:500;
+  text-align:right;
+}
+.downloads{
+  display:inline-block;
+  font-family:var(--f-display);
+  font-size:23px;
+  line-height:1.3;
+  color:var(--ink);
+  margin-top:4px;
+}
+.card__store small{
+  display:block;
+  font-size:12px;
 }
 #swipe-ball{scroll-margin-top:110px}
 
-/* featured tile */
+/* 강조 카드 */
 .card--big{
   grid-column:span 2;
   flex-direction:row;
@@ -635,10 +641,21 @@ ul{margin:0;padding:0;list-style:none}
   padding:0;
   margin-top:4px;
 }
+.card--launch{grid-column:1/-1}
+.card--launch .card__art{
+  flex-basis:60%;
+  display:flex;
+  align-items:center;
+  background:#162747;
+}
+.card--launch .card__art img{
+  height:auto;
+  object-fit:contain;
+  transform:none;
+}
+.card--launch .card__side{flex-basis:40%}
 
-/* ============================================================
-   studio
-   ============================================================ */
+/* 스튜디오 */
 .studio{
   background:var(--ink);
   color:#fff;
@@ -696,10 +713,14 @@ ul{margin:0;padding:0;list-style:none}
   color:#A9BFDA;
   letter-spacing:.04em;
 }
+.stats-note{
+  font-size:13px!important;
+  line-height:1.8;
+  margin-bottom:30px!important;
+  max-width:85ch!important;
+}
 
-/* ============================================================
-   contact
-   ============================================================ */
+/* 문의 */
 .contact{
   background:linear-gradient(180deg,var(--gold) 0%,var(--gold-mid) 100%);
   border-top:var(--bw) solid var(--ink);
@@ -720,11 +741,12 @@ ul{margin:0;padding:0;list-style:none}
   --b-face1:#fff;
   --b-face2:#EFE3C9;
   --b-deep:#A8926B;
+  max-width:100%;
+  overflow-wrap:anywhere;
+  line-height:1.4;
 }
 
-/* ============================================================
-   footer
-   ============================================================ */
+/* 푸터 */
 .foot{
   background:var(--ink);
   color:#93A9C6;
@@ -738,10 +760,7 @@ ul{margin:0;padding:0;list-style:none}
   align-items:center;
   justify-content:space-between;
 }
-.foot a{
-  color:#fff;
-  font-weight:500;
-}
+.foot a{color:#fff;font-weight:500}
 .foot a:hover{color:var(--gold)}
 .foot__links{
   display:flex;
@@ -754,10 +773,8 @@ ul{margin:0;padding:0;list-style:none}
   letter-spacing:.02em;
 }
 
-/* ============================================================
-   responsive
-   ============================================================ */
-@media (max-width:980px){
+/* 태블릿 */
+@media(max-width:980px){
   .games{grid-template-columns:repeat(2,1fr)}
   .card--big{
     grid-column:span 2;
@@ -769,9 +786,21 @@ ul{margin:0;padding:0;list-style:none}
     border-bottom:var(--bw) solid var(--ink);
   }
   .card--big .card__icon{margin-top:-38px}
+  .card--launch{grid-column:1/-1}
+  .card--launch .card__art{flex-basis:auto}
+  .launch-grid{grid-template-columns:1fr;gap:36px}
+  .hero h1{font-size:clamp(48px,10vw,82px)}
+  .launch-copy{text-align:center}
+  .hero__actions,.launch-tags{justify-content:center}
+  .launch-art{
+    max-width:700px;
+    margin:auto;
+    transform:none;
+  }
 }
 
-@media (max-width:760px){
+/* 모바일 */
+@media(max-width:760px){
   .nav__links{
     display:none;
     position:absolute;
@@ -795,17 +824,24 @@ ul{margin:0;padding:0;list-style:none}
   .nav__cta{margin-left:0}
   .burger{display:flex}
   .brand__txt{display:none}
-  .hero{padding:126px 0 150px}
+  .hero{padding:124px 0 100px}
   .games{grid-template-columns:1fr}
   .card--big{grid-column:span 1}
+  .card--launch{grid-column:1}
   .card__body{gap:13px}
-  .card__icon{
-    width:66px;
-    height:66px;
+  .card__icon{width:66px;height:66px}
+  .launch-caption{padding:12px;gap:10px}
+  .launch-caption b{font-size:17px}
+  .launch-caption img{width:44px;height:44px}
+  .hero__eyebrow{font-size:13px}
+  .roster-title{margin-top:42px}
+  .contact .btn{
+    font-size:clamp(12px,3.5vw,18px);
+    padding-inline:12px;
   }
 }
 
-@media (prefers-reduced-motion:reduce){
+@media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{
     animation:none!important;
@@ -819,7 +855,7 @@ ul{margin:0;padding:0;list-style:none}
 
 <a class="skip" href="#games">게임 목록으로 건너뛰기</a>
 
-<!-- ============ NAV ============ -->
+<!-- 내비게이션 -->
 <nav class="nav" aria-label="주요 메뉴">
   <div class="nav__bar">
     <a class="brand" href="#top">
@@ -827,7 +863,8 @@ ul{margin:0;padding:0;list-style:none}
       <span class="brand__txt">DESIGN FUTURE<small>GAMES</small></span>
     </a>
 
-    <button class="burger" id="burger" aria-expanded="false" aria-controls="navlinks" aria-label="메뉴 열기">
+    <button class="burger" id="burger" aria-expanded="false"
+            aria-controls="navlinks" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
     </button>
 
@@ -835,274 +872,494 @@ ul{margin:0;padding:0;list-style:none}
       <a href="#games">게임</a>
       <a href="#studio">스튜디오</a>
       <a href="#contact">문의</a>
-      <a class="btn btn--sm nav__cta" href="https://www.youtube.com/@DesignFutureGames" target="_blank" rel="noopener">YouTube</a>
+      <a class="btn btn--sm nav__cta"
+         href="https://www.youtube.com/@DesignFutureGames"
+         target="_blank" rel="noopener">YouTube</a>
     </div>
   </div>
 </nav>
 
-<!-- ============ HERO ============ -->
+<!-- 메인 배너 -->
 <header class="hero" id="top">
-  <div class="cloud c1" aria-hidden="true"></div>
-  <div class="cloud c2" aria-hidden="true"></div>
-  <div class="cloud c3" aria-hidden="true"></div>
-
   <div class="wrap">
-    <span class="hero__eyebrow">인디 게임 스튜디오</span>
-    <h1>SMALL PLAY<br><span class="joy">BIG JOY!</span></h1>
+    <div class="launch-grid">
+      <div class="launch-copy">
+        <span class="hero__eyebrow">NEW RELEASE · 정식 출시</span>
+        <h1>
+          LEGEND<br>
+          <span class="joy">SURVIVAL</span>
+          <small>RUNESTONE</small>
+        </h1>
 
-    <p class="hero__sub">
-      잠깐의 플레이가 즐거운 하루로.<br>
-      Design Future Games가 만드는 여덟 가지 즐거움.
-    </p>
+        <p class="hero__sub">
+          몰려오는 몬스터, 나만의 스킬 조합.<br>
+          전장을 뒤집는 짜릿한 생존 액션을 만나보세요.
+        </p>
 
-    <div class="hero__actions">
-      <a class="btn" href="#games">게임 전체 보기</a>
-      <a class="btn btn--sky" href="https://play.google.com/store/apps/dev?id=7456297752893192149" target="_blank" rel="noopener">Google Play 스토어</a>
+        <div class="launch-tags">
+          <span>스킬 조합 &amp; 초월</span>
+          <span>거대 보스 전투</span>
+          <span>오프라인 플레이</span>
+        </div>
+
+        <div class="hero__actions">
+          <a class="btn"
+             href="https://play.google.com/store/apps/details?id=com.monsterhunt.legendsurvival"
+             target="_blank" rel="noopener">지금 플레이하기 ↗</a>
+          <a class="btn btn--white" href="#games">전체 게임 보기</a>
+        </div>
+      </div>
+
+      <a class="launch-art"
+         href="https://play.google.com/store/apps/details?id=com.monsterhunt.legendsurvival"
+         target="_blank" rel="noopener"
+         aria-label="Legend Survival: Runestone Google Play에서 보기">
+        <img
+          src="https://play-lh.googleusercontent.com/y52GUYGH0CxSj2dWPagglQLlli59B7IgA7mt-lQ-npHgwAuhsgftLi-c2-sybPcRKLd8S7GX6L2QFOtVNPs0=w1052-h592"
+          width="1052" height="592"
+          alt="Legend Survival: Runestone의 마법사 캐릭터와 몬스터 전투 화면"
+          fetchpriority="high">
+        <span class="launch-caption">
+          <img
+            src="https://play-lh.googleusercontent.com/7MQ0ku87DSJQJ8h1wZUrdaBVZxvcA7h5dnyIuLvrcCTsPqLSrQfqv3-X93lD5YdSMiXgefEhW5WYw4PZg3Ey=s0-br30"
+            width="64" height="64" alt="">
+          <span>
+            <b>Legend Survival: Runestone</b>
+            <small>Google Play에서 만나보세요</small>
+          </span>
+          <strong aria-hidden="true">↗</strong>
+        </span>
+      </a>
     </div>
 
+    <p class="roster-title">Design Future Games · 아홉 가지 즐거움</p>
+
     <div class="roster">
-      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.catlifeidle" target="_blank" rel="noopener" aria-label="Cat Life: Idle">
-        <img src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s256" alt="Cat Life: Idle 아이콘" loading="lazy" width="256" height="256">
+      <a href="https://play.google.com/store/apps/details?id=com.monsterhunt.legendsurvival"
+         target="_blank" rel="noopener" aria-label="Legend Survival: Runestone">
+        <img
+          src="https://play-lh.googleusercontent.com/7MQ0ku87DSJQJ8h1wZUrdaBVZxvcA7h5dnyIuLvrcCTsPqLSrQfqv3-X93lD5YdSMiXgefEhW5WYw4PZg3Ey=s0-br30"
+          alt="Legend Survival: Runestone 아이콘"
+          width="256" height="256" loading="lazy">
       </a>
 
-      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball" target="_blank" rel="noopener" aria-label="Swipe Ball: Global Rankings">
-        <img src="https://play-lh.googleusercontent.com/FC0S3K3sVcAh27gBNveOAHduRdg76m42ARgWBBBWlKrHUw8BX4GdwwISmkgncAlWPqAq_4-F6DHkDZXZa8DCbw=s256" alt="Swipe Ball: Global Rankings 아이콘" loading="lazy" width="256" height="256">
+      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.catlifeidle"
+         target="_blank" rel="noopener" aria-label="Cat Life: Idle">
+        <img
+          src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s256"
+          alt="Cat Life: Idle 아이콘"
+          loading="lazy" width="256" height="256">
       </a>
 
-      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar" target="_blank" rel="noopener" aria-label="Bomber Car : Speed Race">
-        <img src="https://play-lh.googleusercontent.com/BMR7FNaajHoMoT60mC5AhySe0yLqO_sddI0fmVmta0C3VkDi4DbQm89_aZ1y8nH0cHdPO-QIOAZFm5Qf1fV0=s256" alt="Bomber Car : Speed Race 아이콘" loading="lazy" width="256" height="256">
+      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball"
+         target="_blank" rel="noopener" aria-label="Swipe Ball: Global Rankings">
+        <img
+          src="https://play-lh.googleusercontent.com/FC0S3K3sVcAh27gBNveOAHduRdg76m42ARgWBBBWlKrHUw8BX4GdwwISmkgncAlWPqAq_4-F6DHkDZXZa8DCbw=s256"
+          alt="Swipe Ball: Global Rankings 아이콘"
+          loading="lazy" width="256" height="256">
       </a>
 
-      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor" target="_blank" rel="noopener" aria-label="Kick survival">
-        <img src="https://play-lh.googleusercontent.com/h1c337Eohv506ByOnAVMQqHBlfW9D_evuWsLSQzAhZQX-m3sGHeOeECXN_3-U4AcCQBoyMnJeUAXGJwAoMfGew=s256" alt="Kick survival 아이콘" loading="lazy" width="256" height="256">
+      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar"
+         target="_blank" rel="noopener" aria-label="Bomber Car : Speed Race">
+        <img
+          src="https://play-lh.googleusercontent.com/BMR7FNaajHoMoT60mC5AhySe0yLqO_sddI0fmVmta0C3VkDi4DbQm89_aZ1y8nH0cHdPO-QIOAZFm5Qf1fV0=s256"
+          alt="Bomber Car : Speed Race 아이콘"
+          loading="lazy" width="256" height="256">
       </a>
 
-      <a href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic" target="_blank" rel="noopener" aria-label="Block King Master : Classic">
-        <img src="https://play-lh.googleusercontent.com/8VL44jdJesWwwiLVwyvVAxnV-g6K-xfhRIhIyO6D52n23WxIAXri19-EQYd2aKPG9aHWjeqcaERWtZlous5ryg=s256" alt="Block King Master : Classic 아이콘" loading="lazy" width="256" height="256">
+      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor"
+         target="_blank" rel="noopener" aria-label="Kick survival">
+        <img
+          src="https://play-lh.googleusercontent.com/h1c337Eohv506ByOnAVMQqHBlfW9D_evuWsLSQzAhZQX-m3sGHeOeECXN_3-U4AcCQBoyMnJeUAXGJwAoMfGew=s256"
+          alt="Kick survival 아이콘"
+          loading="lazy" width="256" height="256">
       </a>
 
-      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini" target="_blank" rel="noopener" aria-label="Golf : Mini">
-        <img src="https://play-lh.googleusercontent.com/fhZvttrtvayi9PHzwAHl7mOrR0GcMPEI6QNs0nAppvXX29NCCJtjsQJLV1JPj_EC6rLFAnmg5us8fBE1XWVDiA=s256" alt="Golf : Mini 아이콘" loading="lazy" width="256" height="256">
+      <a href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic"
+         target="_blank" rel="noopener" aria-label="Block King Master : Classic">
+        <img
+          src="https://play-lh.googleusercontent.com/8VL44jdJesWwwiLVwyvVAxnV-g6K-xfhRIhIyO6D52n23WxIAXri19-EQYd2aKPG9aHWjeqcaERWtZlous5ryg=s256"
+          alt="Block King Master : Classic 아이콘"
+          loading="lazy" width="256" height="256">
       </a>
 
-      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster" target="_blank" rel="noopener" aria-label="Slingshot Master">
-        <img src="https://play-lh.googleusercontent.com/0ZorUjeALFaleoY24sEmJEPK52uERaivaa1dg-N-nuxoKZtEbM_Cn-rts7dlmGW3VdZk8FfzUaXKQhFWFANY=s256" alt="Slingshot Master 아이콘" loading="lazy" width="256" height="256">
+      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini"
+         target="_blank" rel="noopener" aria-label="Golf : Mini">
+        <img
+          src="https://play-lh.googleusercontent.com/fhZvttrtvayi9PHzwAHl7mOrR0GcMPEI6QNs0nAppvXX29NCCJtjsQJLV1JPj_EC6rLFAnmg5us8fBE1XWVDiA=s256"
+          alt="Golf : Mini 아이콘"
+          loading="lazy" width="256" height="256">
       </a>
 
-      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit" target="_blank" rel="noopener" aria-label="Changed Photo : Find It!">
-        <img src="https://play-lh.googleusercontent.com/ntnSOnHabYK7Zppnb4WagoSNND2Vilhkp28eTTj0K8liLfmA8JkOL8-WSXUvxGEobr_KTv3VTq-_VV4EkzsGlQ=s256" alt="Changed Photo : Find It! 아이콘" loading="lazy" width="256" height="256">
+      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster"
+         target="_blank" rel="noopener" aria-label="Slingshot Master">
+        <img
+          src="https://play-lh.googleusercontent.com/0ZorUjeALFaleoY24sEmJEPK52uERaivaa1dg-N-nuxoKZtEbM_Cn-rts7dlmGW3VdZk8FfzUaXKQhFWFANY=s256"
+          alt="Slingshot Master 아이콘"
+          loading="lazy" width="256" height="256">
+      </a>
+
+      <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit"
+         target="_blank" rel="noopener" aria-label="Changed Photo : Find It!">
+        <img
+          src="https://play-lh.googleusercontent.com/ntnSOnHabYK7Zppnb4WagoSNND2Vilhkp28eTTj0K8liLfmA8JkOL8-WSXUvxGEobr_KTv3VTq-_VV4EkzsGlQ=s256"
+          alt="Changed Photo : Find It! 아이콘"
+          loading="lazy" width="256" height="256">
       </a>
     </div>
   </div>
 
-  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <path d="M0,62 C170,112 350,8 540,42 C720,74 900,120 1085,88 C1205,66 1325,28 1440,48 L1440,121 L0,121 Z" fill="#FFF6E4"/>
+  <svg class="wave" viewBox="0 0 1440 120"
+       preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path
+      d="M0,62 C170,112 350,8 540,42 C720,74 900,120 1085,88 C1205,66 1325,28 1440,48 L1440,121 L0,121 Z"
+      fill="#FFF6E4"/>
   </svg>
 </header>
 
 <main>
 
-<!-- ============ GAMES ============ -->
+<!-- 게임 목록 -->
 <section class="sec" id="games">
   <div class="wrap">
     <div class="sec__head">
-      <h2>지금 플레이<span class="count">8 GAMES</span></h2>
+      <h2>지금 플레이<span class="count">9 GAMES</span></h2>
       <p>질주하는 액션부터 느긋한 고양이 카페까지. 전부 Google Play에서 바로 시작할 수 있어요.</p>
     </div>
 
     <div class="games">
 
-      <!-- featured -->
-      <a class="card card--big" style="--accent:var(--amber)" href="https://play.google.com/store/apps/details?id=com.designfuturegames.catlifeidle" target="_blank" rel="noopener">
+      <!-- Legend Survival -->
+      <a class="card card--big card--launch"
+         style="--accent:var(--purple)"
+         href="https://play.google.com/store/apps/details?id=com.monsterhunt.legendsurvival"
+         target="_blank" rel="noopener">
         <div class="card__art">
-          <span class="card__tag">IDLE</span>
-          <img src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s640" alt="Cat Life: Idle 대표 이미지" loading="lazy">
+          <span class="card__tag">NEW · SURVIVAL ACTION</span>
+          <img
+            src="https://play-lh.googleusercontent.com/y52GUYGH0CxSj2dWPagglQLlli59B7IgA7mt-lQ-npHgwAuhsgftLi-c2-sybPcRKLd8S7GX6L2QFOtVNPs0=w1052-h592"
+            alt="Legend Survival: Runestone 전투 화면"
+            loading="lazy" width="1052" height="592">
         </div>
 
         <div class="card__side">
           <span class="card__icon">
-            <img src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s192" alt="" loading="lazy">
+            <img
+              src="https://play-lh.googleusercontent.com/7MQ0ku87DSJQJ8h1wZUrdaBVZxvcA7h5dnyIuLvrcCTsPqLSrQfqv3-X93lD5YdSMiXgefEhW5WYw4PZg3Ey=s0-br30"
+              alt="" loading="lazy">
           </span>
+          <div>
+            <h3>Legend Survival: Runestone</h3>
+            <p>몬스터 무리를 돌파하고 스킬을 조합하세요. 강력한 스킬 초월과 거대 보스 전투에 도전하세요.</p>
+          </div>
+          <div class="card__foot">
+            <span class="card__play">플레이하기</span>
+            <span class="card__store">
+              Google Play<br>
+              <b class="downloads">3,000</b>
+              <small>누적 다운로드</small>
+            </span>
+          </div>
+        </div>
+      </a>
 
+      <!-- Cat Life -->
+      <a class="card card--big"
+         style="--accent:var(--amber)"
+         href="https://play.google.com/store/apps/details?id=com.designfuturegames.catlifeidle"
+         target="_blank" rel="noopener">
+        <div class="card__art">
+          <span class="card__tag">IDLE</span>
+          <img
+            src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s640"
+            alt="Cat Life: Idle 대표 이미지" loading="lazy">
+        </div>
+
+        <div class="card__side">
+          <span class="card__icon">
+            <img
+              src="https://play-lh.googleusercontent.com/6FPeyT0VdhFSx3MCgTpvz2sokp9v5TSjJwO1EZXS6Lr-VScrRJJYIdNslD12cmHZiJ3B4fH8hMqsW3D61gw-=s192"
+              alt="" loading="lazy">
+          </span>
           <div>
             <h3>Cat Life: Idle</h3>
             <p>고양이를 돌보고 나만의 아늑한 카페를 가꿔보세요. 작은 카페에서 시작되는 느긋한 하루.</p>
           </div>
-
           <div class="card__foot">
             <span class="card__play">플레이하기</span>
-            <span class="card__store">Google Play</span>
+            <span class="card__store">
+              Google Play<br>
+              <b class="downloads">42,000</b>
+              <small>누적 다운로드</small>
+            </span>
           </div>
         </div>
       </a>
 
       <!-- Swipe Ball -->
       <article class="card" id="swipe-ball" style="--accent:var(--teal)">
-        <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <a class="card__art"
+           href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball"
+           target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">PUZZLE · DUEL</span>
-          <img src="https://play-lh.googleusercontent.com/vOo1vaARu0pquY8VriJxNjLgyPsaM5QTp48o6if8WlJrMVhFR5HISdE6wKNWR3adiTq13YHoa2uEL6JLBUTZ=w800" alt="" loading="lazy">
+          <img
+            src="https://play-lh.googleusercontent.com/vOo1vaARu0pquY8VriJxNjLgyPsaM5QTp48o6if8WlJrMVhFR5HISdE6wKNWR3adiTq13YHoa2uEL6JLBUTZ=w800"
+            alt="" loading="lazy">
         </a>
 
         <div class="card__body">
           <span class="card__icon">
-            <img src="https://play-lh.googleusercontent.com/FC0S3K3sVcAh27gBNveOAHduRdg76m42ARgWBBBWlKrHUw8BX4GdwwISmkgncAlWPqAq_4-F6DHkDZXZa8DCbw=s192" alt="" loading="lazy">
+            <img
+              src="https://play-lh.googleusercontent.com/FC0S3K3sVcAh27gBNveOAHduRdg76m42ARgWBBBWlKrHUw8BX4GdwwISmkgncAlWPqAq_4-F6DHkDZXZa8DCbw=s192"
+              alt="" loading="lazy">
           </span>
-
           <div class="card__text">
             <h3>
-              <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball" target="_blank" rel="noopener">Swipe Ball: Global Rankings</a>
+              <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball"
+                 target="_blank" rel="noopener">Swipe Ball: Global Rankings</a>
             </h3>
             <p>스와이프로 볼을 움직여 모든 타일을 칠하세요. 1:1 듀얼, 랭킹 모드와 6가지 미니게임까지 즐겨보세요.</p>
           </div>
         </div>
 
         <div class="card__foot">
-          <a class="card__play" href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball" target="_blank" rel="noopener" aria-label="Swipe Ball: Global Rankings Google Play에서 플레이하기">플레이하기</a>
-          <span class="card__store">Google Play</span>
+          <a class="card__play"
+             href="https://play.google.com/store/apps/details?id=com.designfuturegames.swipeball"
+             target="_blank" rel="noopener"
+             aria-label="Swipe Ball: Global Rankings Google Play에서 플레이하기">플레이하기</a>
+          <span class="card__store">
+            Google Play<br>
+            <b class="downloads">58,000</b>
+            <small>누적 다운로드</small>
+          </span>
         </div>
       </article>
 
       <!-- Bomber Car -->
       <article class="card" style="--accent:var(--red)">
-        <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <a class="card__art"
+           href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar"
+           target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">RACING</span>
-          <img src="https://play-lh.googleusercontent.com/aRzMv1DEfx25wlwvOhHWyXhe1jjvTHRMulxoVZZreQyW9npgvKzUlWRxfE2yYZ2uEjzmgzahK5VodFlZWkV72Q=w800" alt="" loading="lazy">
+          <img
+            src="https://play-lh.googleusercontent.com/aRzMv1DEfx25wlwvOhHWyXhe1jjvTHRMulxoVZZreQyW9npgvKzUlWRxfE2yYZ2uEjzmgzahK5VodFlZWkV72Q=w800"
+            alt="" loading="lazy">
         </a>
 
         <div class="card__body">
           <span class="card__icon">
-            <img src="https://play-lh.googleusercontent.com/BMR7FNaajHoMoT60mC5AhySe0yLqO_sddI0fmVmta0C3VkDi4DbQm89_aZ1y8nH0cHdPO-QIOAZFm5Qf1fV0=s192" alt="" loading="lazy">
+            <img
+              src="https://play-lh.googleusercontent.com/BMR7FNaajHoMoT60mC5AhySe0yLqO_sddI0fmVmta0C3VkDi4DbQm89_aZ1y8nH0cHdPO-QIOAZFm5Qf1fV0=s192"
+              alt="" loading="lazy">
           </span>
-
           <div class="card__text">
-            <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar" target="_blank" rel="noopener">Bomber Car : Speed Race</a></h3>
+            <h3>
+              <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar"
+                 target="_blank" rel="noopener">Bomber Car : Speed Race</a>
+            </h3>
             <p>피하고, 쏘고, 질주하세요. 멈추지 않는 자동차 액션.</p>
           </div>
         </div>
 
         <div class="card__foot">
-          <span class="card__play">플레이하기</span>
-          <span class="card__store">Google Play</span>
+          <a class="card__play"
+             href="https://play.google.com/store/apps/details?id=com.designfuturegames.bombercar"
+             target="_blank" rel="noopener">플레이하기</a>
+          <span class="card__store">
+            Google Play<br>
+            <b class="downloads">32,000</b>
+            <small>누적 다운로드</small>
+          </span>
         </div>
       </article>
 
       <!-- Kick survival -->
       <article class="card" style="--accent:var(--purple)">
-        <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <a class="card__art"
+           href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor"
+           target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">SURVIVAL</span>
-          <img src="https://play-lh.googleusercontent.com/DQDzPUwUGOSXQDfKC1Ll-5-kbFiHX7PPpSMZivX4SUe-0LCwd3GqG2V36c-QFG2RmDlXtMQoSqJi8L9hyrNbQw=w800" alt="" loading="lazy">
+          <img
+            src="https://play-lh.googleusercontent.com/DQDzPUwUGOSXQDfKC1Ll-5-kbFiHX7PPpSMZivX4SUe-0LCwd3GqG2V36c-QFG2RmDlXtMQoSqJi8L9hyrNbQw=w800"
+            alt="" loading="lazy">
         </a>
 
         <div class="card__body">
           <span class="card__icon">
-            <img src="https://play-lh.googleusercontent.com/h1c337Eohv506ByOnAVMQqHBlfW9D_evuWsLSQzAhZQX-m3sGHeOeECXN_3-U4AcCQBoyMnJeUAXGJwAoMfGew=s192" alt="" loading="lazy">
+            <img
+              src="https://play-lh.googleusercontent.com/h1c337Eohv506ByOnAVMQqHBlfW9D_evuWsLSQzAhZQX-m3sGHeOeECXN_3-U4AcCQBoyMnJeUAXGJwAoMfGew=s192"
+              alt="" loading="lazy">
           </span>
-
           <div class="card__text">
-            <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor" target="_blank" rel="noopener">Kick survival</a></h3>
+            <h3>
+              <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor"
+                 target="_blank" rel="noopener">Kick survival</a>
+            </h3>
             <p>좁아지는 전장에서 99명을 걷어차고 마지막까지 살아남으세요.</p>
           </div>
         </div>
 
         <div class="card__foot">
-          <span class="card__play">플레이하기</span>
-          <span class="card__store">Google Play</span>
+          <a class="card__play"
+             href="https://play.google.com/store/apps/details?id=com.designfuturegames.kicksurvivor"
+             target="_blank" rel="noopener">플레이하기</a>
+          <span class="card__store">
+            Google Play<br>
+            <b class="downloads">17,000</b>
+            <small>누적 다운로드</small>
+          </span>
         </div>
       </article>
 
       <!-- Block King Master -->
       <article class="card" style="--accent:var(--teal)">
-        <a class="card__art" href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <a class="card__art"
+           href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic"
+           target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">PUZZLE</span>
-          <img src="https://play-lh.googleusercontent.com/c9Ntf9B6nABbJuLMbZuykj_kXCHvcMCzoAXZ8aHcL5YaG2F9xejaeDEHht64v0Fk2wa-PXYZJOG0fUGeQ0BcAyQ=w800" alt="" loading="lazy">
+          <img
+            src="https://play-lh.googleusercontent.com/c9Ntf9B6nABbJuLMbZuykj_kXCHvcMCzoAXZ8aHcL5YaG2F9xejaeDEHht64v0Fk2wa-PXYZJOG0fUGeQ0BcAyQ=w800"
+            alt="" loading="lazy">
         </a>
 
         <div class="card__body">
           <span class="card__icon">
-            <img src="https://play-lh.googleusercontent.com/8VL44jdJesWwwiLVwyvVAxnV-g6K-xfhRIhIyO6D52n23WxIAXri19-EQYd2aKPG9aHWjeqcaERWtZlous5ryg=s192" alt="" loading="lazy">
+            <img
+              src="https://play-lh.googleusercontent.com/8VL44jdJesWwwiLVwyvVAxnV-g6K-xfhRIhIyO6D52n23WxIAXri19-EQYd2aKPG9aHWjeqcaERWtZlous5ryg=s192"
+              alt="" loading="lazy">
           </span>
-
           <div class="card__text">
-            <h3><a href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic" target="_blank" rel="noopener">Block King Master : Classic</a></h3>
+            <h3>
+              <a href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic"
+                 target="_blank" rel="noopener">Block King Master : Classic</a>
+            </h3>
             <p>블록을 맞추고 비우는, 단순하고 시원한 즐거움.</p>
           </div>
         </div>
 
         <div class="card__foot">
-          <span class="card__play">플레이하기</span>
-          <span class="card__store">Google Play</span>
+          <a class="card__play"
+             href="https://play.google.com/store/apps/details?id=com.DesignFutureGames.blockkingmasterclassic"
+             target="_blank" rel="noopener">플레이하기</a>
+          <span class="card__store">
+            Google Play<br>
+            <b class="downloads">50,000</b>
+            <small>누적 다운로드</small>
+          </span>
         </div>
       </article>
 
       <!-- Golf : Mini -->
       <article class="card" style="--accent:var(--green)">
-        <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <a class="card__art"
+           href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini"
+           target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">SPORTS</span>
-          <img src="https://play-lh.googleusercontent.com/Zktw76lHZz36ZqkUm3y8cVznKchB-xcuL0VGZ2X_pJmbCFKCX-iYP6OFgoLqa1ICOj5pTOK1KXFLyH2EPzANK24=w800" alt="" loading="lazy">
+          <img
+            src="https://play-lh.googleusercontent.com/Zktw76lHZz36ZqkUm3y8cVznKchB-xcuL0VGZ2X_pJmbCFKCX-iYP6OFgoLqa1ICOj5pTOK1KXFLyH2EPzANK24=w800"
+            alt="" loading="lazy">
         </a>
 
         <div class="card__body">
           <span class="card__icon">
-            <img src="https://play-lh.googleusercontent.com/fhZvttrtvayi9PHzwAHl7mOrR0GcMPEI6QNs0nAppvXX29NCCJtjsQJLV1JPj_EC6rLFAnmg5us8fBE1XWVDiA=s192" alt="" loading="lazy">
+            <img
+              src="https://play-lh.googleusercontent.com/fhZvttrtvayi9PHzwAHl7mOrR0GcMPEI6QNs0nAppvXX29NCCJtjsQJLV1JPj_EC6rLFAnmg5us8fBE1XWVDiA=s192"
+              alt="" loading="lazy">
           </span>
-
           <div class="card__text">
-            <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini" target="_blank" rel="noopener">Golf : Mini</a></h3>
+            <h3>
+              <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini"
+                 target="_blank" rel="noopener">Golf : Mini</a>
+            </h3>
             <p>정해진 타수 안에서 가장 짧은 경로를 찾아 기분 좋은 홀인원.</p>
           </div>
         </div>
 
         <div class="card__foot">
-          <span class="card__play">플레이하기</span>
-          <span class="card__store">Google Play</span>
+          <a class="card__play"
+             href="https://play.google.com/store/apps/details?id=com.designfuturegames.golfmini"
+             target="_blank" rel="noopener">플레이하기</a>
+          <span class="card__store">
+            Google Play<br>
+            <b class="downloads">5,000</b>
+            <small>누적 다운로드</small>
+          </span>
         </div>
       </article>
 
       <!-- Slingshot Master -->
       <article class="card" style="--accent:var(--orange)">
-        <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <a class="card__art"
+           href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster"
+           target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">ACTION</span>
-          <img src="https://play-lh.googleusercontent.com/cUk6cjASmml5y-KIK3Q7zHUSSAWQDw5n8cAPvLpl8U00_hFiT8S6Rj5MHYAkwxAh7iwjIVA_5wMf0-zcXwTy=w800" alt="" loading="lazy">
+          <img
+            src="https://play-lh.googleusercontent.com/cUk6cjASmml5y-KIK3Q7zHUSSAWQDw5n8cAPvLpl8U00_hFiT8S6Rj5MHYAkwxAh7iwjIVA_5wMf0-zcXwTy=w800"
+            alt="" loading="lazy">
         </a>
 
         <div class="card__body">
           <span class="card__icon">
-            <img src="https://play-lh.googleusercontent.com/0ZorUjeALFaleoY24sEmJEPK52uERaivaa1dg-N-nuxoKZtEbM_Cn-rts7dlmGW3VdZk8FfzUaXKQhFWFANY=s192" alt="" loading="lazy">
+            <img
+              src="https://play-lh.googleusercontent.com/0ZorUjeALFaleoY24sEmJEPK52uERaivaa1dg-N-nuxoKZtEbM_Cn-rts7dlmGW3VdZk8FfzUaXKQhFWFANY=s192"
+              alt="" loading="lazy">
           </span>
-
           <div class="card__text">
-            <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster" target="_blank" rel="noopener">Slingshot Master</a></h3>
+            <h3>
+              <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster"
+                 target="_blank" rel="noopener">Slingshot Master</a>
+            </h3>
             <p>당기고 쏘세요. 불·물·얼음·풀 속성 캐릭터 12명을 키워 적을 물리치세요.</p>
           </div>
         </div>
 
         <div class="card__foot">
-          <span class="card__play">플레이하기</span>
-          <span class="card__store">Google Play</span>
+          <a class="card__play"
+             href="https://play.google.com/store/apps/details?id=com.designfuturegames.slingshotmaster"
+             target="_blank" rel="noopener">플레이하기</a>
+          <span class="card__store">
+            Google Play<br>
+            <b class="downloads">5,000</b>
+            <small>누적 다운로드</small>
+          </span>
         </div>
       </article>
 
       <!-- Changed Photo -->
       <article class="card" style="--accent:var(--pink)">
-        <a class="card__art" href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <a class="card__art"
+           href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit"
+           target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
           <span class="card__tag">OBSERVATION</span>
-          <img src="https://play-lh.googleusercontent.com/PyWRY0A8kHcb2SXBjKMPq_dV0nlGX1fNBy8niQBhUhk0MY2wsXqmQAP2Y3Xfbj27M4ssrsgm3ocUxXlyZFBo=w800" alt="" loading="lazy">
+          <img
+            src="https://play-lh.googleusercontent.com/PyWRY0A8kHcb2SXBjKMPq_dV0nlGX1fNBy8niQBhUhk0MY2wsXqmQAP2Y3Xfbj27M4ssrsgm3ocUxXlyZFBo=w800"
+            alt="" loading="lazy">
         </a>
 
         <div class="card__body">
           <span class="card__icon">
-            <img src="https://play-lh.googleusercontent.com/ntnSOnHabYK7Zppnb4WagoSNND2Vilhkp28eTTj0K8liLfmA8JkOL8-WSXUvxGEobr_KTv3VTq-_VV4EkzsGlQ=s192" alt="" loading="lazy">
+            <img
+              src="https://play-lh.googleusercontent.com/ntnSOnHabYK7Zppnb4WagoSNND2Vilhkp28eTTj0K8liLfmA8JkOL8-WSXUvxGEobr_KTv3VTq-_VV4EkzsGlQ=s192"
+              alt="" loading="lazy">
           </span>
-
           <div class="card__text">
-            <h3><a href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit" target="_blank" rel="noopener">Changed Photo : Find It!</a></h3>
+            <h3>
+              <a href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit"
+                 target="_blank" rel="noopener">Changed Photo : Find It!</a>
+            </h3>
             <p>한 장의 사진 속, 서서히 달라지는 순간을 시간 안에 찾아보세요.</p>
           </div>
         </div>
 
         <div class="card__foot">
-          <span class="card__play">플레이하기</span>
-          <span class="card__store">Google Play</span>
+          <a class="card__play"
+             href="https://play.google.com/store/apps/details?id=com.designfuturegames.changephotofindit"
+             target="_blank" rel="noopener">플레이하기</a>
+          <span class="card__store">
+            Google Play<br>
+            <b class="downloads">4,000</b>
+            <small>누적 다운로드</small>
+          </span>
         </div>
       </article>
 
@@ -1110,44 +1367,69 @@ ul{margin:0;padding:0;list-style:none}
   </div>
 </section>
 
-<!-- ============ STUDIO ============ -->
+<!-- 스튜디오 -->
 <section class="sec studio" id="studio">
   <div class="wrap">
     <h2>작은 아이디어에서, 다음 즐거움으로.</h2>
     <p>질주하는 액션부터 차분히 몰입하는 퍼즐, 고양이와 함께하는 휴식까지. 누구나 가볍게 시작하고 자기만의 재미를 발견할 수 있는 모바일 게임을 만듭니다.</p>
 
     <div class="stats">
-      <div class="stat"><b>8</b><span>출시한 게임</span></div>
-      <div class="stat"><b>30,000+</b><span>누적 다운로드</span></div>
-      <div class="stat"><b>3+</b><span>전체 이용가</span></div>
+      <div class="stat">
+        <b>9</b>
+        <span>출시한 게임</span>
+      </div>
+      <div class="stat">
+        <b>216,000</b>
+        <span>누적 다운로드 합계</span>
+      </div>
+      <div class="stat">
+        <b>Google Play</b>
+        <span>서비스 플랫폼</span>
+      </div>
     </div>
 
-    <a class="btn" href="https://www.youtube.com/@DesignFutureGames" target="_blank" rel="noopener">게임 영상 보러가기</a>
+    <p class="stats-note">
+      다운로드 수는 캠페인 전환수에 기반한 추정치입니다.
+      게임별 캠페인 전환수를 합산하고 3,000을 더한 후 천 단위 미만을 버렸으며,
+      합계는 각 게임의 표시값을 더했습니다.
+      Google Play의 실제 설치 집계와 다를 수 있습니다.
+    </p>
+
+    <a class="btn"
+       href="https://www.youtube.com/@DesignFutureGames"
+       target="_blank" rel="noopener">게임 영상 보러가기</a>
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
+<!-- 문의 -->
 <section class="sec contact" id="contact">
   <div class="wrap">
     <h2>함께, 더 재미있게.</h2>
     <p>게임에 대한 의견부터 협업 제안까지. 여러분의 이야기를 기다립니다.</p>
-    <a class="btn" href="mailto:designfuturegames.cs@gmail.com">designfuturegames.cs@gmail.com</a>
+    <a class="btn" href="mailto:designfuturegames.cs@gmail.com">
+      designfuturegames.cs@gmail.com
+    </a>
   </div>
 </section>
 
 </main>
 
-<!-- ============ FOOTER ============ -->
+<!-- 푸터 -->
 <footer class="foot">
   <div class="wrap foot__row">
     <small>© 2026 Design Future Games. All rights reserved.</small>
 
     <div class="foot__links">
-      <a href="https://www.youtube.com/@DesignFutureGames" target="_blank" rel="noopener">YouTube</a>
-      <a href="https://www.facebook.com/profile.php?id=61578938024733" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://play.google.com/store/apps/dev?id=7456297752893192149" target="_blank" rel="noopener">Google Play</a>
-      <a href="https://designfuturegames.github.io/swipe-ball-privacy/privacy/en.html" target="_blank" rel="noopener">Swipe Ball 개인정보처리방침</a>
-      <a href="https://designfuturegames.github.io/swipe-ball-privacy/terms/en.html" target="_blank" rel="noopener">Swipe Ball 이용약관</a>
+      <a href="https://www.youtube.com/@DesignFutureGames"
+         target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/profile.php?id=61578938024733"
+         target="_blank" rel="noopener">Facebook</a>
+      <a href="https://play.google.com/store/apps/dev?id=7456297752893192149"
+         target="_blank" rel="noopener">Google Play</a>
+      <a href="https://designfuturegames.github.io/swipe-ball-privacy/privacy/en.html"
+         target="_blank" rel="noopener">Swipe Ball 개인정보처리방침</a>
+      <a href="https://designfuturegames.github.io/swipe-ball-privacy/terms/en.html"
+         target="_blank" rel="noopener">Swipe Ball 이용약관</a>
       <a href="#top">맨 위로</a>
     </div>
   </div>
